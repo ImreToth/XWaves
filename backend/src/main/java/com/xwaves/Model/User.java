@@ -67,9 +67,11 @@ public class User {
         this.regtime = regtime;
     }
     
-    
-    
-    
-    
-    
+    @Override
+    public String toString() {
+        return "{\"User\":{\"username\": \"" + username 
+                + "\", \"email\": \"" + email 
+                + "\", \"password\": \"" + password 
+                + "\", \"date\": \"" + regtime + "\"}}";
+    }
 }
