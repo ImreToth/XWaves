@@ -12,13 +12,8 @@ export class LoginComponent implements OnInit {
   logActive = "active";
   regActive = "deactive";
 
-  regBlock= "false";
-  logBlock = "false";
-
-
-  myStyle = {
-    "display" : "none",
-  }
+  regBlock= "none";
+  logBlock = "block";
 
   ngOnInit() {
   }
@@ -27,19 +22,24 @@ export class LoginComponent implements OnInit {
     this.logActive = "deactive";
     this.regActive = "active";
 
-    this.regBlock= "display: block;";
-    this.logBlock = "display: none;";
+    this.logBlock = "none";
+    this.regBlock = "block";
+
   }
 
   changeLogin(){
     this.regActive = "deactive";
     this.logActive = "active";
 
-    this.regBlock= "\"display: none;\"";
-    this.logBlock = "\"display: block;\"";
+    this.logBlock = "block";
+    this.regBlock = "none";
+  }
+  getLogValue(){
+    return this.logBlock;
+  }
 
+  getRegValue(){
+    return this.regBlock;
   }
-  getTheValue(){
-    return "none";
-  }
+
 }
