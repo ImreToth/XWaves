@@ -17,8 +17,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HomeController {
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public void login(@RequestBody ArrayList<String> data) {
+    @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public String login(@RequestBody myModel data) {
         System.out.println(data);
+        return "true";
+    }
+    
+    @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public String register(@RequestBody String data) {
+        System.out.println(data);
+        return "true";
     }
 }
