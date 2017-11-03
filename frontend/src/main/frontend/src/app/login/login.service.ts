@@ -8,4 +8,8 @@ export class LoginService {
 
    return this.http.post('/login' , {'username' : username, 'password' : password });
   }
+
+  registerAccount(username: string, email: string, password: string) {
+    return this.http.post('/register' , {'username' : username, 'password' : password, 'email' : email});
+  }
 }

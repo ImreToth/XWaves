@@ -10,8 +10,12 @@ export class LoginComponent implements OnInit {
 
   constructor(private loginService: LoginService) { }
 
-  username = '';
-  password = '';
+  loginUsername = '';
+  loginPassword = '';
+  registerUsername = '';
+  registerPassword = '';
+  registerRePassword = '';
+  registerEmail = '';
 
   logActive = 'active';
   regActive = 'deactive';
@@ -39,7 +43,7 @@ export class LoginComponent implements OnInit {
     this.regBlock = 'none';
 
 
-    console.log(this.username);
+    console.log(this.loginUsername);
   }
   getLogValue() {
     return this.logBlock;
@@ -50,8 +54,13 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    console.log(this.username + this.password);
-    this.loginService.loginAccount(this.username, this.password)
+    console.log(this.loginUsername + this.loginPassword);
+    this.loginService.loginAccount(this.loginUsername, this.loginPassword)
+      .subscribe();
+  }
+
+  submitRegister() {
+    this.loginService.registerAccount(this.registerUsername, this.registerEmail, this.registerPassword)
       .subscribe();
   }
 
