@@ -5,8 +5,7 @@ import {Http} from '@angular/http';
 export class LoginService {
   constructor(private http: Http) {}
   loginAccount(username: string, password: string) {
-    let x:[string, string]
-    x = [username, password]
-   return this.http.post('/login' , x);
+
+   return this.http.post('/login' , {'username' : username, 'password' : password });
   }
 }
