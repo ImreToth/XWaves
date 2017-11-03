@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -7,39 +8,51 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(private loginService: LoginService) { }
 
-  logActive = "active";
-  regActive = "deactive";
+  username = '';
+  password = '';
 
-  regBlock= "none";
-  logBlock = "block";
+  logActive = 'active';
+  regActive = 'deactive';
+
+  regBlock= 'none';
+  logBlock = 'block';
 
   ngOnInit() {
   }
 
-  changeRegister(){
-    this.logActive = "deactive";
-    this.regActive = "active";
+  changeRegister() {
+    this.logActive = 'deactive';
+    this.regActive = 'active';
 
-    this.logBlock = "none";
-    this.regBlock = "block";
+    this.logBlock = 'none';
+    this.regBlock = 'block';
 
   }
 
-  changeLogin(){
-    this.regActive = "deactive";
-    this.logActive = "active";
+  changeLogin() {
+    this.regActive = 'deactive';
+    this.logActive = 'active';
 
-    this.logBlock = "block";
-    this.regBlock = "none";
+    this.logBlock = 'block';
+    this.regBlock = 'none';
+
+
+    console.log(this.username);
   }
-  getLogValue(){
+  getLogValue() {
     return this.logBlock;
   }
 
-  getRegValue(){
+  getRegValue() {
     return this.regBlock;
+  }
+
+  submitLogin() {
+    console.log(this.username + this.password);
+    this.loginService.loginAccount(this.username, this.password)
+      .subscribe();
   }
 
 }
