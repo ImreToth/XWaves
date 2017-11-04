@@ -1,6 +1,12 @@
 package com.xwaves.Db;
 
+import com.ibatis.common.jdbc.ScriptRunner;
 import com.xwaves.Model.User;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
@@ -16,8 +22,10 @@ public class DB {
     final String URL ="jdbc:mysql://localhost/Xwaves";
     final String USERNAME="root";
     final String PASSWORD="";
-    final String Schema = "CREATE TABLE IF NOT EXISTS `Users` (`id` int(10) NOT NULL auto_increment,`username` varchar(255),`password` varchar(255),`email` varchar(255),`regtime` date,PRIMARY KEY( `id` ))";
-    
+    final String UsersSchemaPath=this.getClass().getResource("/SqlScripts/UsersTable.sql").getPath();
+    final String GameTablesSchemaPath = this.getClass().getResource("/SqlScripts/GameTables.sql").getPath();
+    final String GameDatasPath = this.getClass().getResource("/SqlScripts/GameDatas.sql").getPath();
+        
     Connection conn = null;
     Statement createStatement=null;
     DatabaseMetaData dbmd=null;
@@ -47,17 +55,8 @@ public class DB {
         } catch (SQLException ex) {
                 System.err.println(""+ex);
         }
-        try {
-            ResultSet rs1 = dbmd.getTables(null, "APP", "Users", null);
-            if(!rs1.next()){
-                createStatement.execute(Schema);
-                System.out.println("Create Table");
-            }
-        } catch (SQLException ex) {
-            System.err.println(""+ex);
-        }
-     }
-       
+      }
+           
     public void addUser(User user){
        boolean notExist = true;
        ArrayList<User> users = this.getAllUsers();
@@ -130,5 +129,41 @@ public class DB {
       if(user.getEmail()== null)
         System.out.println("User is not exists.");
     }
-  
+    
+    public void CreateUsersTables(){
+        try {
+            ResultSet rs1 = dbmd.getTables(null, "APP", "Users", null);
+            if(!rs1.next()){
+                ExecuteSQLScript(UsersSchemaPath);
+                System.out.println("Create Table");
+            }
+        } catch (SQLException ex) {
+            System.err.println(""+ex);
+        }
+    }
+    
+    public void CreateGameTables(){
+        try {
+            ResultSet rs1 = dbmd.getTables(null, "APP", "Heroes", null);
+            ResultSet rs2 = dbmd.getTables(null, "APP", "Items", null);
+            ResultSet rs3 = dbmd.getTables(null, "APP", "Quests", null);
+            ResultSet rs4 = dbmd.getTables(null, "APP", "Monsters", null);
+            if (!rs1.next()&&!rs2.next()&&!rs3.next()&&!rs4.next()) {
+                ExecuteSQLScript(GameTablesSchemaPath);
+                ExecuteSQLScript(GameDatasPath);
+            }
+        } catch (SQLException ex) {
+            System.err.println("" + ex);
+        }
+    }
+    
+    public void ExecuteSQLScript(String SqlScript) {
+        try {
+            ScriptRunner sr = new ScriptRunner(conn, false, false);
+            Reader reader = new BufferedReader(new FileReader(SqlScript));            
+            sr.runScript(reader);
+        } catch (IOException | SQLException ex) {
+            System.err.println("" + ex);
+        }
+    }
 }
