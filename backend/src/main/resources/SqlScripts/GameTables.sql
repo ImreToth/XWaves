@@ -1,12 +1,12 @@
 CREATE TABLE IF NOT EXISTS `Heroes` (
 	`id` int(10) NOT NULL auto_increment,
 	`name` varchar(255),
-	`class` varchar(255),
-	`attack` numeric(9,2),
-	`health` numeric(9,2),
-	`stamina` numeric(9,2),
-	`defense` numeric(9,2),
-	`speed` numeric(9,2),
+	`type` varchar(255),
+	`attack` int(10),
+	`health` int(10),
+	`stamina` int(10),
+	`defense` int(10),
+	`speed` int(10),
 	PRIMARY KEY( `id` )
 );
 
@@ -14,11 +14,11 @@ CREATE TABLE IF NOT EXISTS `Monsters` (
 	`id` int(10) NOT NULL auto_increment,
 	`name` varchar(255),
 	`attacktype` varchar(255),
-	`attack` numeric(9,2),
-	`health` numeric(9,2),
-	`stamina` numeric(9,2),
-	`defense` numeric(9,2),
-	`speed` numeric(9,2),
+	`attack` int(10),
+	`health` int(10),
+	`stamina` int(10),
+	`defense` int(10),
+	`speed` int(10),
 	PRIMARY KEY( `id` )
 );
 
@@ -38,6 +38,6 @@ CREATE TABLE IF NOT EXISTS `Items` (
 	`name` varchar(255),
 	`wear` varchar(255),
 	`ability` varchar(255),
-	`abilityvalue` varchar(255),
+	`abilityvalue` int(10),
 	PRIMARY KEY( `id` )
 );

@@ -1,6 +1,7 @@
 package com.xwaves.Db;
 
 import com.ibatis.common.jdbc.ScriptRunner;
+import com.xwaves.Model.Monsters;
 import com.xwaves.Model.User;
 import java.io.BufferedReader;
 import java.io.File;
@@ -56,6 +57,43 @@ public class DB {
                 System.err.println(""+ex);
         }
       }
+    
+    public void CreateUsersTables(){
+        try {
+            ResultSet rs1 = dbmd.getTables(null, "APP", "Users", null);
+            if(!rs1.next()){
+                ExecuteSQLScript(UsersSchemaPath);
+                System.out.println("Create Table");
+            }
+        } catch (SQLException ex) {
+            System.err.println(""+ex);
+        }
+    }
+    
+    public void CreateGameTables(){
+        try {
+            ResultSet rs1 = dbmd.getTables(null, "APP", "Heroes", null);
+            ResultSet rs2 = dbmd.getTables(null, "APP", "Items", null);
+            ResultSet rs3 = dbmd.getTables(null, "APP", "Quests", null);
+            ResultSet rs4 = dbmd.getTables(null, "APP", "Monsters", null);
+            if (!rs1.next()&&!rs2.next()&&!rs3.next()&&!rs4.next()) {
+                ExecuteSQLScript(GameTablesSchemaPath);
+                ExecuteSQLScript(GameDatasPath);
+            }
+        } catch (SQLException ex) {
+            System.err.println("" + ex);
+        }
+    }
+    
+    public void ExecuteSQLScript(String SqlScript) {
+        try {
+            ScriptRunner sr = new ScriptRunner(conn, false, false);
+            Reader reader = new BufferedReader(new FileReader(SqlScript));            
+            sr.runScript(reader);
+        } catch (IOException | SQLException ex) {
+            System.err.println("" + ex);
+        }
+    }
            
     public void addUser(User user){
        boolean notExist = true;
@@ -130,40 +168,42 @@ public class DB {
         System.out.println("User is not exists.");
     }
     
-    public void CreateUsersTables(){
+    public ArrayList<Monsters> getAllMonsters(){
+        String sql = "select * from Monsters";
+        ArrayList<Monsters> monsters = null;
         try {
-            ResultSet rs1 = dbmd.getTables(null, "APP", "Users", null);
-            if(!rs1.next()){
-                ExecuteSQLScript(UsersSchemaPath);
-                System.out.println("Create Table");
+            ResultSet rs = createStatement.executeQuery(sql);
+            monsters = new ArrayList<>();
+            
+            while (rs.next()){
+                Monsters actualmonster = 
+                    new Monsters(rs.getString("name"),rs.getString("attacktype"),rs.getInt("attack"),rs.getInt("health"),rs.getInt("stamina"),rs.getInt("defense"),rs.getInt("speed"));
+                monsters.add(actualmonster);
             }
         } catch (SQLException ex) {
-            System.err.println(""+ex);
+            System.out.println("Valami baj van a monsterek kiolvasásakor");
+            System.out.println(""+ex);
         }
+      return monsters;
     }
     
-    public void CreateGameTables(){
-        try {
-            ResultSet rs1 = dbmd.getTables(null, "APP", "Heroes", null);
-            ResultSet rs2 = dbmd.getTables(null, "APP", "Items", null);
-            ResultSet rs3 = dbmd.getTables(null, "APP", "Quests", null);
-            ResultSet rs4 = dbmd.getTables(null, "APP", "Monsters", null);
-            if (!rs1.next()&&!rs2.next()&&!rs3.next()&&!rs4.next()) {
-                ExecuteSQLScript(GameTablesSchemaPath);
-                ExecuteSQLScript(GameDatasPath);
-            }
-        } catch (SQLException ex) {
-            System.err.println("" + ex);
-        }
+    public void findMonster(String name,Monsters monster){
+      ArrayList<Monsters> monsters = this.getAllMonsters();
+      for (Monsters m : monsters){
+          if(m.getName().equals(name)){
+              monster.setName(m.getName());
+              monster.setAttacktype(m.getAttacktype());
+              monster.setAttack(m.getAttack());
+              monster.setHealth(m.getHealth());
+              monster.setDefense(m.getDefense());
+              monster.setStamina(m.getStamina());
+              monster.setSpeed(m.getSpeed());
+              break;
+          }
+      }
+      if(monster.getName()== null)
+        System.out.println("Monster is not exists.");
     }
     
-    public void ExecuteSQLScript(String SqlScript) {
-        try {
-            ScriptRunner sr = new ScriptRunner(conn, false, false);
-            Reader reader = new BufferedReader(new FileReader(SqlScript));            
-            sr.runScript(reader);
-        } catch (IOException | SQLException ex) {
-            System.err.println("" + ex);
-        }
-    }
+    
 }
