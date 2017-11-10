@@ -8,6 +8,7 @@ public class Monsters {
     private Integer stamina;
     private Integer defense;
     private Integer speed;
+    private String ImagePath;
 
     public Monsters() {
     }
@@ -20,6 +21,7 @@ public class Monsters {
         this.stamina = stamina;
         this.defense = defense;
         this.speed = speed;
+        this.ImagePath = this.getClass().getResource("/Assets/monsters/Basic/monster_" + name + ".png").getPath();
     }
 
     public String getName() {
@@ -50,6 +52,10 @@ public class Monsters {
         return speed;
     }
 
+    public String getImagePath() {
+        return ImagePath;
+    }
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -77,6 +83,11 @@ public class Monsters {
     public void setSpeed(Integer speed) {
         this.speed = speed;
     }
+
+    public void setImagePath(String ImagePath) {
+        this.ImagePath = ImagePath;
+    }
+    
 
     @Override
     public String toString() {
