@@ -1,10 +1,12 @@
 package com.xwaves.Db;
 
 import com.ibatis.common.jdbc.ScriptRunner;
+import com.xwaves.Model.Heroes;
+import com.xwaves.Model.Items;
 import com.xwaves.Model.Monsters;
+import com.xwaves.Model.Quests;
 import com.xwaves.Model.User;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -25,7 +27,7 @@ public class DB {
     final String PASSWORD="";
     final String UsersSchemaPath=this.getClass().getResource("/SqlScripts/UsersTable.sql").getPath();
     final String GameTablesSchemaPath = this.getClass().getResource("/SqlScripts/GameTables.sql").getPath();
-    final String GameDatasPath = this.getClass().getResource("/SqlScripts/GameDatas.sql").getPath();
+    final String GameDatasPath = this.getClass().getResource("/SqlScripts/GameDatas.sql").getPath();       
         
     Connection conn = null;
     Statement createStatement=null;
@@ -67,7 +69,7 @@ public class DB {
             }
         } catch (SQLException ex) {
             System.err.println(""+ex);
-        }
+        }        
     }
     
     public void CreateGameTables(){
@@ -203,6 +205,113 @@ public class DB {
       }
       if(monster.getName()== null)
         System.out.println("Monster is not exists.");
+    }
+    
+    public ArrayList<Heroes> getAllHeroes(){
+        String sql = "select * from Heroes";
+        ArrayList<Heroes> heroes = null;
+        try {
+            ResultSet rs = createStatement.executeQuery(sql);
+            heroes = new ArrayList<>();
+            
+            while (rs.next()){
+                Heroes actualhero = 
+                    new Heroes(rs.getString("name"),rs.getString("type"),rs.getInt("attack"),rs.getInt("health"),rs.getInt("stamina"),rs.getInt("defense"),rs.getInt("speed"));
+                heroes.add(actualhero);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van a Herok kiolvasásakor");
+            System.out.println(""+ex);
+        }
+      return heroes;
+    }
+    
+    public void findHero(String name,Heroes hero){
+      ArrayList<Heroes> heroes = this.getAllHeroes();
+      for (Heroes h : heroes){
+          if(h.getName().equals(name)){
+              hero.setName(h.getName());
+              hero.setType(h.getType());
+              hero.setAttack(h.getAttack());
+              hero.setHealth(h.getHealth());
+              hero.setDefense(h.getDefense());
+              hero.setStamina(h.getStamina());
+              hero.setSpeed(h.getSpeed());
+              break;
+          }
+      }
+      if(hero.getName()== null)
+        System.out.println("Hero is not exists.");
+    }
+    
+    public ArrayList<Items> getAllItems(){
+        String sql = "select * from Items";
+        ArrayList<Items> heroes = null;
+        try {
+            ResultSet rs = createStatement.executeQuery(sql);
+            heroes = new ArrayList<>();
+            
+            while (rs.next()){
+                Items actualItem = 
+                    new Items(rs.getString("name"),rs.getString("wear"),rs.getString("ability"),rs.getInt("abilityvalue"));
+                heroes.add(actualItem);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van az Itemek kiolvasásakor");
+            System.out.println(""+ex);
+        }
+      return heroes;
+    }
+    
+    public void findItem(String name,Items item){
+      ArrayList<Items> items = this.getAllItems();
+      for (Items i : items){
+          if(i.getName().equals(name)){
+              item.setName(i.getName());
+              item.setWear(i.getWear());
+              item.setAbility(i.getAbility());
+              item.setAbilityvalue(i.getAbilityvalue());
+              break;
+          }
+      }
+      if(item.getName()== null)
+        System.out.println("Item is not exists.");
+    }
+    
+    public ArrayList<Quests> getAllQuests(){
+        String sql = "select * from Quests";
+        ArrayList<Quests> quests = null;
+        try {
+            ResultSet rs = createStatement.executeQuery(sql);
+            quests = new ArrayList<>();
+            
+            while (rs.next()){
+                Quests actualquest = 
+                    new Quests(rs.getString("name"),rs.getString("story"),rs.getString("monster1"),rs.getString("monster2"),rs.getString("monster3"),rs.getString("monster4"));
+                quests.add(actualquest);
+            }
+        } catch (SQLException ex) {
+            System.out.println("Valami baj van a Questek kiolvasásakor");
+            System.out.println(""+ex);
+        }
+      return quests;
+    }
+    
+    public void findQuest(String name,Quests quest){
+      ArrayList<Quests> quests = this.getAllQuests();
+      for (Quests q : quests){
+          if(q.getName().equals(name)){
+              quest.setName(q.getName());
+              quest.setStory(q.getStory());
+              quest.setMonster1(q.getMonster1());
+              quest.setMonster2(q.getMonster2());
+              quest.setMonster3(q.getMonster3());
+              quest.setMonster4(q.getMonster4());
+              break;
+          }
+      }
+      if(quest.getName()== null)
+        System.out.println("Quest is not exists.");
     }
     
     

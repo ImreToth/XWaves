@@ -5,6 +5,7 @@ public class Items {
     private String wear;
     private String ability;
     private Integer abilityvalue;
+    private String imagePath;
 
     public Items() {
     }
@@ -14,6 +15,7 @@ public class Items {
         this.wear = wear;
         this.ability = ability;
         this.abilityvalue = abilityvalue;
+        this.imagePath=this.getClass().getResource("/Assets/items/64/"+name+".png").getPath();
     }
 
     public String getName() {
@@ -32,6 +34,10 @@ public class Items {
         return abilityvalue;
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -46,6 +52,10 @@ public class Items {
 
     public void setAbilityvalue(Integer abilityvalue) {
         this.abilityvalue = abilityvalue;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
     @Override
