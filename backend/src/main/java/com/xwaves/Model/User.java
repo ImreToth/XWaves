@@ -1,6 +1,7 @@
 package com.xwaves.Model;
 
 
+import com.google.gson.Gson;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +14,9 @@ public class User {
     private String regtime;
 
     public User(){
-    
+        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+        Date Date = new Date();
+        this.regtime=sdf.format(Date);
     }
     
     public User(String username, String password, String email) {
@@ -69,9 +72,7 @@ public class User {
     
     @Override
     public String toString() {
-        return "{\"User\":{\"username\": \"" + username 
-                + "\", \"email\": \"" + email 
-                + "\", \"password\": \"" + password 
-                + "\", \"date\": \"" + regtime + "\"}}";
+        Gson json = new Gson();
+        return json.toJson(this);
     }
 }
