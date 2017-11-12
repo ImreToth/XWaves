@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   registerPassword = '';
   registerRePassword = '';
   registerEmail = '';
+  infoMessage = '';
 
   logActive = 'active';
   regActive = 'deactive';
@@ -27,21 +28,31 @@ export class LoginComponent implements OnInit {
   }
 
   changeRegister() {
+    this.loginUsername = '';
+    this.loginPassword = '';
+
     this.logActive = 'deactive';
     this.regActive = 'active';
 
     this.logBlock = 'none';
     this.regBlock = 'block';
 
+    this.infoMessage = '';
   }
 
   changeLogin() {
+    this.registerUsername = '';
+    this.registerPassword = '';
+    this.registerRePassword = '';
+    this.registerEmail = '';
+
     this.regActive = 'deactive';
     this.logActive = 'active';
 
     this.logBlock = 'block';
     this.regBlock = 'none';
 
+    this.infoMessage = '';
 
     console.log(this.loginUsername);
   }
@@ -54,14 +65,34 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    console.log(this.loginUsername + this.loginPassword);
     this.loginService.loginAccount(this.loginUsername, this.loginPassword)
-      .subscribe();
+      .subscribe(suc => {
+          console.log(suc);
+          this.infoMessage = suc.text();
+        },
+        err => {
+          console.log(err );
+          this.infoMessage = err.text();
+        });
   }
 
   submitRegister() {
     this.loginService.registerAccount(this.registerUsername, this.registerEmail, this.registerPassword)
-      .subscribe();
+      .subscribe(suc => {
+          console.log(suc);
+          if (suc.text() === 'Sikeresen regisztráltál!') {
+            this.changeLogin();
+          } else {
+            this.infoMessage = suc.text();
+          }
+
+
+          console.log(this.infoMessage);
+        },
+        err => {
+          console.log(err );
+          this.infoMessage = err.text();
+        });
   }
 
 }

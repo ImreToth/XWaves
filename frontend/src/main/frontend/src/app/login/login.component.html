@@ -7,10 +7,12 @@
             <div class="col-xs-6">
               <a href="#" [class]="logActive" id="login-form-link" (click)="changeLogin()">Login</a>
             </div>
+
             <div class="col-xs-6">
               <a href="#" id="register-form-link" [class] ="regActive" (click)="changeRegister()">Register</a>
             </div>
           </div>
+          <div style="color:red">{{infoMessage}}</div>
           <hr>
         </div>
         <div class="panel-body">
