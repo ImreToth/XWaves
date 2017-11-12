@@ -1,5 +1,7 @@
 package com.xwaves.Model;
 
+import com.google.gson.Gson;
+
 public class Monsters {
     private String name;
     private String attacktype;
@@ -91,7 +93,8 @@ public class Monsters {
 
     @Override
     public String toString() {
-        return "Monsters{" + "name=" + name + ", attacktype=" + attacktype + ", attack=" + attack + ", health=" + health + ", stamina=" + stamina + ", defense=" + defense + ", speed=" + speed + '}';
+        Gson json = new Gson();
+        return json.toJson(this);
     }
     
     

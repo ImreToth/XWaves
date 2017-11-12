@@ -10,6 +10,7 @@ public class XwavesApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(XwavesApplication.class, args);    
-		db.CreateUsersTables();           
+		db.CreateUsersTables();
+                db.CreateGameTables();
 	}
 }

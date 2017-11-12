@@ -1,5 +1,7 @@
 package com.xwaves.Model;
 
+import com.google.gson.Gson;
+
 public class Items {
     private String name;
     private String wear;
@@ -60,7 +62,8 @@ public class Items {
 
     @Override
     public String toString() {
-        return "Items{" + "name=" + name + ", wear=" + wear + ", ability=" + ability + ", abilityvalue=" + abilityvalue + '}';
+        Gson json = new Gson();
+        return json.toJson(this);
     }
     
     

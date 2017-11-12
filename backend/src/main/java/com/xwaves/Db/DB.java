@@ -341,5 +341,14 @@ public class DB {
             System.out.println("Quest is not exists.");
         }
     }
+    
+    public ArrayList<ArrayList> getEncyclopedia() {
+        ArrayList<ArrayList> list = new ArrayList<ArrayList>();;
+        list.add(getAllHeroes());
+        list.add(getAllMonsters());
+        list.add(getAllItems());
+        
+        return list;
+    }
 
 }

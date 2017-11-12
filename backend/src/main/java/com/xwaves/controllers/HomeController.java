@@ -1,5 +1,6 @@
 package com.xwaves.controllers;
 
+import com.google.gson.Gson;
 import com.xwaves.Model.User;
 import com.xwaves.Db.DB;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,19 +34,20 @@ public class HomeController {
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public String register(@RequestBody User user) {
         if (db.isUsername(user.getUsername()) && db.isEmail(user.getEmail())) {
-            System.out.println("Felhasználónév és az e-mail cím foglalt!");
             return "Felhasználónév és az e-mail cím foglalt!";
         } else if (db.isUsername(user.getUsername())) {
-            System.out.println("Felhasználónév foglalt!");
             return "Felhasználónév foglalt!";
         } else if (db.isEmail(user.getEmail())) {
-            System.out.println("E-mail cím foglalt!");
             return "E-mail cím foglalt!";
         } else {
-            db.CreateUsersTables();
             db.addUser(user);
-            System.out.println("Sikeresen regisztráltál!");
             return "Sikeresen regisztráltál!";
         }
+    }
+    
+    @RequestMapping("/encyclopedia")
+    public String encyclopedia() {
+        Gson json = new Gson();
+        return json.toJson(db.getEncyclopedia());
     }
 }
