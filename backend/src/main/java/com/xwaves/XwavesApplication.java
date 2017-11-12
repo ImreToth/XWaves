@@ -9,6 +9,7 @@ public class XwavesApplication {
     public static DB db = new DB();
 
 	public static void main(String[] args) {
-		SpringApplication.run(XwavesApplication.class, args);               
+		SpringApplication.run(XwavesApplication.class, args);    
+		db.CreateUsersTables();           
 	}
 }
