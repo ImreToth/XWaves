@@ -4,19 +4,23 @@ import com.google.gson.Gson;
 
 public class Items {
     private String name;
-    private String wear;
+    private String target;
     private String ability;
     private Integer abilityvalue;
+    private Integer useable;
+    private Integer cost;
     private String imagePath;
 
     public Items() {
     }
 
-    public Items(String name, String wear, String ability, Integer abilityvalue) {
+    public Items(String name, String target, String ability, Integer abilityvalue,Integer useable,Integer cost) {
         this.name = name;
-        this.wear = wear;
+        this.target = target;
         this.ability = ability;
         this.abilityvalue = abilityvalue;
+        this.useable = useable;
+        this.cost = cost;
         this.imagePath=this.getClass().getResource("/Assets/items/64/"+name+".png").getPath();
     }
 
@@ -24,8 +28,8 @@ public class Items {
         return name;
     }
 
-    public String getWear() {
-        return wear;
+    public String gettarget() {
+        return target;
     }
 
     public String getAbility() {
@@ -40,12 +44,20 @@ public class Items {
         return imagePath;
     }
 
+    public Integer getUseable() {
+        return useable;
+    }
+
+    public Integer getCost() {
+        return cost;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setWear(String wear) {
-        this.wear = wear;
+    public void settarget(String target) {
+        this.target = target;
     }
 
     public void setAbility(String ability) {
@@ -58,6 +70,14 @@ public class Items {
 
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public void setUseable(Integer useable) {
+        this.useable = useable;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
 
     @Override

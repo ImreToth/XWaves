@@ -32,3 +32,19 @@ INSERT INTO `Heroes`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `
 INSERT INTO `Heroes`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('rogue','melee',3,3,3,3,3);
 INSERT INTO `Heroes`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('warrior','melee',5,4,3,3,3);
 INSERT INTO `Heroes`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('wizard','magic',4,3,4,3,3);
+
+INSERT INTO `Items`(`id`,`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES (1,'armor','self','defense',3,1,20);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('axe','self','attack',2,1,10);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('axe2','self','attack',4,1,25);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('axeDouble','self','attack',3,1,15);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`,`cost`) VALUES ('axeDouble2','self','attack',5,1,30);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('bow','self','stamina',4,1,20);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('helmet','self','defense',2,1,15);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('potionBlue','self','attack',1,5,5);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('potionRed','self','health',1,5,5);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('potionGreen','self','stamina',1,5,5);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('scroll','allFriendly','allAbility',1,10,10);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('shield','self','defense',2,1,15);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('tome','target','health',2,-1,20);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('tools','target','defense',1,-1,10);
+INSERT INTO `Items`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('wand','target','health',4,-1,35);

@@ -26,8 +26,10 @@ CREATE TABLE IF NOT EXISTS `Monsters` (
 CREATE TABLE IF NOT EXISTS `Items` (
 	`id` int(10) NOT NULL auto_increment,
 	`name` varchar(255),
-	`wear` varchar(255),
+	`target` varchar(255),
 	`ability` varchar(255),
 	`abilityvalue` int(10),
+	`useable` int(10),
+        `cost` int(10) ,
 	PRIMARY KEY( `id` )
 );
