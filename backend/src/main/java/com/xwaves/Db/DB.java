@@ -283,7 +283,7 @@ public class DB {
 
             while (rs.next()) {
                 Items actualItem
-                        = new Items(rs.getString("name"), rs.getString("wear"), rs.getString("ability"), rs.getInt("abilityvalue"));
+                        = new Items(rs.getString("name"), rs.getString("target"), rs.getString("ability"), rs.getInt("abilityvalue"),rs.getInt("useable"),rs.getInt("cost"));
                 heroes.add(actualItem);
             }
         } catch (SQLException ex) {
@@ -298,9 +298,11 @@ public class DB {
         for (Items i : items) {
             if (i.getName().equals(name)) {
                 item.setName(i.getName());
-                item.setWear(i.getWear());
+                item.setTarget(i.getTarget());
                 item.setAbility(i.getAbility());
                 item.setAbilityvalue(i.getAbilityvalue());
+                item.setUseable(i.getUseable());
+                item.setCost(i.getCost());
                 break;
             }
         }

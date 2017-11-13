@@ -28,7 +28,7 @@ public class Items {
         return name;
     }
 
-    public String gettarget() {
+    public String getTarget() {
         return target;
     }
 
@@ -56,7 +56,7 @@ public class Items {
         this.name = name;
     }
 
-    public void settarget(String target) {
+    public void setTarget(String target) {
         this.target = target;
     }
 
