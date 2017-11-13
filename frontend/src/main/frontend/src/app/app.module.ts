@@ -14,6 +14,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {CyclopaediaComponent} from './cyclopaedia/cyclopaedia.component';
 import { RulesComponent } from './rules/rules.component';
 import { PlayComponent } from './play/play.component';
+import { HeroComponent } from './cyclopaedia/hero/hero.component';
+import { MonsterComponent } from './cyclopaedia/monster/monster.component';
+
 
 const appRoutes: Routes = [
   {path: 'login', component : LoginComponent},
@@ -32,7 +35,9 @@ const appRoutes: Routes = [
     LoginComponent,
     CyclopaediaComponent,
     RulesComponent,
-    PlayComponent
+    PlayComponent,
+    HeroComponent,
+    MonsterComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
