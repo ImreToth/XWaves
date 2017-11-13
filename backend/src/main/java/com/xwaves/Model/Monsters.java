@@ -10,12 +10,13 @@ public class Monsters {
     private Integer stamina;
     private Integer defense;
     private Integer speed;
+    private Integer cost;
     private String imagePath;
 
     public Monsters() {
     }
 
-    public Monsters(String name, String attacktype, Integer attack, Integer health, Integer stamina, Integer defense, Integer speed) {
+    public Monsters(String name, String attacktype, Integer attack, Integer health, Integer stamina, Integer defense, Integer speed,Integer cost) {
         this.name = name;
         this.attacktype = attacktype;
         this.attack = attack;
@@ -23,6 +24,7 @@ public class Monsters {
         this.stamina = stamina;
         this.defense = defense;
         this.speed = speed;
+        this.cost = cost;                
         this.imagePath = this.getClass().getResource("/Assets/monsters/Basic/monster_" + name + ".png").getPath();
     }
 

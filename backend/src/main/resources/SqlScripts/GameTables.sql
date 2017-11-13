@@ -19,17 +19,7 @@ CREATE TABLE IF NOT EXISTS `Monsters` (
 	`stamina` int(10),
 	`defense` int(10),
 	`speed` int(10),
-	PRIMARY KEY( `id` )
-);
-
-CREATE TABLE IF NOT EXISTS `Quests` (
-	`id` int(10) NOT NULL auto_increment,
-	`name` varchar(255),
-	`story` varchar(255),
-	`monster1` varchar(255),
-	`monster2` varchar(255),
-	`monster3` varchar(255),
-	`monster4` varchar(255),
+        `cost` int(10) ,
 	PRIMARY KEY( `id` )
 );
 

@@ -4,7 +4,6 @@ import com.ibatis.common.jdbc.ScriptRunner;
 import com.xwaves.Model.Heroes;
 import com.xwaves.Model.Items;
 import com.xwaves.Model.Monsters;
-import com.xwaves.Model.Quests;
 import com.xwaves.Model.User;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -28,6 +27,7 @@ public class DB {
     final String UsersSchemaPath = this.getClass().getResource("/SqlScripts/UsersTable.sql").getPath();
     final String GameTablesSchemaPath = this.getClass().getResource("/SqlScripts/GameTables.sql").getPath();
     final String GameDatasPath = this.getClass().getResource("/SqlScripts/GameDatas.sql").getPath();
+    final String DropTablesPath = this.getClass().getResource("/SqlScripts/DropTables.sql").getPath();    
 
     Connection conn = null;
     Statement createStatement = null;
@@ -76,15 +76,18 @@ public class DB {
         try {
             ResultSet rs1 = dbmd.getTables(null, "APP", "Heroes", null);
             ResultSet rs2 = dbmd.getTables(null, "APP", "Items", null);
-            ResultSet rs3 = dbmd.getTables(null, "APP", "Quests", null);
-            ResultSet rs4 = dbmd.getTables(null, "APP", "Monsters", null);
-            if (!rs1.next() && !rs2.next() && !rs3.next() && !rs4.next()) {
+            ResultSet rs3 = dbmd.getTables(null, "APP", "Monsters", null);
+            if (!rs1.next() && !rs2.next() && !rs3.next()) {
                 ExecuteSQLScript(GameTablesSchemaPath);
                 ExecuteSQLScript(GameDatasPath);
             }
         } catch (SQLException ex) {
             System.err.println("" + ex);
         }
+    }
+    
+    public void DropGameTables(){
+        ExecuteSQLScript(DropTablesPath);
     }
 
     public void ExecuteSQLScript(String SqlScript) {
@@ -203,7 +206,7 @@ public class DB {
 
             while (rs.next()) {
                 Monsters actualmonster
-                        = new Monsters(rs.getString("name"), rs.getString("attacktype"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"));
+                        = new Monsters(rs.getString("name"), rs.getString("attacktype"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"),rs.getInt("cost"));
                 monsters.add(actualmonster);
             }
         } catch (SQLException ex) {
@@ -302,43 +305,6 @@ public class DB {
         }
         if (item.getName() == null) {
             System.out.println("Item is not exists.");
-        }
-    }
-
-    public ArrayList<Quests> getAllQuests() {
-        String sql = "select * from Quests";
-        ArrayList<Quests> quests = null;
-        try {
-            ResultSet rs = createStatement.executeQuery(sql);
-            quests = new ArrayList<>();
-
-            while (rs.next()) {
-                Quests actualquest
-                        = new Quests(rs.getString("name"), rs.getString("story"), rs.getString("monster1"), rs.getString("monster2"), rs.getString("monster3"), rs.getString("monster4"));
-                quests.add(actualquest);
-            }
-        } catch (SQLException ex) {
-            System.out.println("Valami baj van a Questek kiolvasásakor");
-            System.out.println("" + ex);
-        }
-        return quests;
-    }
-
-    public void findQuest(String name, Quests quest) {
-        ArrayList<Quests> quests = this.getAllQuests();
-        for (Quests q : quests) {
-            if (q.getName().equals(name)) {
-                quest.setName(q.getName());
-                quest.setStory(q.getStory());
-                quest.setMonster1(q.getMonster1());
-                quest.setMonster2(q.getMonster2());
-                quest.setMonster3(q.getMonster3());
-                quest.setMonster4(q.getMonster4());
-                break;
-            }
-        }
-        if (quest.getName() == null) {
-            System.out.println("Quest is not exists.");
         }
     }
     
