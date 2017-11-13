@@ -227,6 +227,7 @@ public class DB {
                 monster.setDefense(m.getDefense());
                 monster.setStamina(m.getStamina());
                 monster.setSpeed(m.getSpeed());
+                monster.setCost(m.getCost());
                 break;
             }
         }

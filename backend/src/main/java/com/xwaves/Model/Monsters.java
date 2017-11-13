@@ -59,6 +59,10 @@ public class Monsters {
     public String getimagePath() {
         return imagePath;
     }
+
+    public Integer getCost() {
+        return cost;
+    }
     
     public void setName(String name) {
         this.name = name;
@@ -90,6 +94,10 @@ public class Monsters {
 
     public void setimagePath(String imagePath) {
         this.imagePath = imagePath;
+    }
+
+    public void setCost(Integer cost) {
+        this.cost = cost;
     }
     
 
