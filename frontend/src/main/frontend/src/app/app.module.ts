@@ -14,17 +14,18 @@ import {RouterModule, Routes} from '@angular/router';
 import {CyclopaediaComponent} from './cyclopaedia/cyclopaedia.component';
 import { RulesComponent } from './rules/rules.component';
 import { PlayComponent } from './play/play.component';
-import { HeroComponent } from './cyclopaedia/hero/hero.component';
-import { MonsterComponent } from './cyclopaedia/monster/monster.component';
+import { HeroComponent } from './cyclopaedia/heroes/hero/hero.component';
+import { MonsterComponent } from './cyclopaedia/monsters/monster/monster.component';
+import { HeroesComponent } from './cyclopaedia/heroes/heroes.component';
+import { MonstersComponent } from './cyclopaedia/monsters/monsters.component';
 
 
 const appRoutes: Routes = [
   {path: 'login', component : LoginComponent},
   {path: 'cyclopaedia', component : CyclopaediaComponent},
   {path: 'rules', component : RulesComponent},
-  {path: 'play', component : PlayComponent}
-
-
+  {path: 'play', component : PlayComponent},
+  {path: 'heroes', component: HeroesComponent},
 ];
 
 
@@ -37,7 +38,9 @@ const appRoutes: Routes = [
     RulesComponent,
     PlayComponent,
     HeroComponent,
-    MonsterComponent
+    MonsterComponent,
+    HeroesComponent,
+    MonstersComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
