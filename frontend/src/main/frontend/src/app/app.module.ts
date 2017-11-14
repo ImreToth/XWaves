@@ -18,6 +18,8 @@ import { HeroComponent } from './cyclopaedia/heroes/hero/hero.component';
 import { MonsterComponent } from './cyclopaedia/monsters/monster/monster.component';
 import { HeroesComponent } from './cyclopaedia/heroes/heroes.component';
 import { MonstersComponent } from './cyclopaedia/monsters/monsters.component';
+import { ItemsComponent } from './cyclopaedia/items/items.component';
+import { ItemComponent } from './cyclopaedia/items/item/item.component';
 
 
 const appRoutes: Routes = [
@@ -40,7 +42,9 @@ const appRoutes: Routes = [
     HeroComponent,
     MonsterComponent,
     HeroesComponent,
-    MonstersComponent
+    MonstersComponent,
+    ItemsComponent,
+    ItemComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
