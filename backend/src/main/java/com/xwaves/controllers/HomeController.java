@@ -15,7 +15,6 @@ public class HomeController {
     DB db = new DB();
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    @ResponseBody("/")
     public String login(@RequestBody User user) {
         if (db.isUsername(user.getUsername())) {
             User tmp = new User();
@@ -34,7 +33,6 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
-    @ResponseBody("/")
     public String register(@RequestBody User user) {
         if (db.isUsername(user.getUsername()) && db.isEmail(user.getEmail())) {
             return "Felhasználónév és az e-mail cím foglalt!";
@@ -49,7 +47,6 @@ public class HomeController {
     }
     
     @RequestMapping("/encyclopedia")
-    @ResponseBody("/")
     public String encyclopedia() {
         Gson json = new Gson();
         return json.toJson(db.getEncyclopedia());
