@@ -3,13 +3,15 @@ package com.xwaves.controllers;
 import com.google.gson.Gson;
 import com.xwaves.Model.User;
 import com.xwaves.Db.DB;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/api")
 public class HomeController {
 
     DB db = new DB();
@@ -45,10 +47,19 @@ public class HomeController {
             return "Sikeresen regisztráltál!";
         }
     }
-    
-    @RequestMapping("/encyclopedia")
-    public String encyclopedia() {
-        Gson json = new Gson();
-        return json.toJson(db.getEncyclopedia());
+
+    @RequestMapping("/monster")
+    public ResponseEntity<?> monster() {
+        return new ResponseEntity<>(db.getAllHeroes(), HttpStatus.OK);
+    }
+
+    @RequestMapping("/items")
+    public ResponseEntity<?> items() {
+        return new ResponseEntity<>(db.getAllItems(), HttpStatus.OK);
+    }
+
+    @RequestMapping("/heroes")
+    public ResponseEntity<?> heroes() {
+        return new ResponseEntity<>(db.getAllHeroes(), HttpStatus.OK);
     }
 }

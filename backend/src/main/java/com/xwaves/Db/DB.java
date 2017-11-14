@@ -27,7 +27,7 @@ public class DB {
     final String UsersSchemaPath = this.getClass().getResource("/SqlScripts/UsersTable.sql").getPath();
     final String GameTablesSchemaPath = this.getClass().getResource("/SqlScripts/GameTables.sql").getPath();
     final String GameDatasPath = this.getClass().getResource("/SqlScripts/GameDatas.sql").getPath();
-    final String DropTablesPath = this.getClass().getResource("/SqlScripts/DropTables.sql").getPath();    
+    final String DropTablesPath = this.getClass().getResource("/SqlScripts/DropTables.sql").getPath();
 
     Connection conn = null;
     Statement createStatement = null;
@@ -85,8 +85,8 @@ public class DB {
             System.err.println("" + ex);
         }
     }
-    
-    public void DropGameTables(){
+
+    public void DropGameTables() {
         ExecuteSQLScript(DropTablesPath);
     }
 
@@ -206,7 +206,7 @@ public class DB {
 
             while (rs.next()) {
                 Monsters actualmonster
-                        = new Monsters(rs.getString("name"), rs.getString("attacktype"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"),rs.getInt("cost"));
+                        = new Monsters(rs.getString("name"), rs.getString("attacktype"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"), rs.getInt("cost"));
                 monsters.add(actualmonster);
             }
         } catch (SQLException ex) {
@@ -283,7 +283,7 @@ public class DB {
 
             while (rs.next()) {
                 Items actualItem
-                        = new Items(rs.getString("name"), rs.getString("target"), rs.getString("ability"), rs.getInt("abilityvalue"),rs.getInt("useable"),rs.getInt("cost"));
+                        = new Items(rs.getString("name"), rs.getString("target"), rs.getString("ability"), rs.getInt("abilityvalue"), rs.getInt("useable"), rs.getInt("cost"));
                 heroes.add(actualItem);
             }
         } catch (SQLException ex) {
@@ -310,14 +310,4 @@ public class DB {
             System.out.println("Item is not exists.");
         }
     }
-    
-    public ArrayList<ArrayList> getEncyclopedia() {
-        ArrayList<ArrayList> list = new ArrayList<ArrayList>();;
-        list.add(getAllHeroes());
-        list.add(getAllMonsters());
-        list.add(getAllItems());
-        
-        return list;
-    }
-
 }
