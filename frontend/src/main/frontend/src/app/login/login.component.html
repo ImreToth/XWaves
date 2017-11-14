@@ -5,11 +5,11 @@
         <div class="panel-heading">
           <div class="row">
             <div class="col-xs-6">
-              <a href="#" [class]="logActive" id="login-form-link" (click)="changeLogin()">Login</a>
+              <a [class]="logActive" id="login-form-link" (click)="changeLogin()">Login</a>
             </div>
 
             <div class="col-xs-6">
-              <a href="#" id="register-form-link" [class] ="regActive" (click)="changeRegister()">Register</a>
+              <a id="register-form-link" [class] ="regActive" (click)="changeRegister()">Register</a>
             </div>
           </div>
           <div style="color:red">{{infoMessage}}</div>
