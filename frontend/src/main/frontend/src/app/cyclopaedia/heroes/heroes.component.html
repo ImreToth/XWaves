@@ -1,4 +1,3 @@
-<app-hero></app-hero>
-<app-hero></app-hero>
-<app-hero></app-hero>
-<app-hero></app-hero>
+<app-hero *ngFor="let hero of heroesFromCyclopaedia" [heroName]="hero.name" [heroAttack]="hero.attack"
+[heroHealth]="hero.health" [heroDefense]="hero.defense" [heroSpeed]="hero.speed" [heroType]="hero.type" [heroStamina]="hero.stamina"></app-hero>
+

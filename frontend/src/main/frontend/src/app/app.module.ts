@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {LoginService} from './login/login.service';
 import {RouterModule, Routes} from '@angular/router';
 import {CyclopaediaComponent} from './cyclopaedia/cyclopaedia.component';
+import {CyclopaediaService} from './cyclopaedia/cyclopaedia.service';
 import { RulesComponent } from './rules/rules.component';
 import { PlayComponent } from './play/play.component';
 import { HeroComponent } from './cyclopaedia/heroes/hero/hero.component';
@@ -49,7 +50,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
   ],
-  providers: [LoginService],
+  providers: [LoginService, CyclopaediaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
