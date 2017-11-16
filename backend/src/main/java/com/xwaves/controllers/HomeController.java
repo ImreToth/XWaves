@@ -48,18 +48,18 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/monster")
-    public ResponseEntity<?> monster() {
-        return new ResponseEntity<>(db.getAllHeroes(), HttpStatus.OK);
+    @RequestMapping("/monsters")
+    public ResponseEntity<?> monsters() {
+        return new ResponseEntity<>("{\"monsters\":" + db.getAllHeroes() + "}", HttpStatus.OK);
     }
 
     @RequestMapping("/items")
     public ResponseEntity<?> items() {
-        return new ResponseEntity<>(db.getAllItems(), HttpStatus.OK);
+        return new ResponseEntity<>("{\"items\":" + db.getAllItems() + "}", HttpStatus.OK);
     }
 
     @RequestMapping("/heroes")
     public ResponseEntity<?> heroes() {
-        return new ResponseEntity<>(db.getAllHeroes(), HttpStatus.OK);
+        return new ResponseEntity<>("{\"heroes\":" + db.getAllHeroes() + "}", HttpStatus.OK);
     }
 }
