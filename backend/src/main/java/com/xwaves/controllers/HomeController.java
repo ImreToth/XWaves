@@ -50,7 +50,7 @@ public class HomeController {
 
     @RequestMapping("/monsters")
     public ResponseEntity<?> monsters() {
-        return new ResponseEntity<>("{\"monsters\":" + db.getAllHeroes() + "}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"monsters\":" + db.getAllMonsters() + "}", HttpStatus.OK);
     }
 
     @RequestMapping("/items")
