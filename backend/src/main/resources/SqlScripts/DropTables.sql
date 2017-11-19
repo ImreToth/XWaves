@@ -1,3 +1,0 @@
-DROP TABLE Monsters;
-DROP TABLE Heroes;
-DROP TABLE Items;
