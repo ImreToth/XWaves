@@ -2,6 +2,9 @@ package com.xwaves.controller;
 
 import com.xwaves.domain.User;
 import com.xwaves.service.UserService;
+import com.xwaves.service.HeroService;
+import com.xwaves.service.ItemService;
+import com.xwaves.service.MonsterService;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 
     private UserService userService;
+    private HeroService heroService;
+    private ItemService itemService;
+    private MonsterService monsterService;
 
     @Autowired
     public HomeController(UserService userService) {
@@ -30,11 +36,11 @@ public class HomeController {
                 return new ResponseEntity<>(userService.getByUsername(user.getUsername()), HttpStatus.OK);
             } else {
                 System.out.println("Helytelen jelszó!");
-                return new ResponseEntity<>("Helytelen jelszó!", HttpStatus.OK);
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Helytelen jelszó!");
             }
         } else {
             System.out.println("Nincs ilyen felhasználó!");
-            return new ResponseEntity<>("Nincs ilyen felhasználó!", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Nincs ilyen felhasználó!");
         }
     }
 
@@ -42,33 +48,33 @@ public class HomeController {
     public ResponseEntity<?> register(@RequestBody User user) {
         if (userService.getByUsername(user.getUsername()) != null && userService.getByEmail(user.getEmail()) != null) {
             System.out.println("Felhasználó és email foglalt!");
-            return new ResponseEntity<>("Felhasználónév és email cím már foglalt!", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Felhasználónév és email cím már foglalt!");
         } else if (userService.getByUsername(user.getUsername()) != null) {
             System.out.println("Felhasználó foglalt!");
-            return new ResponseEntity<>("Felhasználónév már foglalt!", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Felhasználónév már foglalt!");
         } else if (userService.getByEmail(user.getEmail()) != null) {
             System.out.println("Email foglalt!");
-            return new ResponseEntity<>("Email cím már foglalt!", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Email cím már foglalt!");
         } else {
             user.setDate(new Date());
             userService.save(user);
             System.out.println("Sikeres regisztráció!");
-            return new ResponseEntity<>("Sikeres regisztráció!", HttpStatus.OK); 
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sikeres regisztráció!"); 
         }
     }
 
     @RequestMapping("/monsters")
     public ResponseEntity<?> monsters() {
-        return new ResponseEntity<>("{\"monsters\":" + "}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"monsters\":" + monsterService.getAll() +"}", HttpStatus.OK);
     }
 
     @RequestMapping("/items")
     public ResponseEntity<?> items() {
-        return new ResponseEntity<>("{\"items\":" + "}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"items\":" + itemService.getAll() + "}", HttpStatus.OK);
     }
 
     @RequestMapping("/heroes")
     public ResponseEntity<?> heroes() {
-        return new ResponseEntity<>("{\"heroes\":" + "}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"heroes\":" + heroService.getAll() + "}", HttpStatus.OK);
     }
 }
