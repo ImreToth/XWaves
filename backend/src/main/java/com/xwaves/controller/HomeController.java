@@ -1,11 +1,16 @@
 package com.xwaves.controller;
 
+import com.google.gson.Gson;
+import com.xwaves.domain.Hero;
+import com.xwaves.domain.Item;
+import com.xwaves.domain.Monster;
 import com.xwaves.domain.User;
 import com.xwaves.service.UserService;
 import com.xwaves.service.HeroService;
 import com.xwaves.service.ItemService;
 import com.xwaves.service.MonsterService;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +27,15 @@ public class HomeController {
     private HeroService heroService;
     private ItemService itemService;
     private MonsterService monsterService;
-
+    
+    private Gson json;
+    
     @Autowired
-    public HomeController(UserService userService) {
+    public HomeController(UserService userService, HeroService heroService, ItemService itemService, MonsterService monsterService) {
         this.userService = userService;
+        this.heroService = heroService;
+        this.itemService = itemService;
+        this.monsterService = monsterService;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
@@ -65,16 +75,31 @@ public class HomeController {
 
     @RequestMapping("/monsters")
     public ResponseEntity<?> monsters() {
-        return new ResponseEntity<>("{\"monsters\":" + monsterService.getAll() +"}", HttpStatus.OK);
-    }
-
-    @RequestMapping("/items")
-    public ResponseEntity<?> items() {
-        return new ResponseEntity<>("{\"items\":" + itemService.getAll() + "}", HttpStatus.OK);
+        Gson json = new Gson();
+        List<Monster> monsters = monsterService.getAll();
+        for(int i = 0; i < monsters.size(); i++) {
+            monsters.get(i).setPath(this.getClass().getResource("/Assets/monsters/Basic/monster_" + monsters.get(i).getName() + ".png").getPath());
+        }
+        return new ResponseEntity<>("{\"monsters\": "+ json.toJson(monsters) +"}", HttpStatus.OK);
     }
 
     @RequestMapping("/heroes")
     public ResponseEntity<?> heroes() {
-        return new ResponseEntity<>("{\"heroes\":" + heroService.getAll() + "}", HttpStatus.OK);
+        Gson json = new Gson();
+        List<Hero> heroes = heroService.getAll();
+        for(int i = 0; i < heroes.size(); i++) {
+            heroes.get(i).setPath(this.getClass().getResource("/Assets/heroes/Basic/hero_" + heroes.get(i).getName() + ".png").getPath());
+        }
+        return new ResponseEntity<>("{\"heroes\": "+ json.toJson(heroes) +"}", HttpStatus.OK);
+    }
+    
+    @RequestMapping("/items")
+    public ResponseEntity<?> items() {
+        Gson json = new Gson();
+        List<Item> items = itemService.getAll();
+        for(int i = 0; i < items.size(); i++) {
+            items.get(i).setPath(this.getClass().getResource("/Assets/items/64/" + items.get(i).getName() + ".png").getPath());
+        }
+        return new ResponseEntity<>("{\"items\": "+ json.toJson(items) +"}", HttpStatus.OK);
     }
 }

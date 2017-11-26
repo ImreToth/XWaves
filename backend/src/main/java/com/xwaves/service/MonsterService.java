@@ -5,8 +5,9 @@ import com.xwaves.domain.Monster;
 import com.xwaves.repository.MonsterRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-
+@Service
 public class MonsterService {
     private MonsterRepository monsterRepository;
 
@@ -26,5 +27,5 @@ public class MonsterService {
     public Monster getById(long id) {
         return monsterRepository.findById(id);
     }
-    
+        
 }

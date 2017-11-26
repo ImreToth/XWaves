@@ -9,7 +9,7 @@ public interface HeroRepository extends CrudRepository<Hero, Long> {
     
     Hero findById(long id);
     
-    Hero findByName(String username);
+    Hero findByName(String name);
 
     List<Hero> findAll();
     

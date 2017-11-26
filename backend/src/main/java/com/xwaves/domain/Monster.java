@@ -1,6 +1,5 @@
 package com.xwaves.domain;
 
-import com.google.gson.Gson;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,24 +7,26 @@ import javax.persistence.Id;
 
 @Entity
 public class Monster {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
     private long id;
     private String name;
     private String attacktype;
-    private Integer attack;
-    private Integer health;
-    private Integer stamina;
-    private Integer defense;
-    private Integer speed;
-    private Integer cost;
-    private String imagePath;
+    private int attack;
+    private int health;
+    private int stamina;
+    private int defense;
+    private int speed;
+    private int cost;
+    private String path;
 
     public Monster() {
     }
 
-    public Monster(String name, String attacktype, Integer attack, Integer health, Integer stamina, Integer defense, Integer speed,Integer cost) {
+    public Monster(long id, String name, String attacktype, int attack, int health, int stamina, int defense, int speed, int cost, String path) {
+        this.id = id;
         this.name = name;
         this.attacktype = attacktype;
         this.attack = attack;
@@ -33,89 +34,89 @@ public class Monster {
         this.stamina = stamina;
         this.defense = defense;
         this.speed = speed;
-        this.cost = cost;                
-        this.imagePath = this.getClass().getResource("/Assets/monsters/Basic/monster_" + name + ".png").getPath();
+        this.cost = cost;
+        this.path = path;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getAttacktype() {
-        return attacktype;
-    }
-
-    public Integer getAttack() {
-        return attack;
-    }
-
-    public Integer getHealth() {
-        return health;
-    }
-
-    public Integer getStamina() {
-        return stamina;
-    }
-
-    public Integer getDefense() {
-        return defense;
-    }
-
-    public Integer getSpeed() {
-        return speed;
-    }
-
-    public String getimagePath() {
-        return imagePath;
-    }
-
-    public Integer getCost() {
-        return cost;
-    }
-    
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAttacktype() {
+        return attacktype;
     }
 
     public void setAttacktype(String attacktype) {
         this.attacktype = attacktype;
     }
 
-    public void setAttack(Integer attack) {
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
         this.attack = attack;
     }
 
-    public void setHealth(Integer health) {
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public void setStamina(Integer stamina) {
+    public int getStamina() {
+        return stamina;
+    }
+
+    public void setStamina(int stamina) {
         this.stamina = stamina;
     }
 
-    public void setDefense(Integer defense) {
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
         this.defense = defense;
     }
 
-    public void setSpeed(Integer speed) {
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public void setimagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public int getCost() {
+        return cost;
     }
 
-    public void setCost(Integer cost) {
+    public void setCost(int cost) {
         this.cost = cost;
     }
-    
 
-    @Override
-    public String toString() {
-        Gson json = new Gson();
-        return json.toJson(this);
+    public String getPath() {
+        return path;
     }
-    
+
+    public void setPath(String path) {
+        this.path = path;
+    }
     
     
 }

@@ -7,7 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface MonsterRepository extends CrudRepository<Monster, Long> {
     Monster findById(long id);
     
-    Monster findByName(String username);
+    Monster findByName(String name);
 
     List<Monster> findAll();
 }

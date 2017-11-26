@@ -8,7 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 public interface ItemRepository extends CrudRepository<Item, Long> {
     Item findById(long id);
     
-    Item findByName(String username);
+    Item findByName(String name);
 
     List<Item> findAll();
 }

@@ -19,8 +19,8 @@ public class HeroService {
         return heroRepository.findAll();
     }
     
-    public Hero getByName(String Heroname) {
-        return heroRepository.findByName(Heroname);
+    public Hero getByName(String name) {
+        return heroRepository.findByName(name);
     }
     
     public Hero getById(long id) {

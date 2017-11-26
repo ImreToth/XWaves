@@ -1,6 +1,5 @@
 package com.xwaves.domain;
 
-import com.google.gson.Gson;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,17 +12,17 @@ public class Hero {
     private long id;
     private String name;
     private String type;
-    private Integer attack;
-    private Integer health;
-    private Integer stamina;
-    private Integer defense;
-    private Integer speed;    
-    private String imagePath;
+    private int attack;
+    private int health;
+    private int stamina;
+    private int defense;
+    private int speed;    
+    private String path;
 
     public Hero() {
     }
 
-    public Hero(String name, String type, Integer attack, Integer health, Integer stamina, Integer defense, Integer speed) {
+    public Hero(String name, String type, int attack, int health, int stamina, int defense, int speed, String path) {
         this.name = name;
         this.type = type;
         this.attack = attack;
@@ -31,79 +30,80 @@ public class Hero {
         this.stamina = stamina;
         this.defense = defense;
         this.speed = speed;
-        this.imagePath = this.getClass().getResource("/Assets/heroes/Basic/hero_" + name + ".png").getPath();
+        this.path = path;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public Integer getAttack() {
-        return attack;
-    }
-
-    public Integer getHealth() {
-        return health;
-    }
-
-    public Integer getStamina() {
-        return stamina;
-    }
-
-    public Integer getDefense() {
-        return defense;
-    }
-
-    public Integer getSpeed() {
-        return speed;
-    }
-
-    public String getimagePath() {
-        return imagePath;
-    }
-    
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
     }
 
     public void setType(String type) {
         this.type = type;
     }
 
-    public void setAttack(Integer attack) {
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
         this.attack = attack;
     }
 
-    public void setHealth(Integer health) {
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
         this.health = health;
     }
 
-    public void setStamina(Integer stamina) {
+    public int getStamina() {
+        return stamina;
+    }
+
+    public void setStamina(int stamina) {
         this.stamina = stamina;
     }
 
-    public void setDefense(Integer defense) {
+    public int getDefense() {
+        return defense;
+    }
+
+    public void setDefense(int defense) {
         this.defense = defense;
     }
 
-    public void setSpeed(Integer speed) {
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
         this.speed = speed;
     }
 
-    public void setimagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public String getPath() {
+        return path;
     }
 
-    @Override
-    public String toString() {
-        Gson json = new Gson();
-        return json.toJson(this);
+    public void setPath(String path) {
+        this.path = path;
     }
-    
     
     
 }
