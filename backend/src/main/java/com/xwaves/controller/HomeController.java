@@ -78,7 +78,7 @@ public class HomeController {
         Gson json = new Gson();
         List<Monster> monsters = monsterService.getAll();
         for(int i = 0; i < monsters.size(); i++) {
-            monsters.get(i).setPath(this.getClass().getResource("/Assets/monsters/Basic/monster_" + monsters.get(i).getName() + ".png").getPath());
+            monsters.get(i).setPath("/monsters/Basic/monster_" + monsters.get(i).getName() + ".png");
         }
         return new ResponseEntity<>("{\"monsters\": "+ json.toJson(monsters) +"}", HttpStatus.OK);
     }
@@ -88,7 +88,7 @@ public class HomeController {
         Gson json = new Gson();
         List<Hero> heroes = heroService.getAll();
         for(int i = 0; i < heroes.size(); i++) {
-            heroes.get(i).setPath(this.getClass().getResource("/Assets/heroes/Basic/hero_" + heroes.get(i).getName() + ".png").getPath());
+            heroes.get(i).setPath("/heroes/Basic/hero_" + heroes.get(i).getName() + ".png");
         }
         return new ResponseEntity<>("{\"heroes\": "+ json.toJson(heroes) +"}", HttpStatus.OK);
     }
@@ -98,7 +98,7 @@ public class HomeController {
         Gson json = new Gson();
         List<Item> items = itemService.getAll();
         for(int i = 0; i < items.size(); i++) {
-            items.get(i).setPath(this.getClass().getResource("/Assets/items/64/" + items.get(i).getName() + ".png").getPath());
+            items.get(i).setPath("/items/64/" + items.get(i).getName() + ".png");
         }
         return new ResponseEntity<>("{\"items\": "+ json.toJson(items) +"}", HttpStatus.OK);
     }
