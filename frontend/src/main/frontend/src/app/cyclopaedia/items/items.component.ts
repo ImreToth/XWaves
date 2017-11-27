@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Item} from '../../Item';
+import {CyclopaediaService} from '../cyclopaedia.service';
 
 @Component({
   selector: 'app-items',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./items.component.css']
 })
 export class ItemsComponent implements OnInit {
-
-  constructor() { }
+  items: Item[];
+  constructor(private cyclopaediaService: CyclopaediaService) { }
 
   ngOnInit() {
+    this.items = this.cyclopaediaService.getItems();
   }
 
 }

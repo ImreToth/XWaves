@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {Monster} from '../../Monster';
+import {CyclopaediaService} from '../cyclopaedia.service';
 
 @Component({
   selector: 'app-monsters',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./monsters.component.css']
 })
 export class MonstersComponent implements OnInit {
-
-  constructor() { }
+  monsters: Monster[];
+  constructor(private cyclopediaService: CyclopaediaService) { }
 
   ngOnInit() {
+    this.monsters = this.cyclopediaService.getMonsters();
   }
 
 }

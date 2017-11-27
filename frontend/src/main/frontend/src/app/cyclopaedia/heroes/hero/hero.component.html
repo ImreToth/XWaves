@@ -1,24 +1,24 @@
 <section class="col-md-4 col-md-offset-1" >
   <section class="well">
     <div class="h4">
-      {{heroName}}
+      {{hero.name}}
     </div>
     <figure>
-      <img class="img-rounded img-responsive" src="">
+      <img class="img-rounded img-responsive" [src]="hero.imagePath">
     </figure>
     <dl class="dl-horizontal">
       <dt>Type:</dt>
-      <dd>{{heroType}}</dd>
+      <dd>{{hero.type}}</dd>
       <dt>Attack:</dt>
-      <dd>{{heroAttack}}</dd>
+      <dd>{{hero.attack}}</dd>
       <dt>Health:</dt>
-      <dd>{{heroHealth}}</dd>
+      <dd>{{hero.health}}</dd>
       <dt>Stamina:</dt>
-      <dd>{{heroStamina}}</dd>
+      <dd>{{hero.stamina}}</dd>
       <dt>Defense:</dt>
-      <dd>{{heroDefense}}</dd>
+      <dd>{{hero.defense}}</dd>
       <dt>Speed:</dt>
-      <dd>{{heroSpeed}}</dd>
+      <dd>{{hero.speed}}</dd>
     </dl>
   </section>
 </section>

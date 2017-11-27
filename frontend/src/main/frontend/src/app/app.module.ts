@@ -29,6 +29,8 @@ const appRoutes: Routes = [
   {path: 'rules', component : RulesComponent},
   {path: 'play', component : PlayComponent},
   {path: 'heroes', component: HeroesComponent},
+  {path: 'monsters', component: MonstersComponent},
+  {path: 'items', component: ItemsComponent}
 ];
 
 

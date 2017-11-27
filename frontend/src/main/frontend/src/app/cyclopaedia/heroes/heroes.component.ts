@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Hero} from '../../Hero';
+import {CyclopaediaService} from '../cyclopaedia.service';
 
 @Component({
   selector: 'app-heroes',
@@ -7,13 +8,11 @@ import {Hero} from '../../Hero';
   styleUrls: ['./heroes.component.css']
 })
 export class HeroesComponent implements OnInit {
-  kappa = 'kappa';
-  @Input() heroesFromCyclopaedia: Hero[];
-  constructor() { }
+  heroes: Hero[];
+  constructor(private cyclopediaService: CyclopaediaService) { }
 
   ngOnInit() {
-    console.log('ez itt a heroescomponent');
-    console.log(this.heroesFromCyclopaedia[1].name);
+    this.heroes = this.cyclopediaService.getHeroes();
   }
 
 }
