@@ -3,9 +3,14 @@
     <div class="h4">
       {{item.name}}
     </div>
+    <table class="table">
+      <tr>
+        <td>
     <figure>
-      <img class="img-rounded img-responsive" src="">
+      <img class="img-rounded img-responsive" [src]="'assets'+item.path" width = "100" height = "100">
     </figure>
+        </td>
+        <td>
     <dl class="dl-horizontal">
       <dt>Ability:</dt>
       <dd>{{item.ability}}</dd>
@@ -18,5 +23,8 @@
       <dt>Cost:</dt>
       <dd>{{item.cost}}</dd>
     </dl>
+        </td>
+      </tr>
+    </table>
   </section>
 </section>

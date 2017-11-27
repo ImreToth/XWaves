@@ -3,9 +3,14 @@
     <div class="h4">
       {{hero.name}}
     </div>
+    <table class="table">
+      <tr>
+        <td>
     <figure>
-      <img class="img-rounded img-responsive" [src]="hero.imagePath">
+      <img class="img-rounded img-responsive" [src]="'assets'+hero.path" width = "150" height = "150">
     </figure>
+          </td>
+        <td>
     <dl class="dl-horizontal">
       <dt>Type:</dt>
       <dd>{{hero.type}}</dd>
@@ -20,5 +25,8 @@
       <dt>Speed:</dt>
       <dd>{{hero.speed}}</dd>
     </dl>
+        </td>
+      </tr>
+    </table>
   </section>
 </section>

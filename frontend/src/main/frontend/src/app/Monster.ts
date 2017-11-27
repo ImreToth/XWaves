@@ -7,5 +7,5 @@ export class Monster {
   defense: number;
   speed: number;
   cost: number;
-  imagePath: string;
+  path: string;
 }

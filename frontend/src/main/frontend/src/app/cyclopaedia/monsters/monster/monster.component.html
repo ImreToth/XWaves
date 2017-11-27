@@ -3,9 +3,14 @@
     <div class="h4">
       {{monster.name}}
     </div>
+    <table class="table">
+      <tr>
+        <td>
     <figure>
-      <img class="img-rounded img-responsive" src="">
+      <img class="img-rounded img-responsive" [src]="'assets'+monster.path" width = "150" height = "150">
     </figure>
+        </td>
+        <td>
     <dl class="dl-horizontal">
       <dt>Attack type:</dt>
       <dd>{{monster.attacktype}}</dd>
@@ -22,5 +27,8 @@
       <dt>Cost:</dt>
       <dd>{{monster.cost}}</dd>
     </dl>
+        </td>
+      </tr>
+    </table>
   </section>
 </section>

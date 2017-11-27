@@ -8,6 +8,7 @@ import {Hero} from '../../../Hero';
 })
 export class HeroComponent implements OnInit {
   @Input() hero: Hero;
+  stri = 'assets';
   constructor() { }
 
   ngOnInit() {

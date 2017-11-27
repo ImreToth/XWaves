@@ -6,5 +6,5 @@ export class Hero {
    stamina: number;
    defense: number;
    speed: number;
-   imagePath: string;
+   path: string;
 }

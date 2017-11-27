@@ -5,5 +5,5 @@ export class Item {
   abilityvalue: number;
   useable: number;
   cost: number;
-  imagePath: string;
+  path: string;
 }
