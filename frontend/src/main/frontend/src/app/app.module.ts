@@ -25,12 +25,12 @@ import { ItemComponent } from './cyclopaedia/items/item/item.component';
 
 const appRoutes: Routes = [
   {path: 'login', component : LoginComponent},
-  {path: 'cyclopaedia', component : CyclopaediaComponent},
+  {path: 'cyclopaedia', component : CyclopaediaComponent,
+    children: [{path: 'heroes', component: HeroesComponent},
+    {path: 'monsters', component: MonstersComponent},
+    {path: 'items', component: ItemsComponent}]},
   {path: 'rules', component : RulesComponent},
-  {path: 'play', component : PlayComponent},
-  {path: 'heroes', component: HeroesComponent},
-  {path: 'monsters', component: MonstersComponent},
-  {path: 'items', component: ItemsComponent}
+  {path: 'play', component : PlayComponent}
 ];
 
 
