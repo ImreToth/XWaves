@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {HttpClient } from '@angular/common/http';
-import {Hero} from '../Hero';
-import {Monster} from '../Monster';
-import {Item} from '../Item';
+import {Hero} from '../_models/Hero';
+import {Monster} from '../_models/Monster';
+import {Item} from '../_models/Item';
 
 @Injectable()
 export class CyclopaediaService {

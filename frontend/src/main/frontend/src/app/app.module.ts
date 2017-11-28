@@ -9,10 +9,10 @@ import { LoginComponent } from './login/login.component';
 
 // http kérésekhez
 import {HttpClientModule} from '@angular/common/http';
-import {LoginService} from './login/login.service';
+import {LoginService} from './_services/login.service';
 import {RouterModule, Routes} from '@angular/router';
 import {CyclopaediaComponent} from './cyclopaedia/cyclopaedia.component';
-import {CyclopaediaService} from './cyclopaedia/cyclopaedia.service';
+import {CyclopaediaService} from './_services/cyclopaedia.service';
 import { RulesComponent } from './rules/rules.component';
 import { PlayComponent } from './play/play.component';
 import { HeroComponent } from './cyclopaedia/heroes/hero/hero.component';
@@ -26,7 +26,8 @@ import { ItemComponent } from './cyclopaedia/items/item/item.component';
 const appRoutes: Routes = [
   {path: 'login', component : LoginComponent},
   {path: 'cyclopaedia', component : CyclopaediaComponent,
-    children: [{path: 'heroes', component: HeroesComponent},
+    children: [{path: '', component: HeroesComponent},
+      {path: 'heroes', component: HeroesComponent},
     {path: 'monsters', component: MonstersComponent},
     {path: 'items', component: ItemsComponent}]},
   {path: 'rules', component : RulesComponent},

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {CyclopaediaService} from './cyclopaedia/cyclopaedia.service';
+import {CyclopaediaService} from './_services/cyclopaedia.service';
 
 @Component({
   selector: 'app-root',

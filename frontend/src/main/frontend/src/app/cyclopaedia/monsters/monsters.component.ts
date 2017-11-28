@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Monster} from '../../Monster';
-import {CyclopaediaService} from '../cyclopaedia.service';
+import {Monster} from '../../_models/Monster';
+import {CyclopaediaService} from '../../_services/cyclopaedia.service';
 
 @Component({
   selector: 'app-monsters',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Item} from '../../Item';
-import {CyclopaediaService} from '../cyclopaedia.service';
+import {Item} from '../../_models/Item';
+import {CyclopaediaService} from '../../_services/cyclopaedia.service';
 
 @Component({
   selector: 'app-items',

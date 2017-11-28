@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Hero} from '../../Hero';
-import {CyclopaediaService} from '../cyclopaedia.service';
+import {Hero} from '../../_models/Hero';
+import {CyclopaediaService} from '../../_services/cyclopaedia.service';
 
 @Component({
   selector: 'app-heroes',
