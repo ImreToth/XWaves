@@ -11,7 +11,7 @@ export class GamesComponent implements OnInit {
 
   ngOnInit() {
   }
-btnActive(){
+btnActive() {
     this.isActive = !this.isActive;
 }
 }
