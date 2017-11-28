@@ -1,0 +1,12 @@
+<div class="container">
+  <div style = "margin-bottom: 60px;">
+    <h2>Games
+    </h2>
+    <span>Choose game or create your own! </span>
+    <ul class="nav nav-pills pull-right" role="tablist">
+      <li role="presentation" (click)="btnActive()" [ngClass]="{ 'active': !isActive }"><a routerLink="/games/search">Search<span class="badge">3</span></a></li>
+      <li role="presentation" (click)="btnActive()" [ngClass]="{ 'active': isActive }"><a routerLink="/games/create">Create</a></li>
+    </ul>
+  </div>
+  <router-outlet></router-outlet>
+</div>

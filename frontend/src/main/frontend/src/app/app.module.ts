@@ -21,6 +21,9 @@ import { HeroesComponent } from './cyclopaedia/heroes/heroes.component';
 import { MonstersComponent } from './cyclopaedia/monsters/monsters.component';
 import { ItemsComponent } from './cyclopaedia/items/items.component';
 import { ItemComponent } from './cyclopaedia/items/item/item.component';
+import { GamesComponent } from './games/games.component';
+import { SearchComponent } from './games/search/search.component';
+import { CreateComponent } from './games/create/create.component';
 
 
 const appRoutes: Routes = [
@@ -31,7 +34,11 @@ const appRoutes: Routes = [
     {path: 'monsters', component: MonstersComponent},
     {path: 'items', component: ItemsComponent}]},
   {path: 'rules', component : RulesComponent},
-  {path: 'play', component : PlayComponent}
+  {path: 'play', component : PlayComponent},
+  {path: 'games', component: GamesComponent,
+  children: [{path: '', component: SearchComponent },
+    {path: 'search', component: SearchComponent},
+    {path: 'create', component: CreateComponent}]}
 ];
 
 
@@ -48,7 +55,10 @@ const appRoutes: Routes = [
     HeroesComponent,
     MonstersComponent,
     ItemsComponent,
-    ItemComponent
+    ItemComponent,
+    GamesComponent,
+    SearchComponent,
+    CreateComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
