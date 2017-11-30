@@ -1,6 +1,9 @@
 package com.xwaves.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.xwaves.db.DB;
 import com.xwaves.domain.Games;
 import com.xwaves.domain.Hero;
@@ -34,8 +37,6 @@ public class HomeController {
     private ItemService itemService;
     private MonsterService monsterService;
     private GamesService gamesService;
-    
-    private Gson json;
     
     @Autowired
     public HomeController(UserService userService, HeroService heroService, ItemService itemService, MonsterService monsterService, GamesService gamesService) {
@@ -126,7 +127,12 @@ public class HomeController {
     
     @RequestMapping(value = "/games/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> register(@RequestBody String s) {
-        System.out.println(s);
+        JsonArray json = new JsonParser().parse(s).getAsJsonArray();
+        String user = json.get(0).getAsJsonObject().get("name").getAsString();
+        String gameName = json.get(1).getAsJsonObject().get("game").getAsString();
+        JsonArray table = json.get(2).getAsJsonArray();
+        
+        new DB().createOneGameTable(gamesService, gameName, userService.getByUsername(user));
         
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
