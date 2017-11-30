@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {GamesService} from '../../_services/games.service';
+import {Game} from '../../_models/Game';
 
 @Component({
   selector: 'app-search',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-
-  constructor() { }
+  games: Game[];
+  constructor(private gameService: GamesService) {
+    this.games = gameService.getGames();
+  }
 
   ngOnInit() {
+    this.games = this.gameService.getGames();
+    console.log(this.games);
   }
 
 }

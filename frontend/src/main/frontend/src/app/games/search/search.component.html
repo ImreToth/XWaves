@@ -8,23 +8,13 @@
   </tr>
   </thead>
   <tbody>
+  <div *ngFor="let game of games">
   <tr>
-    <td class="col-md-3">Game1</td>
-    <td class="col-md-3">Doe</td>
-    <td class="col-md-2">1  <span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
+    <td class="col-md-3">{{game.name}}</td>
+    <td class="col-md-3">{{game.gamemaster}}</td>
+    <td class="col-md-2">{{game.playerNumber}} <span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
     <td class="col-md-2"><button type="button" class="btn btn-default">Connect to the game</button></td>
   </tr>
-  <tr>
-    <td class="col-md-3">Game2</td>
-    <td class="col-md-3">Moe</td>
-    <td class="col-md-2">2  <span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
-    <td class="col-md-2"><button type="button" class="btn btn-default">Connect to the game</button></td>
-  </tr>
-  <tr>
-    <td class="col-md-3">Game3</td>
-    <td class="col-md-3">Dooley</td>
-    <td class="col-md-2">3  <span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
-    <td class="col-md-2"><button type="button" class="btn btn-default">Connect to the game</button></td>
-  </tr>
+  </div>
   </tbody>
 </table>

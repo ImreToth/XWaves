@@ -24,6 +24,8 @@ import { ItemComponent } from './cyclopaedia/items/item/item.component';
 import { GamesComponent } from './games/games.component';
 import { SearchComponent } from './games/search/search.component';
 import { CreateComponent } from './games/create/create.component';
+import {GamesService} from "./_services/games.service";
+import {AuthenticationService} from "./_services/authentication.service";
 
 
 const appRoutes: Routes = [
@@ -63,7 +65,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
   ],
-  providers: [LoginService, CyclopaediaService],
+  providers: [LoginService, CyclopaediaService, GamesService, AuthenticationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
