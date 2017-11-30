@@ -11,6 +11,8 @@ import com.xwaves.service.HeroService;
 import com.xwaves.service.ItemService;
 import com.xwaves.service.MonsterService;
 import com.xwaves.service.GamesService;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,7 +50,10 @@ public class HomeController {
         if (userService.getByUsername(user.getUsername()) != null) {
             if (userService.getByUsername(user.getUsername()).getPassword().equals(user.getPassword())) {
                 System.out.println("Sikeres belépés!");
-                return new ResponseEntity<>(userService.getByUsername(user.getUsername()), HttpStatus.OK);
+                String jwtToken = Jwts.builder().setSubject(user.getEmail()).claim("roles", "user").setIssuedAt(new Date())
+                .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+                System.out.println(jwtToken);
+                return new ResponseEntity<>(jwtToken, HttpStatus.OK);
             } else {
                 System.out.println("Helytelen jelszó!");
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Helytelen jelszó!");
