@@ -41,6 +41,17 @@ CREATE TABLE IF NOT EXISTS `item` (
 	PRIMARY KEY( `id` )
 );
 
+CREATE TABLE IF NOT EXISTS `games` (
+	`id` int(10) NOT NULL auto_increment,
+	`name` varchar(255),
+	`gamemaster` varchar(255),
+	`palyer1` varchar(255),
+	`player2` varchar(255),
+	`player3` varchar(255),
+	`playernumber` int(10),
+	PRIMARY KEY( `id` )
+);
+
 INSERT INTO `user`(`id`, `username`, `password`, `email`, `datetime` ) VALUES (1,'admin','admin','admin@admin.hu', NOW() );
 
 INSERT INTO `monster`(`id`, `name`, `attacktype`, `attack`, `health`, `stamina`, `defense`, `speed` , `cost` ) VALUES (1,'banshee','melee',2,2,3,2,2,15);

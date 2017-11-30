@@ -13,9 +13,9 @@ public class Games {
     private long id;
     private String name;
     private String gamemaster;
-    private String ranged;
-    private String malee;
-    private String support;
+    private String player1;
+    private String player2;
+    private String player3;
     private int playerNumber;
 
     public Games(String name, String gamemaster) {
@@ -24,12 +24,12 @@ public class Games {
         this.playerNumber=0;
     }
 
-    public Games(String name, String gamemaster, String ranged, String malee, String support) {
+    public Games(String name, String gamemaster, String player1, String player2, String player3) {
         this.name = name;
         this.gamemaster = gamemaster;
-        this.ranged = ranged;
-        this.malee = malee;
-        this.support = support;
+        this.player1 = player1;
+        this.player2 = player2;
+        this.player3 = player3;
         this.playerNumber=3;
     }
 
@@ -57,28 +57,28 @@ public class Games {
         this.gamemaster = gamemaster;
     }
 
-    public String getRanged() {
-        return ranged;
+    public String getPlayer1() {
+        return player1;
     }
 
-    public void setRanged(String ranged) {
-        this.ranged = ranged;
+    public void setPlayer1(String player1) {
+        this.player1 = player1;
     }
 
-    public String getMalee() {
-        return malee;
+    public String getPlayer2() {
+        return player2;
     }
 
-    public void setMalee(String malee) {
-        this.malee = malee;
+    public void setPlayer2(String player2) {
+        this.player2 = player2;
     }
 
-    public String getSupport() {
-        return support;
+    public String getPlayer3() {
+        return player3;
     }
 
-    public void setSupport(String support) {
-        this.support = support;
+    public void setPlayer3(String player3) {
+        this.player3 = player3;
     }
 
     public int getPlayerNumber() {
