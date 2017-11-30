@@ -17,6 +17,9 @@ public class Games {
     private String player2;
     private String player3;
     private int playerNumber;
+    
+    public Games(){
+    }
 
     public Games(String name, String gamemaster) {
         this.name = name;
