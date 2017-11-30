@@ -1,6 +1,7 @@
 package com.xwaves.controller;
 
 import com.google.gson.Gson;
+import com.xwaves.domain.Games;
 import com.xwaves.domain.Hero;
 import com.xwaves.domain.Item;
 import com.xwaves.domain.Monster;
@@ -9,6 +10,8 @@ import com.xwaves.service.UserService;
 import com.xwaves.service.HeroService;
 import com.xwaves.service.ItemService;
 import com.xwaves.service.MonsterService;
+import com.xwaves.service.GamesService;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,15 +30,17 @@ public class HomeController {
     private HeroService heroService;
     private ItemService itemService;
     private MonsterService monsterService;
+    private GamesService gamesService;
     
     private Gson json;
     
     @Autowired
-    public HomeController(UserService userService, HeroService heroService, ItemService itemService, MonsterService monsterService) {
+    public HomeController(UserService userService, HeroService heroService, ItemService itemService, MonsterService monsterService, GamesService gamesService) {
         this.userService = userService;
         this.heroService = heroService;
         this.itemService = itemService;
         this.monsterService = monsterService;
+        this.gamesService = gamesService;
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
@@ -101,5 +106,17 @@ public class HomeController {
             items.get(i).setPath("/items/64/" + items.get(i).getName() + ".png");
         }
         return new ResponseEntity<>("{\"items\": "+ json.toJson(items) +"}", HttpStatus.OK);
+    }
+    
+    @RequestMapping("/games/search")
+    public ResponseEntity<?> games() {
+        Gson json = new Gson();
+        return new ResponseEntity<>(json.toJson(gamesService.getAll()), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/games/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> register(@RequestBody String s) {
+        System.out.println(s);
+        return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 }
