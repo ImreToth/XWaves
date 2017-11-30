@@ -16,10 +16,12 @@ public class Games {
     private String ranged;
     private String malee;
     private String support;
+    private int playerNumber;
 
     public Games(String name, String gamemaster) {
         this.name = name;
         this.gamemaster = gamemaster;
+        this.playerNumber=0;
     }
 
     public Games(String name, String gamemaster, String ranged, String malee, String support) {
@@ -28,6 +30,7 @@ public class Games {
         this.ranged = ranged;
         this.malee = malee;
         this.support = support;
+        this.playerNumber=3;
     }
 
     public long getId() {
@@ -77,10 +80,14 @@ public class Games {
     public void setSupport(String support) {
         this.support = support;
     }
-        
 
-    
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
 
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    } 
     @Override
     public String toString() {
         Gson json = new Gson();
