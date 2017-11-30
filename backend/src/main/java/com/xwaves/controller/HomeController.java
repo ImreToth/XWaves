@@ -1,6 +1,7 @@
 package com.xwaves.controller;
 
 import com.google.gson.Gson;
+import com.xwaves.db.DB;
 import com.xwaves.domain.Games;
 import com.xwaves.domain.Hero;
 import com.xwaves.domain.Item;
@@ -116,12 +117,17 @@ public class HomeController {
     @RequestMapping("/games/search")
     public ResponseEntity<?> games() {
         Gson json = new Gson();
+        new DB().createOneGameTable(gamesService, "Test1", new User(1, "user1", "email1", "pass1", new Date()));
+        new DB().createOneGameTable(gamesService, "Test2", new User(2, "user2", "email2", "pass2", new Date()));
+        new DB().createOneGameTable(gamesService, "Test3", new User(3, "user3", "email3", "pass3", new Date()));
+        //kicsinálta, játékvene, playerek
         return new ResponseEntity<>(json.toJson(gamesService.getAll()), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/games/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> register(@RequestBody String s) {
         System.out.println(s);
+        
         return new ResponseEntity<>("OK", HttpStatus.OK);
     }
 }
