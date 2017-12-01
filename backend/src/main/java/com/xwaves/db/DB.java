@@ -91,13 +91,11 @@ public class DB {
         }
     }
     
-    public void saveHeroes(String gamename , ArrayList<Hero> heroes, ArrayList<Integer> position) {
-        int id=0;
-        for(Hero h : heroes){
+    public void saveHero(String gamename , Hero h, Integer position) {
             String sql = "insert into "+ gamename +"(id,name,type,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
-                pstmt.setInt(1,id+1);
+                pstmt.setLong(1,h.getId());
                 pstmt.setString(2,h.getName());
                 pstmt.setString(3,h.getType());
                 pstmt.setInt(4,h.getAttack());
@@ -105,13 +103,24 @@ public class DB {
                 pstmt.setInt(6,h.getStamina());
                 pstmt.setInt(7,h.getDefense());
                 pstmt.setInt(8,h.getSpeed());
-                pstmt.setInt(9,position.get(id));
+                pstmt.setInt(9,position);
                 pstmt.execute();
-                id++;
             } catch (SQLException ex) {
                 System.err.println("" + ex);
             } 
-        }
+        
+    }
+    
+    public void deleteGameTables(String name){
+        String sql= "DROP TABLE "+name+"_Monster;"
+                  + "DROP TABLE "+name+"_Hero;";
+        try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.execute();
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            } 
+        
     }
     
     public String getMonsterSchema(String tableName){
