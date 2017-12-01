@@ -7,8 +7,10 @@ import com.google.gson.JsonParser;
 import com.xwaves.db.DB;
 import com.xwaves.domain.Games;
 import com.xwaves.domain.Hero;
+import com.xwaves.domain.HeroSchema;
 import com.xwaves.domain.Item;
 import com.xwaves.domain.Monster;
+import com.xwaves.domain.MonsterSchema;
 import com.xwaves.domain.User;
 import com.xwaves.service.UserService;
 import com.xwaves.service.HeroService;
@@ -37,7 +39,7 @@ public class HomeController {
     private ItemService itemService;
     private MonsterService monsterService;
     private GamesService gamesService;
-    
+
     @Autowired
     public HomeController(UserService userService, HeroService heroService, ItemService itemService, MonsterService monsterService, GamesService gamesService) {
         this.userService = userService;
@@ -53,7 +55,7 @@ public class HomeController {
             if (userService.getByUsername(user.getUsername()).getPassword().equals(user.getPassword())) {
                 System.out.println("Sikeres belépés!");
                 String jwtToken = Jwts.builder().setSubject(user.getEmail()).claim("roles", "user").setIssuedAt(new Date())
-                .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+                        .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
                 System.out.println(jwtToken);
                 return new ResponseEntity<>(jwtToken, HttpStatus.OK);
             } else {
@@ -81,7 +83,7 @@ public class HomeController {
             user.setDate(new Date());
             userService.save(user);
             System.out.println("Sikeres regisztráció!");
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sikeres regisztráció!"); 
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Sikeres regisztráció!");
         }
     }
 
@@ -89,32 +91,32 @@ public class HomeController {
     public ResponseEntity<?> monsters() {
         Gson json = new Gson();
         List<Monster> monsters = monsterService.getAll();
-        for(int i = 0; i < monsters.size(); i++) {
+        for (int i = 0; i < monsters.size(); i++) {
             monsters.get(i).setPath("/monsters/Basic/monster_" + monsters.get(i).getName() + ".png");
         }
-        return new ResponseEntity<>("{\"monsters\": "+ json.toJson(monsters) +"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"monsters\": " + json.toJson(monsters) + "}", HttpStatus.OK);
     }
 
     @RequestMapping("/heroes")
     public ResponseEntity<?> heroes() {
         Gson json = new Gson();
         List<Hero> heroes = heroService.getAll();
-        for(int i = 0; i < heroes.size(); i++) {
+        for (int i = 0; i < heroes.size(); i++) {
             heroes.get(i).setPath("/heroes/Basic/hero_" + heroes.get(i).getName() + ".png");
         }
-        return new ResponseEntity<>("{\"heroes\": "+ json.toJson(heroes) +"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"heroes\": " + json.toJson(heroes) + "}", HttpStatus.OK);
     }
-    
+
     @RequestMapping("/items")
     public ResponseEntity<?> items() {
         Gson json = new Gson();
         List<Item> items = itemService.getAll();
-        for(int i = 0; i < items.size(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             items.get(i).setPath("/items/64/" + items.get(i).getName() + ".png");
         }
-        return new ResponseEntity<>("{\"items\": "+ json.toJson(items) +"}", HttpStatus.OK);
+        return new ResponseEntity<>("{\"items\": " + json.toJson(items) + "}", HttpStatus.OK);
     }
-    
+
     @RequestMapping("/games/search")
     public ResponseEntity<?> games() {
         Gson json = new Gson();
@@ -124,16 +126,81 @@ public class HomeController {
         //kicsinálta, játékvene, playerek
         return new ResponseEntity<>(json.toJson(gamesService.getAll()), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/games/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> register(@RequestBody String s) {
         JsonArray json = new JsonParser().parse(s).getAsJsonArray();
-        String user = json.get(0).getAsJsonObject().get("name").getAsString();
-        String gameName = json.get(1).getAsJsonObject().get("game").getAsString();
+        String user = json.get(0).getAsJsonObject().get("username").getAsString();
+        String gameName = json.get(1).getAsJsonObject().get("gamename").getAsString();
         JsonArray table = json.get(2).getAsJsonArray();
-        
-        new DB().createOneGameTable(gamesService, gameName, userService.getByUsername(user));
-        
+        ArrayList<MonsterSchema> monsters = new ArrayList<MonsterSchema>();
+
+        for (int i = 0; i < table.size(); i++) {
+            table.get(i).getAsJsonObject().get(i + "").getAsJsonObject().addProperty("position", i);            
+            monsters.add(new Gson().fromJson(table.get(i).getAsJsonObject().get(i + "").getAsJsonObject(), MonsterSchema.class));            
+        }
+        for(int i = 0; i < monsters.size(); i++) {
+            if(monsters.get(i).getAttack() == 0)
+                monsters.remove(i);
+        }
+        DB db = new DB();
+        db.createOneGameTable(gamesService, gameName, userService.getByUsername(user));
+        db.saveMonsters(gameName, monsters);
+
         return new ResponseEntity<>("OK", HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/play/next", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> next(@RequestBody String s) {
+        JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+        if (json.get("username").getAsString().equals(gamesService.getByName(json.get("gamename").getAsString()).getNextPlayer())) {
+            return new ResponseEntity<>("true", HttpStatus.OK);
+        }
+        return new ResponseEntity<>("false", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/games/join", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> join(@RequestBody String s) {
+        JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+        int i = gamesService.joinPlayer(json.get("username").getAsString());
+        json.get("hero").getAsJsonObject().addProperty("position", 93-i);
+        HeroSchema hero = new Gson().fromJson(json.get("hero"), HeroSchema.class);
+        new DB().saveHero(json.get("username").getAsString(), hero);
+        if(i == 3){
+            gamesService.updateNextPlayer(json.get("gamename").getAsString(), gamesService.getByName(json.get("gamename").getAsString()).getPlayer1());
+            return new ResponseEntity<>("play", HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(i + "", HttpStatus.OK);
+        }
+    }
+    
+    @RequestMapping(value = "/play/end", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> end(@RequestBody String s) {
+        JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+        if(gamesService.getByName(json.get("gamename").getAsString()).getPlayer1() == json.get("username").getAsString()) {
+            gamesService.updateNextPlayer(json.get("gamename").getAsString(), gamesService.getByName(json.get("gamename").getAsString()).getPlayer2());
+            return new ResponseEntity<>("2", HttpStatus.OK);
+        }else if(gamesService.getByName(json.get("gamename").getAsString()).getPlayer2() == json.get("username").getAsString()) {
+            gamesService.updateNextPlayer(json.get("gamename").getAsString(), gamesService.getByName(json.get("gamename").getAsString()).getPlayer3());
+            return new ResponseEntity<>("3", HttpStatus.OK);
+        }else if(gamesService.getByName(json.get("gamename").getAsString()).getPlayer3() == json.get("username").getAsString()) {
+            gamesService.updateNextPlayer(json.get("gamename").getAsString(), gamesService.getByName(json.get("gamename").getAsString()).getPlayer1());
+            return new ResponseEntity<>("1", HttpStatus.OK);
+        }
+         return new ResponseEntity<>("0", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/fight", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> fight(@RequestBody String s) {
+        JsonArray json = new JsonParser().parse(s).getAsJsonArray();
+        new DB().createOneGameTable(gamesService, "fight", new User(99, "fight", "fight", "fight", new Date()));
+        ArrayList<MonsterSchema> monster = new ArrayList<MonsterSchema>();
+        ArrayList<HeroSchema> hero = new ArrayList<HeroSchema>();
+        monster.add(new Gson().fromJson(json.get(0), MonsterSchema.class));
+        hero.add(new Gson().fromJson(json.get(1), HeroSchema.class));
+        new DB().saveHero("fight", hero.get(0));
+        new DB().saveMonsters("fight", monster);
+        //TODO
+        return new ResponseEntity<>("0", HttpStatus.OK);
     }
 }
