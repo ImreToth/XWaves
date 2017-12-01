@@ -17,6 +17,7 @@ public class Games {
     private String player2;
     private String player3;
     private int playerNumber;
+    private String nextPlayer;
     
     public Games(){
     }
@@ -34,6 +35,7 @@ public class Games {
         this.player2 = player2;
         this.player3 = player3;
         this.playerNumber=3;
+        this.nextPlayer=player1;
     }
 
     public long getId() {
@@ -90,7 +92,16 @@ public class Games {
 
     public void setPlayerNumber(int playerNumber) {
         this.playerNumber = playerNumber;
-    } 
+    }
+
+    public String getNextPlayer() {
+        return nextPlayer;
+    }
+
+    public void setNextPlayer(String nextPlayer) {
+        this.nextPlayer = nextPlayer;
+    }
+    
     @Override
     public String toString() {
         Gson json = new Gson();

@@ -20,14 +20,23 @@ public class GamesService {
         return gamesRepository.findAll();
     }
     
-    public Games getByName(String Heroname) {
-        return gamesRepository.findByName(Heroname);
+    public Games getByName(String name) {
+        return gamesRepository.findByName(name);
     }
     
     public Games getById(long id) {
         return gamesRepository.findById(id);
     }
-    public void save(Games games) {
-        gamesRepository.save(games);
-    }    
-}
+    public void save(Games game) {
+        gamesRepository.save(game);
+    }
+    
+    public void updateNextPlayer(String name,String nextPlayer){
+        Games game = getByName(name);
+        gamesRepository.delete(game);
+        game.setNextPlayer(nextPlayer);
+        gamesRepository.save(game);
+    }
+        
+        
+    }

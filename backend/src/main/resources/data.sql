@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `games` (
 	`player2` varchar(255),
 	`player3` varchar(255),
 	`playernumber` int(10),
+        `nextplayer` varchar(255),
 	PRIMARY KEY( `id` )
 );
 

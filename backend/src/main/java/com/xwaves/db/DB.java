@@ -9,7 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import com.xwaves.service.GamesService;
 import com.xwaves.domain.Games;
+import com.xwaves.domain.Hero;
+import com.xwaves.domain.Monster;
 import com.xwaves.domain.User;
+import java.util.ArrayList;
 
 public class DB {
 
@@ -60,11 +63,54 @@ public class DB {
             
             pstmt = conn.prepareStatement(getHeroSchema(gameName));
             pstmt.execute();
-            
-            pstmt = conn.prepareStatement(getItemSchema(gameName));
-            pstmt.execute();
         } catch (SQLException ex) {
             System.err.println("" + ex);
+        }
+    }
+    
+    public void saveMonsters(String gamename , ArrayList<Monster> monsters, ArrayList<Integer> position) {
+        int id=0;
+        for(Monster m : monsters){
+            String sql = "insert into "+ gamename +"(id,name,attacktype,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,id+1);
+                pstmt.setString(2,m.getName());
+                pstmt.setString(3,m.getAttacktype());
+                pstmt.setInt(4,m.getAttack());
+                pstmt.setInt(5,m.getHealth());
+                pstmt.setInt(6,m.getStamina());
+                pstmt.setInt(7,m.getDefense());
+                pstmt.setInt(8,m.getSpeed());
+                pstmt.setInt(9,position.get(id));
+                pstmt.execute();
+                id++;
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            } 
+        }
+    }
+    
+    public void saveHeroes(String gamename , ArrayList<Hero> heroes, ArrayList<Integer> position) {
+        int id=0;
+        for(Hero h : heroes){
+            String sql = "insert into "+ gamename +"(id,name,type,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
+            try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,id+1);
+                pstmt.setString(2,h.getName());
+                pstmt.setString(3,h.getType());
+                pstmt.setInt(4,h.getAttack());
+                pstmt.setInt(5,h.getHealth());
+                pstmt.setInt(6,h.getStamina());
+                pstmt.setInt(7,h.getDefense());
+                pstmt.setInt(8,h.getSpeed());
+                pstmt.setInt(9,position.get(id));
+                pstmt.execute();
+                id++;
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            } 
         }
     }
     
@@ -79,9 +125,7 @@ public class DB {
                 + "`stamina` int(10),"
                 + "`defense` int(10),"
                 + "`speed` int(10),"
-                + "`cost` int(10) ,"
-                + "`X` int(10),"
-                + "`Y` int(10),"
+                + "`position` int(10),"
                 + "PRIMARY KEY( `id` ));";
         return MonsterSchema;
     }
@@ -97,26 +141,11 @@ public class DB {
                 + "`stamina` int(10),"
                 + "`defense` int(10),"
                 + "`speed` int(10),"
-                + "`X` int(10),"
-                + "`Y` int(10),"
+                + "`position` int(10),"
                 + "`item1` varchar(255),"
                 + "`item2` varchar(255),"
                 + "`item3` varchar(255),"
                 + "PRIMARY KEY( `id` ));";
         return HeroSchema;
-    }
-    public String getItemSchema(String tableName){
-        String Name=tableName+"_Item";
-        String ItemSchema = "CREATE TABLE IF NOT EXISTS "+Name+" (\n"
-            + "	`id` int(10) NOT NULL auto_increment,\n"
-            + "	`name` varchar(255),\n"
-            + "	`target` varchar(255),\n"
-            + "	`ability` varchar(255),\n"
-            + "	`abilityvalue` int(10),\n"
-            + "	`useable` int(10),\n"
-            + "        `cost` int(10) ,\n"
-            + "	PRIMARY KEY( `id` )\n"
-            + ");";
-        return ItemSchema;
     }
 }
