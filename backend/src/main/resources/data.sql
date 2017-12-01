@@ -81,14 +81,14 @@ INSERT INTO `monster`(`name`, `attacktype`, `attack`, `health`, `stamina`, `defe
 INSERT INTO `monster`(`name`, `attacktype`, `attack`, `health`, `stamina`, `defense`, `speed`,`cost`) VALUES ('werewolfcub','melee',4,5,2,4,6,125);
 INSERT INTO `monster`(`name`, `attacktype`, `attack`, `health`, `stamina`, `defense`, `speed`,`cost`) VALUES ('zombie','melee',4,2,5,2,5,85);
 
-INSERT INTO `hero`(`id`,`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES (1,'barbarian','melee',5,5,2,6,3);
-INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('bard','magic',3,4,4,3,3);
-INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('paladin','melee',3,5,2,5,2);
-INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('priest','magic',2,4,3,4,3);
-INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('ranger','ranged',4,3,5,3,5);
-INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('rogue','melee',3,3,3,3,3);
-INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('warrior','melee',5,4,3,3,3);
-INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('wizard','magic',4,3,4,3,3);
+INSERT INTO `hero`(`id`,`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES (1,'barbarian','melee',5,15,2,6,3);
+INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('bard','magic',3,12,4,3,3);
+INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('paladin','melee',3,15,2,5,2);
+INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('priest','magic',2,12,3,4,3);
+INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('ranger','ranged',4,9,5,3,5);
+INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('rogue','melee',3,9,3,3,3);
+INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('warrior','melee',5,12,3,3,3);
+INSERT INTO `hero`(`name`, `type`, `attack`, `health`, `stamina`, `defense`, `speed`) VALUES ('wizard','magic',4,9,4,3,3);
 
 INSERT INTO `item`(`id`,`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES (1,'armor','self','defense',3,1,20);
 INSERT INTO `item`(`name`, `target`, `ability`, `abilityvalue`,`useable`, `cost`) VALUES ('axe','self','attack',2,1,10);

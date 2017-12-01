@@ -93,6 +93,38 @@ public class DB {
         }
     }
     
+    public ArrayList<MonsterSchema> getAllMonsters(String gamename) {
+        String sql = "select * from"+ gamename +"_Monster";
+        ArrayList<MonsterSchema> monsters = null;
+        try {
+            ResultSet rs = createStatement.executeQuery(sql);
+            monsters = new ArrayList<>();
+
+            while (rs.next()) {
+                MonsterSchema actualmonster
+                        = new MonsterSchema(rs.getInt("id"),rs.getString("name"), rs.getString("attacktype"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"), rs.getInt("cost"),rs.getString("path"),rs.getInt("position"));
+                monsters.add(actualmonster);
+            }
+        } catch (SQLException ex) {
+            System.out.println("" + ex);
+        }
+        return monsters;
+    }
+    
+    public boolean isFight(String gamename,HeroSchema hero) {
+        String sql = "select * from"+ gamename +"_Monster where position=?";
+        try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setLong(1,hero.getNextPosition());
+                pstmt.execute();
+                return true;                
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            } 
+        
+        return false;
+    }
+    
     public void saveHero(String gamename , HeroSchema h) {
             String sql = "insert into "+ gamename +"_Hero (id,name,type,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
             try {
@@ -148,12 +180,29 @@ public class DB {
             } 
     }
     
+    public void deleteMonster(String gamename,MonsterSchema monster){
+        String sql = "DELETE FROM "+ gamename +"_Monster WHERE name='"+monster.getName()+"';";
+        try {
+                createStatement.executeQuery(sql);
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            }
+    }
+    
+    public void deleteHero(String gamename,HeroSchema hero){
+        String sql = "DELETE FROM "+ gamename +"_Hero WHERE name='"+hero.getName()+"';";
+        try {
+                createStatement.executeQuery(sql);
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            }
+    }
+    
     public void deleteGameTables(String name){
         String sql= "DROP TABLE "+name+"_Monster;"
                   + "DROP TABLE "+name+"_Hero;";
         try {
-                pstmt = conn.prepareStatement(sql);
-                pstmt.execute();
+                createStatement.executeQuery(sql);
             } catch (SQLException ex) {
                 System.err.println("" + ex);
             } 
