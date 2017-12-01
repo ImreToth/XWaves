@@ -112,23 +112,40 @@ public class DB {
             } 
         
     }
-    /*
-    public void updateMonster(String gamename,Monster m){
-        String sql="UPDATE "+ gamename +"_Monster SET attack=?, health=?, stamina=?, defense=?, speed=?, position=?  WHERE name='"+m.getName()+"';";
+    
+    public void updateMonster(String gamename,MonsterSchema m){
+        String sql="UPDATE "+ gamename +"_Monster SET attack=?, health=?, stamina=?, defense=?, speed=?  WHERE position='"+m.getPosition()+"';";
         try {
                 pstmt = conn.prepareStatement(sql);
-                pstmt.setInt(4,m.getAttack());
-                pstmt.setInt(5,m.getHealth());
-                pstmt.setInt(6,m.getStamina());
-                pstmt.setInt(7,m.getDefense());
-                pstmt.setInt(8,m.getSpeed());
-                pstmt.setInt(9,position);
+                pstmt.setInt(1,m.getAttack());
+                pstmt.setInt(2,m.getHealth());
+                pstmt.setInt(3,m.getStamina());
+                pstmt.setInt(4,m.getDefense());
+                pstmt.setInt(5,m.getSpeed());
                 pstmt.execute();
-                id++;
             } catch (SQLException ex) {
                 System.err.println("" + ex);
             } 
-    }*/
+    }
+    
+    public void updateHero(String gamename,HeroSchema h){
+        String sql="UPDATE "+ gamename +"_Hero SET attack=?, health=?, stamina=?, defense=?, speed=?, position=?,item1=?,item2=?,item3=?  WHERE name='"+h.getName()+"';";
+        try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,h.getAttack());
+                pstmt.setInt(2,h.getHealth());
+                pstmt.setInt(3,h.getStamina());
+                pstmt.setInt(4,h.getDefense());
+                pstmt.setInt(5,h.getSpeed());
+                pstmt.setInt(6,h.getPosition());
+                pstmt.setString(7,h.getItem1());
+                pstmt.setString(8,h.getItem2());
+                pstmt.setString(9,h.getItem3());
+                pstmt.execute();
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            } 
+    }
     
     public void deleteGameTables(String name){
         String sql= "DROP TABLE "+name+"_Monster;"
