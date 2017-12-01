@@ -129,7 +129,7 @@ public class DB {
     }
     
     public void updateHero(String gamename,HeroSchema h){
-        String sql="UPDATE "+ gamename +"_Hero SET attack=?, health=?, stamina=?, defense=?, speed=?, position=?,item1=?,item2=?,item3=?  WHERE name='"+h.getName()+"';";
+        String sql="UPDATE "+ gamename +"_Hero SET attack=?, health=?, stamina=?, defense=?, speed=?, position=?, nextposition=?,item1=?,item2=?,item3=?  WHERE name='"+h.getName()+"';";
         try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1,h.getAttack());
@@ -138,9 +138,10 @@ public class DB {
                 pstmt.setInt(4,h.getDefense());
                 pstmt.setInt(5,h.getSpeed());
                 pstmt.setInt(6,h.getPosition());
-                pstmt.setString(7,h.getItem1());
-                pstmt.setString(8,h.getItem2());
-                pstmt.setString(9,h.getItem3());
+                pstmt.setInt(7, h.getNextPosition());
+                pstmt.setString(8,h.getItem1());
+                pstmt.setString(9,h.getItem2());
+                pstmt.setString(10,h.getItem3());
                 pstmt.execute();
             } catch (SQLException ex) {
                 System.err.println("" + ex);
@@ -187,6 +188,7 @@ public class DB {
                 + "`defense` int(10),"
                 + "`speed` int(10),"
                 + "`position` int(10),"
+                + "`nextposition` int(10),"
                 + "`item1` varchar(255),"
                 + "`item2` varchar(255),"
                 + "`item3` varchar(255),"

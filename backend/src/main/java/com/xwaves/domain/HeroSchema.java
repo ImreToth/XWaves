@@ -17,7 +17,8 @@ public class HeroSchema {
     private int defense;
     private int speed;    
     private String path;
-    private int position;
+    private int position;    
+    private int nextPosition;
     private String item1;
     private String item2;
     private String item3;
@@ -25,7 +26,7 @@ public class HeroSchema {
     public HeroSchema() {
     }
 
-    public HeroSchema(long id, String name, String type, int attack, int health, int stamina, int defense, int speed, String path, int position) {
+    public HeroSchema(long id, String name, String type, int attack, int health, int stamina, int defense, int speed, String path, int position,int nextPosition) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -36,6 +37,7 @@ public class HeroSchema {
         this.speed = speed;
         this.path = path;
         this.position = position;
+        this.nextPosition=nextPosition;
     }
 
     
@@ -118,6 +120,14 @@ public class HeroSchema {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public int getNextPosition() {
+        return nextPosition;
+    }
+
+    public void setNextPosition(int nextPosition) {
+        this.nextPosition = nextPosition;
     }
     
     public String getItem1() {
