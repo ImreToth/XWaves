@@ -19,12 +19,14 @@ public class MonsterSchema {
     private int stamina;
     private int defense;
     private int speed;
+    private int cost;
+    private String path;
     private int position;
 
     public MonsterSchema() {
     }
 
-    public MonsterSchema(long id, String name, String attacktype, int attack, int health, int stamina, int defense, int speed,int position) {
+    public MonsterSchema(long id, String name, String attacktype, int attack, int health, int stamina, int defense, int speed, int cost, String path, int position) {
         this.id = id;
         this.name = name;
         this.attacktype = attacktype;
@@ -33,8 +35,12 @@ public class MonsterSchema {
         this.stamina = stamina;
         this.defense = defense;
         this.speed = speed;
-        this.position=position;
+        this.cost = cost;
+        this.path = path;
+        this.position = position;
     }
+
+    
 
     public long getId() {
         return id;
@@ -107,7 +113,21 @@ public class MonsterSchema {
     public void setPosition(int position) {
         this.position = position;
     }
-    
-    
-    
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+       
 }

@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity
 public class HeroSchema {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,13 +15,18 @@ public class HeroSchema {
     private int health;
     private int stamina;
     private int defense;
-    private int speed;
+    private int speed;    
+    private String path;
     private int position;
+    private String item1;
+    private String item2;
+    private String item3;
 
     public HeroSchema() {
     }
 
-    public HeroSchema(String name, String type, int attack, int health, int stamina, int defense, int speed,int position) {
+    public HeroSchema(long id, String name, String type, int attack, int health, int stamina, int defense, int speed, String path, int position) {
+        this.id = id;
         this.name = name;
         this.type = type;
         this.attack = attack;
@@ -30,9 +34,12 @@ public class HeroSchema {
         this.stamina = stamina;
         this.defense = defense;
         this.speed = speed;
-        this.position=position;
+        this.path = path;
+        this.position = position;
     }
 
+    
+    
     public long getId() {
         return id;
     }
@@ -103,6 +110,38 @@ public class HeroSchema {
 
     public void setPosition(int position) {
         this.position = position;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+    
+    public String getItem1() {
+        return item1;
+    }
+
+    public void setItem1(String item1) {
+        this.item1 = item1;
+    }
+
+    public String getItem2() {
+        return item2;
+    }
+
+    public void setItem2(String item2) {
+        this.item2 = item2;
+    }
+
+    public String getItem3() {
+        return item3;
+    }
+
+    public void setItem3(String item3) {
+        this.item3 = item3;
     }
     
     
