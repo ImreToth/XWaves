@@ -71,7 +71,7 @@ public class DB {
     public void saveMonsters(String gamename , ArrayList<Monster> monsters, ArrayList<Integer> position) {
         int id=0;
         for(Monster m : monsters){
-            String sql = "insert into "+ gamename +"(id,name,attacktype,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into "+ gamename +"_Monster (id,name,attacktype,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1,id+1);
@@ -92,7 +92,7 @@ public class DB {
     }
     
     public void saveHero(String gamename , Hero h, Integer position) {
-            String sql = "insert into "+ gamename +"(id,name,type,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into "+ gamename +"_Hero (id,name,type,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setLong(1,h.getId());
@@ -110,6 +110,23 @@ public class DB {
             } 
         
     }
+    /*
+    public void updateMonster(String gamename,Monster m){
+        String sql="UPDATE "+ gamename +"_Monster SET attack=?, health=?, stamina=?, defense=?, speed=?, position=?  WHERE name='"+m.getName()+"';";
+        try {
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(4,m.getAttack());
+                pstmt.setInt(5,m.getHealth());
+                pstmt.setInt(6,m.getStamina());
+                pstmt.setInt(7,m.getDefense());
+                pstmt.setInt(8,m.getSpeed());
+                pstmt.setInt(9,position);
+                pstmt.execute();
+                id++;
+            } catch (SQLException ex) {
+                System.err.println("" + ex);
+            } 
+    }*/
     
     public void deleteGameTables(String name){
         String sql= "DROP TABLE "+name+"_Monster;"
