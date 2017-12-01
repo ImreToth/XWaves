@@ -10,7 +10,9 @@ import java.sql.Statement;
 import com.xwaves.service.GamesService;
 import com.xwaves.domain.Games;
 import com.xwaves.domain.Hero;
+import com.xwaves.domain.HeroSchema;
 import com.xwaves.domain.Monster;
+import com.xwaves.domain.MonsterSchema;
 import com.xwaves.domain.User;
 import java.util.ArrayList;
 
@@ -68,9 +70,9 @@ public class DB {
         }
     }
     
-    public void saveMonsters(String gamename , ArrayList<Monster> monsters, ArrayList<Integer> position) {
+    public void saveMonsters(String gamename , ArrayList<MonsterSchema> monsters) {
         int id=0;
-        for(Monster m : monsters){
+        for(MonsterSchema m : monsters){
             String sql = "insert into "+ gamename +"_Monster (id,name,attacktype,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
@@ -82,7 +84,7 @@ public class DB {
                 pstmt.setInt(6,m.getStamina());
                 pstmt.setInt(7,m.getDefense());
                 pstmt.setInt(8,m.getSpeed());
-                pstmt.setInt(9,position.get(id));
+                pstmt.setInt(9,m.getPosition());
                 pstmt.execute();
                 id++;
             } catch (SQLException ex) {
@@ -91,7 +93,7 @@ public class DB {
         }
     }
     
-    public void saveHero(String gamename , Hero h, Integer position) {
+    public void saveHero(String gamename , HeroSchema h) {
             String sql = "insert into "+ gamename +"_Hero (id,name,type,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
@@ -103,7 +105,7 @@ public class DB {
                 pstmt.setInt(6,h.getStamina());
                 pstmt.setInt(7,h.getDefense());
                 pstmt.setInt(8,h.getSpeed());
-                pstmt.setInt(9,position);
+                pstmt.setInt(9,h.getPosition());
                 pstmt.execute();
             } catch (SQLException ex) {
                 System.err.println("" + ex);
