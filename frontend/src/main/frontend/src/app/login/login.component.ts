@@ -9,10 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  public token: string;
-  constructor(private loginService: LoginService, private http: Http, private router: Router) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
+  constructor(private loginService: LoginService, private router: Router) {
   }
   loginUsername = '';
   loginPassword = '';
@@ -69,48 +66,11 @@ export class LoginComponent implements OnInit {
   }
 
   submitLogin() {
-    this.loginService.loginAccount(this.loginUsername, this.loginPassword)
-      .subscribe(suc => {
-          const token = suc.text();
-          if (token) {
-            // set token property
-            this.token = token;
-            localStorage.setItem('currentUser', JSON.stringify({ username: this.loginUsername, token: token }));
-            this.router.navigate(['play']);
-            console.log(suc);
-            return true;
-          } else {
-            this.infoMessage = suc.text();
-            return false;
-          }
-        },
-        err => {
-          console.log(err );
-          this.infoMessage = err.text();
-        });
+    this.infoMessage = this.loginService.loginAccount(this.loginUsername, this.loginPassword);
   }
 
   submitRegister() {
-    this.loginService.registerAccount(this.registerUsername, this.registerEmail, this.registerPassword)
-      .subscribe(suc => {
-          console.log(suc);
-          if (suc.text() === 'Sikeresen regisztráltál!') {
-            this.changeLogin();
-          } else {
-            this.infoMessage = suc.text();
-          }
-
-
-          console.log(this.infoMessage);
-        },
-        err => {
-          console.log(err );
-          this.infoMessage = err.text();
-        });
-  }
-  logout(): void {
-    this.token = null;
-    localStorage.removeItem('currentUser');
+    this.infoMessage = this.loginService.registerAccount(this.registerUsername, this.registerEmail, this.registerPassword);
   }
 
 }

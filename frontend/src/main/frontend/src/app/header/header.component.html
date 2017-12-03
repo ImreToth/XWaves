@@ -12,8 +12,8 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a *ngIf="token" routerLink="/login">Login or Register</a>
-          <a (click)="logout()" *ngIf= "token == null">Logout</a>
+          <a *ngIf="!loggedIn" routerLink="/login">Login or Register</a>
+          <a (click)="logout()" *ngIf= "loggedIn">Logout</a>
         </li>
       </ul>
 

@@ -8,14 +8,12 @@ import {LoginService} from '../_services/login.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  token: string;
+  public loggedIn: boolean;
   constructor(private loginService: LoginService) {}
   ngOnInit() {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    this.token = currentUser && currentUser.token;
+    this.loggedIn = this.loginService.isAuthenticated();
   }
-  logout(): void {
-    this.token = null;
-    localStorage.removeItem('currentUser');
+  logout() {
+    this.loginService.logout();
   }
 }
