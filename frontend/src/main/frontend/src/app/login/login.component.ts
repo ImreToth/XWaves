@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../_services/login.service';
+import {Http} from '@angular/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,11 @@ import {LoginService} from '../_services/login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  constructor(private loginService: LoginService) { }
-
+  public token: string;
+  constructor(private loginService: LoginService, private http: Http, private router: Router) {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.token = currentUser && currentUser.token;
+  }
   loginUsername = '';
   loginPassword = '';
   registerUsername = '';
@@ -67,8 +71,18 @@ export class LoginComponent implements OnInit {
   submitLogin() {
     this.loginService.loginAccount(this.loginUsername, this.loginPassword)
       .subscribe(suc => {
-          console.log(suc);
-          this.infoMessage = suc.text();
+          const token = suc.text();
+          if (token) {
+            // set token property
+            this.token = token;
+            localStorage.setItem('currentUser', JSON.stringify({ username: this.loginUsername, token: token }));
+            this.router.navigate(['play']);
+            console.log(suc);
+            return true;
+          } else {
+            this.infoMessage = suc.text();
+            return false;
+          }
         },
         err => {
           console.log(err );
@@ -93,6 +107,10 @@ export class LoginComponent implements OnInit {
           console.log(err );
           this.infoMessage = err.text();
         });
+  }
+  logout(): void {
+    this.token = null;
+    localStorage.removeItem('currentUser');
   }
 
 }
