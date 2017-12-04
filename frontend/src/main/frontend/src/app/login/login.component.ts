@@ -67,13 +67,16 @@ export class LoginComponent implements OnInit {
 
   submitLogin() {
     this.loginService.loginAccount(this.loginUsername, this.loginPassword);
-     this.router.navigate(['play']);
   this.infoMessage = this.loginService.getInfo();
-    console.log(this.infoMessage); }
+    console.log(this.infoMessage);
+    if (this.loginService.isAuthenticated()) {this.router.navigate(['play']); }}
 
   submitRegister() {
     this.loginService.registerAccount(this.registerUsername, this.registerEmail, this.registerPassword);
     this.infoMessage = this.loginService.getInfo();
+  }
+  infoRefresh() {
+    return this.loginService.getInfo();
   }
 
 }
