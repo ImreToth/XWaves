@@ -124,7 +124,7 @@ public class HomeController {
         new DB().createOneGameTable(gamesService, "Test2", new User(2, "user2", "email2", "pass2", new Date()));
         new DB().createOneGameTable(gamesService, "Test3", new User(3, "user3", "email3", "pass3", new Date()));
         //kicsinálta, játékvene, playerek
-        return new ResponseEntity<>(json.toJson(gamesService.getAll()), HttpStatus.OK);
+        return new ResponseEntity<>("{\"games\": " + json.toJson(gamesService.getAll()) + "}", HttpStatus.OK);
     }
 
     @RequestMapping(value = "/games/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
