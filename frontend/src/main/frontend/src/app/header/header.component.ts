@@ -8,12 +8,15 @@ import {LoginService} from '../_services/login.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  public loggedIn: boolean;
+
   constructor(private loginService: LoginService) {}
   ngOnInit() {
-    this.loggedIn = this.loginService.isAuthenticated();
   }
   logout() {
     this.loginService.logout();
+  }
+
+  isLoggedIn(){
+    return this.loginService.isAuthenticated();
   }
 }
