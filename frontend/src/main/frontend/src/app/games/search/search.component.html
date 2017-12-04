@@ -8,13 +8,13 @@
   </tr>
   </thead>
   <tbody>
-  <div *ngFor="let game of games">
+  <ng-container *ngFor="let game of games">
   <tr>
     <td class="col-md-3">{{game.name}}</td>
     <td class="col-md-3">{{game.gamemaster}}</td>
     <td class="col-md-2">{{game.playerNumber}} <span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
     <td class="col-md-2"><button type="button" class="btn btn-default">Connect to the game</button></td>
   </tr>
-  </div>
+  </ng-container>
   </tbody>
 </table>

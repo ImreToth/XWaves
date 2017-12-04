@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {CyclopaediaService} from './_services/cyclopaedia.service';
-import {GamesService} from "./_services/games.service";
+import {GamesService} from './_services/games.service';
 
 @Component({
   selector: 'app-root',

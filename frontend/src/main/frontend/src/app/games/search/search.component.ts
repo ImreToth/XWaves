@@ -10,12 +10,11 @@ import {Game} from '../../_models/Game';
 export class SearchComponent implements OnInit {
   games: Game[];
   constructor(private gameService: GamesService) {
-    this.games = gameService.getGames();
   }
 
   ngOnInit() {
     this.games = this.gameService.getGames();
-    console.log(this.games);
+    console.log(this.games[1]);
   }
 
 }

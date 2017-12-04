@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {GamesService} from '../_services/games.service';
 
 @Component({
   selector: 'app-games',
@@ -7,11 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GamesComponent implements OnInit {
   isActive: boolean;
-  constructor() { }
+  constructor(private gamesService: GamesService) { }
 
   ngOnInit() {
   }
 btnActive() {
     this.isActive = !this.isActive;
+}
+gamesSize() {
+    return this.gamesService.getGamesSize();
 }
 }
