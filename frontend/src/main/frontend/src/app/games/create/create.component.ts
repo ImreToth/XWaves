@@ -13,6 +13,13 @@ export class CreateComponent implements OnInit {
   bank = 150;
   target: Monster;
   placeholder: Monster;
+  bog: Monster;
+  lava:  Monster;
+  rock:  Monster;
+  stoneWall:  Monster;
+  horizontalWall:  Monster;
+  verticalWall:  Monster;
+  water:  Monster;
   monsters: Monster[];
   array: number[];
   N = 100; // mezők száma
@@ -23,6 +30,13 @@ export class CreateComponent implements OnInit {
 
   ngOnInit() {
     this.placeholder = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: ''};
+    this.bog = {name: 'bog', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/place/Bog.png'};
+    this.lava = {name: 'lava', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/place/Lava.png'};
+    this.rock = {name: 'rock', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/place/Rock.png'};
+    this.stoneWall = {name: 'stoneWall', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/place/Wall.png'};
+    this.horizontalWall = {name: 'horizontalWall', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/place/WallBrickHorizontal.png'};
+    this.verticalWall = {name: 'verticalWall', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/place/WallBrickVertical.png'};
+    this.water = {name: 'water', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/place/Water.png'};
     this.monsters = this.cyclopediaService.getMonsters();
     this.target = this.monsters[0];
     for (let i = 0; i < 100; i++) {

@@ -46,7 +46,7 @@
 }
 
 .target{
-  float: inherit;
+  float: left;
 }
 section{
   margin-top: 20px;
@@ -54,4 +54,13 @@ section{
 
 .imagetd{
   width: 150px;
+}
+
+#list{
+  max-height: 500px;
+  overflow-y:scroll;
+}
+
+.form-control{
+  width: 300px;
 }

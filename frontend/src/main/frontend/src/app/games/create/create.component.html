@@ -4,6 +4,48 @@
       <div class="middle" *ngFor="let i of array" (dblclick)="targetDbClick(i)" (click)="targetClick(i)">
         <img class="img-rounded img-responsive" *ngIf="createMatrix[i].path" [src]="'../../../assets'+createMatrix[i].path"></div>
     </div>
+    <section>
+    <div class="target well">
+      <section class="col-md-6 col-md-offset-1">
+
+          <div class="h4">
+            {{target.name}}
+          </div>
+          <table class="table">
+            <tr>
+              <td>
+                <div class="imagetd">
+                  <figure>
+                    <img class="img-rounded img-responsive" [src]="'assets'+target.path">
+                  </figure>
+                </div>
+              </td>
+              <td>
+                <dl class="dl-horizontal">
+                  <dt>Attack type:</dt>
+                  <dd>{{target.attacktype}}</dd>
+                  <dt>Attack:</dt>
+                  <dd>{{target.attack}}</dd>
+                  <dt>Health:</dt>
+                  <dd>{{target.health}}</dd>
+                  <dt>Stamina:</dt>
+                  <dd>{{target.stamina}}</dd>
+                  <dt>Defense:</dt>
+                  <dd>{{target.defense}}</dd>
+                  <dt>Speed:</dt>
+                  <dd>{{target.speed}}</dd>
+                  <dt>Cost:</dt>
+                  <dd>{{target.cost}}</dd>
+                </dl>
+              </td>
+            </tr>
+          </table>
+
+        </section>
+
+
+    </div>
+    </section>
   </div>
 
   <div class="container">
@@ -17,56 +59,22 @@
       <h2>Bank: {{bank}}</h2>
       <div class="row">
         <div class="col-md-4">
-          <div class="list-group list-cust">
+          <div class="list-group list-cust" id="list">
             <a *ngFor="let monster of monsters" class="list-group-item text-primary" (click)="target=monster">
               {{monster.name}} <span style="float:right">{{monster.cost}} <span style="float:right"
                                                                                 class="glyphicon glyphicon-usd"
                                                                                 aria-hidden="true"></span>
           </span> </a>
+            <a class="list-group-item list-group-item-dark disabled">Ground items</a>
+            <a  class="list-group-item text-primary" (click)="target=bog">Bog</a>
+            <a  class="list-group-item text-primary" (click)="target=lava">Lava</a>
+            <a  class="list-group-item text-primary" (click)="target=rock">Rock</a>
+            <a  class="list-group-item text-primary" (click)="target=stoneWall">Stone wall</a>
+            <a  class="list-group-item text-primary" (click)="target=horizontalWall">Wall horizontal</a>
+            <a  class="list-group-item text-primary" (click)="target=verticalWall">Wall vertical</a>
+            <a  class="list-group-item text-primary" (click)="target=water">Water</a>
           </div>
-        </div>
 
-
-        <div class="target">
-          <section class="col-md-6 col-md-offset-1">
-            <section class="well">
-              <div class="h4">
-                {{target.name}}
-              </div>
-              <table class="table">
-                <tr>
-                  <td>
-                    <div class="imagetd">
-                      <figure>
-                        <img class="img-rounded img-responsive" [src]="'assets'+target.path">
-                      </figure>
-                    </div>
-                  </td>
-                  <td>
-                    <dl class="dl-horizontal">
-                      <dt>Attack type:</dt>
-                      <dd>{{target.attacktype}}</dd>
-                      <dt>Attack:</dt>
-                      <dd>{{target.attack}}</dd>
-                      <dt>Health:</dt>
-                      <dd>{{target.health}}</dd>
-                      <dt>Stamina:</dt>
-                      <dd>{{target.stamina}}</dd>
-                      <dt>Defense:</dt>
-                      <dd>{{target.defense}}</dd>
-                      <dt>Speed:</dt>
-                      <dd>{{target.speed}}</dd>
-                      <dt>Cost:</dt>
-                      <dd>{{target.cost}}</dd>
-                    </dl>
-                  </td>
-                </tr>
-              </table>
-
-            </section>
-          </section>
-
-        </div>
       </div>
 
     </div>
