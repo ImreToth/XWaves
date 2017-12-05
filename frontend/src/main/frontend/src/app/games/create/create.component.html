@@ -10,9 +10,9 @@
     <div class="row">
       <div class="input-group">
       <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Create</button>
+        <button class="btn btn-default" (click)="createGameBoard()" type="button">Create</button>
       </span>
-        <input type="text" class="form-control" placeholder="Your board name">
+        <input type="text" class="form-control" [(ngModel)]="boardName" placeholder="Your board name">
       </div>
       <h2>Bank: {{bank}}</h2>
       <div class="row">

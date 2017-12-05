@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CyclopaediaService} from '../../_services/cyclopaedia.service';
 import {Monster} from '../../_models/Monster';
+import {GamesService} from '../../_services/games.service';
 
 @Component({
   selector: 'app-create',
@@ -8,6 +9,7 @@ import {Monster} from '../../_models/Monster';
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
+  boardName: string;
   bank = 150;
   target: Monster;
   placeholder: Monster;
@@ -16,7 +18,7 @@ export class CreateComponent implements OnInit {
   N = 100; // mezők száma
   targetIndex: number;
   createMatrix= [ new Monster() ];
-  constructor(private cyclopediaService: CyclopaediaService) {
+  constructor(private cyclopediaService: CyclopaediaService, private gameService: GamesService) {
   }
 
   ngOnInit() {
@@ -44,5 +46,9 @@ export class CreateComponent implements OnInit {
   targetDbClick(num: number) {
     this.bank += this.createMatrix[num].cost;
     this.createMatrix[num] = this.placeholder;
+  }
+  createGameBoard() {
+    console.log(JSON.parse(localStorage.getItem('currentUser')).username);
+    this.gameService.sendGameBoard(JSON.parse(localStorage.getItem('currentUser')).username, this.boardName, this.createMatrix);
   }
 }

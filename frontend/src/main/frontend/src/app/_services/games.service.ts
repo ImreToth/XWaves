@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {Game} from '../_models/Game';
 import {HttpClient} from '@angular/common/http';
+import {Monster} from '../_models/Monster';
 
 @Injectable()
 export class GamesService {
@@ -19,5 +20,14 @@ export class GamesService {
   getGamesSize() {
     return this.games.length;
   }
-
+  sendGameBoard(username: string, gamename: string, board: Monster[]) {
+    this.http.post('/api/games/create' , {'username' : username, 'gamename' : gamename, 'board' : board})
+      .subscribe(suc => {
+          return true;
+        },
+        err => {
+          console.log(err.text() );
+          return false;
+        });
+  }
 }
