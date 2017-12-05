@@ -27,6 +27,23 @@ public class GamesService {
     public Games getById(long id) {
         return gamesRepository.findById(id);
     }
+    
+    public List<Games> getByPlayer1(String name){
+      
+        return gamesRepository.findByPlayer1(name);
+    }
+    public List<Games> getByPlayer2(String name){
+        return gamesRepository.findByPlayer2(name);
+    }
+    
+    public List<Games> getByPlayer3(String name){
+        return gamesRepository.findByPlayer3(name);
+    }
+    
+    public List<Games> getByNextPlayer(String name){
+        return gamesRepository.findByNextPlayer(name);
+    } 
+    
     public void save(Games game) {
         gamesRepository.save(game);
     }

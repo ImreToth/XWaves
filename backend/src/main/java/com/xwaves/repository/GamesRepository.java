@@ -10,6 +10,14 @@ public interface GamesRepository extends CrudRepository<Games, Long> {
     
     Games findByName(String name);
     
+    List<Games> findByPlayer1(String name);
+    
+    List<Games> findByPlayer2(String name);
+    
+    List<Games> findByPlayer3(String name);
+    
+    List<Games> findByNextPlayer(String name);
+    
     List<Games> findAll();
     
 }
