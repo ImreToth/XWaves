@@ -24,11 +24,12 @@ import { ItemComponent } from './cyclopaedia/items/item/item.component';
 import { GamesComponent } from './games/games.component';
 import { SearchComponent } from './games/search/search.component';
 import { CreateComponent } from './games/create/create.component';
-import {GamesService} from "./_services/games.service";
-import {AuthenticationService} from "./_services/authentication.service";
+import {GamesService} from './_services/games.service';
+import {AuthGuardService} from './_services/authGuard.service';
 
 
 const appRoutes: Routes = [
+  {path: '', component : LoginComponent},
   {path: 'login', component : LoginComponent},
   {path: 'cyclopaedia', component : CyclopaediaComponent,
     children: [{path: '', component: HeroesComponent},
@@ -36,8 +37,8 @@ const appRoutes: Routes = [
     {path: 'monsters', component: MonstersComponent},
     {path: 'items', component: ItemsComponent}]},
   {path: 'rules', component : RulesComponent},
-  {path: 'play', component : PlayComponent},
-  {path: 'games', component: GamesComponent,
+  {path: 'play', component : PlayComponent, canActivate: [AuthGuardService]},
+  {path: 'games', component: GamesComponent, canActivate: [AuthGuardService],
   children: [{path: '', component: SearchComponent },
     {path: 'search', component: SearchComponent},
     {path: 'create', component: CreateComponent}]}
@@ -65,7 +66,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
   ],
-  providers: [LoginService, CyclopaediaService, GamesService, AuthenticationService],
+  providers: [LoginService, CyclopaediaService, GamesService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

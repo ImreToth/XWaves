@@ -6,6 +6,7 @@ export class LoginService {
   public token: string;
   public info: string;
   constructor(private http: Http) {
+    this.token = null;
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     this.token = currentUser && currentUser.token;
     this.info = '';
