@@ -118,7 +118,7 @@ public class DB {
 
             while (rs.next()) {
                 HeroSchema actualhero
-                        = new HeroSchema(rs.getInt("id"),rs.getString("name"), rs.getString("type"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"), rs.getString("path"),rs.getInt("position"),rs.getInt("nextPosition"));
+                        = new HeroSchema(rs.getInt("id"),rs.getString("name"), rs.getString("type"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"), rs.getString("path"),rs.getInt("position"),rs.getInt("nextPosition"),rs.getString("username"));
                 heroes.add(actualhero);
             }
         } catch (SQLException ex) {
@@ -142,7 +142,7 @@ public class DB {
     }
     
     public void saveHero(String gamename , HeroSchema h) {
-            String sql = "insert into "+ gamename +"_Hero (id,name,type,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into "+ gamename +"_Hero (id,name,type,attack,health,stamina,defense,speed,position,username) values(?,?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setLong(1,h.getId());
@@ -154,6 +154,7 @@ public class DB {
                 pstmt.setInt(7,h.getDefense());
                 pstmt.setInt(8,h.getSpeed());
                 pstmt.setInt(9,h.getPosition());
+                pstmt.setString(10,h.getUsername());
                 pstmt.execute();
             } catch (SQLException ex) {
                 System.err.println("" + ex);
@@ -177,7 +178,7 @@ public class DB {
     }
     
     public void updateHero(String gamename,HeroSchema h){
-        String sql="UPDATE "+ gamename +"_Hero SET attack=?, health=?, stamina=?, defense=?, speed=?, position=?, nextposition=?,item1=?,item2=?,item3=?  WHERE name='"+h.getName()+"';";
+        String sql="UPDATE "+ gamename +"_Hero SET attack=?, health=?, stamina=?, defense=?, speed=?, position=?, nextposition=?,item1=?,item2=?,item3=?,username=?  WHERE name='"+h.getName()+"';";
         try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1,h.getAttack());
@@ -190,6 +191,7 @@ public class DB {
                 pstmt.setString(8,h.getItem1());
                 pstmt.setString(9,h.getItem2());
                 pstmt.setString(10,h.getItem3());
+                pstmt.setString(10,h.getUsername());
                 pstmt.execute();
             } catch (SQLException ex) {
                 System.err.println("" + ex);
@@ -258,6 +260,7 @@ public class DB {
                 + "`item1` varchar(255),"
                 + "`item2` varchar(255),"
                 + "`item3` varchar(255),"
+                + "`username` varchar(255),"
                 + "PRIMARY KEY( `id` ));";
         return HeroSchema;
     }
