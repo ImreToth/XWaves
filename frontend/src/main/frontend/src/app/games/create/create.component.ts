@@ -48,6 +48,7 @@ export class CreateComponent implements OnInit {
   }
 
   targetClick(num: number) {
+    if (num !== 90 && num !== 91 && num !== 92) {
     if (this.createMatrix[num] !== this.placeholder ) {
       this.bank += this.createMatrix[num].cost;
       this.createMatrix[num] = this.placeholder;
@@ -57,7 +58,7 @@ export class CreateComponent implements OnInit {
     this.bank -= this.target.cost;
     this.targetIndex = num;
     this.createMatrix[this.targetIndex] = this.target;
-    console.log(this.createMatrix); } else {console.log('no money haver'); }
+    console.log(this.createMatrix); } else {console.log('no money haver'); }}
   }
   targetDbClick(num: number) {
     this.bank += this.createMatrix[num].cost;
