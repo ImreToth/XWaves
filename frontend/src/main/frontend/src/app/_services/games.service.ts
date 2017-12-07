@@ -26,7 +26,7 @@ export class GamesService {
           return true;
         },
         err => {
-          console.log("gond van tetya" );
+          console.log('gond van tetya');
           return false;
         });
   }

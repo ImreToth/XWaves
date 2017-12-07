@@ -13,7 +13,7 @@
     <td class="col-md-3">{{game.name}}</td>
     <td class="col-md-3">{{game.gamemaster}}</td>
     <td class="col-md-2">{{game.playerNumber}} <span class="glyphicon glyphicon-user" aria-hidden="true"></span></td>
-    <td class="col-md-2"><button type="button" class="btn btn-default">Connect to the game</button></td>
+    <td class="col-md-2"><button type="button" (click)="connectGame(game.name)" class="btn btn-default">Connect to the game</button></td>
   </tr>
   </ng-container>
   </tbody>

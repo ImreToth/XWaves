@@ -13,7 +13,11 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.gameService.refreshGames();
     this.games = this.gameService.getGames();
   }
 
+  connectGame(gameName: string) {
+    console.log(gameName);
+  }
 }
