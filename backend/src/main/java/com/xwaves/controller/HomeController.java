@@ -2,6 +2,7 @@ package com.xwaves.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.xwaves.db.DB;
@@ -22,6 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.TreeSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -141,7 +143,7 @@ public class HomeController {
                 monsters.remove(i);
         }
         DB db = new DB();
-        db.createOneGameTable(gamesService, gameName, userService.getByUsername(username));
+        db.createOneGameTable(gamesService, gameName, userService.getByUsername(username));        
         db.saveMonsters(gameName, monsters);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
@@ -154,6 +156,46 @@ public class HomeController {
             return new ResponseEntity<>("true", HttpStatus.OK);
         }
         return new ResponseEntity<>("false", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/play/search", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> userGame(@RequestBody String s) {
+        JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+        String username = json.get("username").getAsString();
+        Gson gson = new Gson();        
+        TreeSet<JsonObject> all = new TreeSet<JsonObject>();
+        JsonArray array = new JsonArray();
+        
+        for(Games g : gamesService.getByNextPlayer(username)) {            
+            JsonObject obj = new JsonParser().parse(new Gson().toJson(g)).getAsJsonObject();
+            obj.addProperty("nextPlayer", "true");
+            
+            array.add(obj);
+        }
+        
+        for(Games g : gamesService.getByPlayer1(username)) {
+            JsonObject obj = new JsonParser().parse(new Gson().toJson(g)).getAsJsonObject();
+            obj.addProperty("nextPlayer", "false");
+            array.add(obj);
+        }
+        
+        for(Games g : gamesService.getByPlayer2(username)) {
+            JsonObject obj = new JsonParser().parse(new Gson().toJson(g)).getAsJsonObject();
+            obj.addProperty("nextPlayer", "false");
+            array.add(obj);
+        }
+        
+        for(Games g : gamesService.getByPlayer3(username)) {
+            JsonObject obj = new JsonParser().parse(new Gson().toJson(g)).getAsJsonObject();
+            obj.addProperty("nextPlayer", "false");
+            array.add(obj);
+        }
+        
+        for(JsonElement o : array) {
+            all.add(o.getAsJsonObject());
+        }
+        
+        return new ResponseEntity<>(new Gson().toJson(all), HttpStatus.OK);
     }
     
     @RequestMapping(value = "/games/join", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
