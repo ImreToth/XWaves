@@ -9,9 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import com.xwaves.service.GamesService;
 import com.xwaves.domain.Games;
-import com.xwaves.domain.Hero;
 import com.xwaves.domain.HeroSchema;
-import com.xwaves.domain.Monster;
 import com.xwaves.domain.MonsterSchema;
 import com.xwaves.domain.User;
 import java.util.ArrayList;
@@ -56,7 +54,7 @@ public class DB {
 
     public void createOneGameTable(GamesService gamesService,String gameName,User creator) {
         try {
-            Games g = new Games(gameName,creator.getUsername());
+            Games g = new Games(gameName,creator.getUsername(),"p1","p2","p3");
             
             gamesService.save(g);
             
@@ -109,6 +107,24 @@ public class DB {
             System.out.println("" + ex);
         }
         return monsters;
+    }
+    
+    public ArrayList<HeroSchema> getAllHeros(String gamename) {
+        String sql = "select * from"+ gamename +"_Hero";
+        ArrayList<HeroSchema> heroes = null;
+        try {
+            ResultSet rs = createStatement.executeQuery(sql);
+            heroes = new ArrayList<>();
+
+            while (rs.next()) {
+                HeroSchema actualhero
+                        = new HeroSchema(rs.getInt("id"),rs.getString("name"), rs.getString("type"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"), rs.getString("path"),rs.getInt("position"),rs.getInt("nextPosition"));
+                heroes.add(actualhero);
+            }
+        } catch (SQLException ex) {
+            System.out.println("" + ex);
+        }
+        return heroes;
     }
     
     public boolean isFight(String gamename,HeroSchema hero) {
