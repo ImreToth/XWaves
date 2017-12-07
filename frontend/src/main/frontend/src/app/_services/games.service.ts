@@ -30,4 +30,10 @@ export class GamesService {
           return false;
         });
   }
+  refreshGames() {
+    this.http.get('/api/games/search').subscribe(data => {
+
+      this.games = data['games'];
+    });
+  }
 }

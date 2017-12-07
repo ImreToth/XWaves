@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CyclopaediaService} from '../../_services/cyclopaedia.service';
 import {Monster} from '../../_models/Monster';
 import {GamesService} from '../../_services/games.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-create',
@@ -25,7 +26,8 @@ export class CreateComponent implements OnInit {
   N = 100; // mezők száma
   targetIndex: number;
   createMatrix= [ new Monster() ];
-  constructor(private cyclopediaService: CyclopaediaService, private gameService: GamesService) {
+  constructor(private cyclopediaService: CyclopaediaService, private gameService: GamesService,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -64,5 +66,8 @@ export class CreateComponent implements OnInit {
   createGameBoard() {
     console.log(JSON.parse(localStorage.getItem('currentUser')).username);
     this.gameService.sendGameBoard(JSON.parse(localStorage.getItem('currentUser')).username, this.boardName, this.createMatrix);
+    this.gameService.refreshGames();
+    this.router.navigate(['games/search']);
+    this.gameService.refreshGames();
   }
 }

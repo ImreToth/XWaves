@@ -14,7 +14,6 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.games = this.gameService.getGames();
-    console.log(this.games[1]);
   }
 
 }

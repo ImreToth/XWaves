@@ -26,6 +26,8 @@ import { SearchComponent } from './games/search/search.component';
 import { CreateComponent } from './games/create/create.component';
 import {GamesService} from './_services/games.service';
 import {AuthGuardService} from './_services/authGuard.service';
+import { MyGamesComponent } from './play/my-games/my-games.component';
+import { PlayBoardComponent } from './play/play-board/play-board.component';
 
 
 const appRoutes: Routes = [
@@ -61,7 +63,9 @@ const appRoutes: Routes = [
     ItemComponent,
     GamesComponent,
     SearchComponent,
-    CreateComponent
+    CreateComponent,
+    MyGamesComponent,
+    PlayBoardComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
