@@ -129,22 +129,23 @@ public class HomeController {
 
     @RequestMapping(value = "/games/create", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> register(@RequestBody String s) {
-        JsonArray json = new JsonParser().parse(s).getAsJsonArray();
-        String user = json.get(0).getAsJsonObject().get("username").getAsString();
-        String gameName = json.get(1).getAsJsonObject().get("gamename").getAsString();
-        JsonArray table = json.get(2).getAsJsonArray();
+        JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+        String username = json.get("username").getAsString();
+        String gameName = json.get("gamename").getAsString();
+        JsonArray board = json.get("board").getAsJsonArray();
+        
         ArrayList<MonsterSchema> monsters = new ArrayList<MonsterSchema>();
 
-        for (int i = 0; i < table.size(); i++) {
-            table.get(i).getAsJsonObject().get(i + "").getAsJsonObject().addProperty("position", i);            
-            monsters.add(new Gson().fromJson(table.get(i).getAsJsonObject().get(i + "").getAsJsonObject(), MonsterSchema.class));            
+        for (int i = 0; i < board.size(); i++) {
+            board.get(i).getAsJsonObject().addProperty("position", i);            
+            monsters.add(new Gson().fromJson(board.get(i).getAsJsonObject(), MonsterSchema.class));            
         }
         for(int i = 0; i < monsters.size(); i++) {
             if(monsters.get(i).getAttack() == 0)
                 monsters.remove(i);
         }
         DB db = new DB();
-        db.createOneGameTable(gamesService, gameName, userService.getByUsername(user));
+        db.createOneGameTable(gamesService, gameName, userService.getByUsername(username));
         db.saveMonsters(gameName, monsters);
 
         return new ResponseEntity<>("OK", HttpStatus.OK);
