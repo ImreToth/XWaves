@@ -120,10 +120,6 @@ public class HomeController {
     @RequestMapping("/games/search")
     public ResponseEntity<?> games() {
         Gson json = new Gson();
-        new DB().createOneGameTable(gamesService, "Test1", new User(1, "user1", "email1", "pass1", new Date()));
-        new DB().createOneGameTable(gamesService, "Test2", new User(2, "user2", "email2", "pass2", new Date()));
-        new DB().createOneGameTable(gamesService, "Test3", new User(3, "user3", "email3", "pass3", new Date()));
-        //kicsinálta, játékvene, playerek
         return new ResponseEntity<>("{\"games\": " + json.toJson(gamesService.getAll()) + "}", HttpStatus.OK);
     }
 
