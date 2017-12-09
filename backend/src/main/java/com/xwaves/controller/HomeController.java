@@ -44,6 +44,7 @@ public class HomeController {
     private GamesService gamesService;
 
     private DB db;
+    private Gson gson;
 
     @Autowired
     public HomeController(UserService userService, HeroService heroService, ItemService itemService, MonsterService monsterService, GamesService gamesService) {
@@ -53,6 +54,7 @@ public class HomeController {
         this.monsterService = monsterService;
         this.gamesService = gamesService;
         db = new DB();
+        gson = new Gson();
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
@@ -140,14 +142,10 @@ public class HomeController {
 
         for (int i = 0; i < board.size(); i++) {
             board.get(i).getAsJsonObject().addProperty("position", i);
-            monsters.add(new Gson().fromJson(board.get(i).getAsJsonObject(), MonsterSchema.class));
-        }
-        for (int i = 0; i < monsters.size(); i++) {
-            if (monsters.get(i).getAttack() == 0) {
-                monsters.remove(i);
+            if(board.get(i).getAsJsonObject().get("attack").getAsInt() != 0) {
+                monsters.add(new Gson().fromJson(board.get(i).getAsJsonObject(), MonsterSchema.class));
             }
         }
-        DB db = new DB();
         db.createOneGameTable(gamesService, gameName, userService.getByUsername(username));
         db.saveMonsters(gameName, monsters);
 
@@ -256,6 +254,20 @@ public class HomeController {
             return new ResponseEntity<>("1", HttpStatus.OK);
         }
         return new ResponseEntity<>("0", HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "/play/start", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
+    public ResponseEntity<?> start(@RequestBody String s) {
+        JsonObject json = new JsonParser().parse(s).getAsJsonObject();
+        String gameName = json.get("gameName").getAsString();
+        
+        ArrayList<MonsterSchema> monsters = db.getAllMonsters(gameName);
+        ArrayList<HeroSchema> heroes = db.getAllHeros(gameName);
+        JsonObject obj = new JsonObject();
+        obj.add("heroes", new JsonParser().parse(gson.toJson(heroes)));        
+        obj.add("monsters", new JsonParser().parse(gson.toJson(monsters)));
+        
+        return new ResponseEntity<>(gson.toJson(obj), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/fight", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")

@@ -71,7 +71,7 @@ public class DB {
     public void saveMonsters(String gamename , ArrayList<MonsterSchema> monsters) {
         int id=0;
         for(MonsterSchema m : monsters){
-            String sql = "insert into "+ gamename +"_Monster (id,name,attacktype,attack,health,stamina,defense,speed,position) values(?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into "+ gamename +"_Monster (id,name,attacktype,attack,health,stamina,defense,speed,position, path) values(?,?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setInt(1,id+1);
@@ -83,6 +83,7 @@ public class DB {
                 pstmt.setInt(7,m.getDefense());
                 pstmt.setInt(8,m.getSpeed());
                 pstmt.setInt(9,m.getPosition());
+                pstmt.setString(10,m.getPath());                
                 pstmt.execute();
                 id++;
             } catch (SQLException ex) {
@@ -92,7 +93,7 @@ public class DB {
     }
     
     public ArrayList<MonsterSchema> getAllMonsters(String gamename) {
-        String sql = "select * from"+ gamename +"_Monster";
+        String sql = "select * from "+ gamename +"_Monster";
         ArrayList<MonsterSchema> monsters = null;
         try {
             ResultSet rs = createStatement.executeQuery(sql);
@@ -100,7 +101,7 @@ public class DB {
 
             while (rs.next()) {
                 MonsterSchema actualmonster
-                        = new MonsterSchema(rs.getInt("id"),rs.getString("name"), rs.getString("attacktype"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"), rs.getInt("cost"),rs.getString("path"),rs.getInt("position"));
+                        = new MonsterSchema(rs.getInt("id"),rs.getString("name"), rs.getString("attacktype"), rs.getInt("attack"), rs.getInt("health"), rs.getInt("stamina"), rs.getInt("defense"), rs.getInt("speed"),rs.getString("path"),rs.getInt("position"));
                 monsters.add(actualmonster);
             }
         } catch (SQLException ex) {
@@ -110,7 +111,7 @@ public class DB {
     }
     
     public ArrayList<HeroSchema> getAllHeros(String gamename) {
-        String sql = "select * from"+ gamename +"_Hero";
+        String sql = "select * from "+ gamename +"_Hero";
         ArrayList<HeroSchema> heroes = null;
         try {
             ResultSet rs = createStatement.executeQuery(sql);
@@ -240,6 +241,7 @@ public class DB {
                 + "`defense` int(10),"
                 + "`speed` int(10),"
                 + "`position` int(10),"
+                + "`path` varchar(255),"
                 + "PRIMARY KEY( `id` ));";
         return MonsterSchema;
     }
