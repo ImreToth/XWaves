@@ -124,6 +124,19 @@ public class PlayController {
             gamesService.updateNextPlayer(gameName, gamesService.getByName(username).getPlayer1());
             return new ResponseEntity<>("1", HttpStatus.OK);
         }
+        
+        if(db.getAllHeros(gameName).isEmpty()) {
+            db.deleteGameTables(gameName);
+            gamesService.delete(gamesService.getByName(gameName));
+            return new ResponseEntity<>("LOSER", HttpStatus.OK);            
+        }
+        
+        if(db.getAllMonsters(gameName).isEmpty()) {
+            db.deleteGameTables(gameName);
+            gamesService.delete(gamesService.getByName(gameName));
+            return new ResponseEntity<>("WINNER", HttpStatus.OK);
+        }
+        
         return new ResponseEntity<>("0", HttpStatus.OK);
     }
 
