@@ -70,16 +70,18 @@ public class GameController {
     @RequestMapping(value = "/join", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> join(@RequestBody String s) {
         JsonObject json = new JsonParser().parse(s).getAsJsonObject();
-        int i = gamesService.joinPlayer(json.get("username").getAsString());
+        String username = json.get("username").getAsString();
+        String gameName = json.get("gamename").getAsString();
+        int i = gamesService.joinPlayer(username);
+        
         json.get("hero").getAsJsonObject().addProperty("position", 93 - i);
         HeroSchema hero = gson.fromJson(json.get("hero"), HeroSchema.class);
-        db.saveHero(json.get("username").getAsString(), hero);
+        db.saveHero(gameName, hero);
         if (i == 3) {
-            gamesService.updateNextPlayer(json.get("gamename").getAsString(), gamesService.getByName(json.get("gamename").getAsString()).getPlayer1());
+            gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer1());
             return new ResponseEntity<>("play", HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(i + "", HttpStatus.OK);
         }
+        return new ResponseEntity<>(String.valueOf(i), HttpStatus.OK);        
     }
     
     
