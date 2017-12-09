@@ -5,11 +5,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.xwaves.db.DB;
+import com.xwaves.domain.Games;
 import com.xwaves.domain.HeroSchema;
 import com.xwaves.domain.MonsterSchema;
 import com.xwaves.service.GamesService;
 import com.xwaves.service.UserService;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,6 +80,17 @@ public class GameController {
         } else {
             return new ResponseEntity<>(i + "", HttpStatus.OK);
         }
+    }
+    
+    
+    @RequestMapping("/drop")
+    public ResponseEntity<?> drop() {
+        List<Games> list = gamesService.getAll();
+        for(Games g : list) {
+            db.deleteGameTables(g.getName());
+            gamesService.delete(g);
+        }
+        return new ResponseEntity<>("Dropped tables", HttpStatus.OK);
     }
 
 }

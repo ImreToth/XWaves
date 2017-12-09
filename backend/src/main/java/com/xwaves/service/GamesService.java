@@ -48,6 +48,10 @@ public class GamesService {
         gamesRepository.save(game);
     }
     
+    public void delete(Games game) {
+        gamesRepository.delete(game);
+    }
+    
     public void updateNextPlayer(String name,String nextPlayer){
         Games game = getByName(name);
         gamesRepository.delete(game);
