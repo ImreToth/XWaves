@@ -76,6 +76,7 @@ public class GameController {
         
         json.get("hero").getAsJsonObject().addProperty("position", 93 - i);
         HeroSchema hero = gson.fromJson(json.get("hero"), HeroSchema.class);
+        hero.setUsername(username);
         db.saveHero(gameName, hero);
         if (i == 3) {
             gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer1());
