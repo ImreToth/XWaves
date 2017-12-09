@@ -54,7 +54,7 @@ public class DB {
 
     public void createOneGameTable(GamesService gamesService,String gameName,User creator) {
         try {
-            Games g = new Games(gameName,creator.getUsername(),"p1","p2","p3");
+            Games g = new Games(gameName,creator.getUsername(),"","","");
             
             gamesService.save(g);
             

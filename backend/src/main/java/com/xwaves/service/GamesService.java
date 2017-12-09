@@ -62,17 +62,18 @@ public class GamesService {
 
     public int joinPlayer(String username, String gamename) {
         Games game = getByName(gamename);
-        if (game.getPlayer1().equals("")) {
+        game.setPlayerNumber(game.getPlayerNumber()-1);
+        if (game.getPlayer1().isEmpty()) {
             gamesRepository.delete(game);
-            game.setPlayer1(username);
+            game.setPlayer1(username);            
             gamesRepository.save(game);
             return 1;
-        } else if (game.getPlayer2().equals("")) {
+        } else if (game.getPlayer2().isEmpty()) {
             gamesRepository.delete(game);
             game.setPlayer2(username);
             gamesRepository.save(game);
             return 2;
-        } else if (game.getPlayer3().equals("")) {
+        } else if (game.getPlayer3().isEmpty()) {
             gamesRepository.delete(game);
             game.setPlayer3(username);
             gamesRepository.save(game);
