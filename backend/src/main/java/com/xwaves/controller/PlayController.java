@@ -57,38 +57,33 @@ public class PlayController {
         JsonObject json = new JsonParser().parse(s).getAsJsonObject();
         String username = json.get("username").getAsString();
 
-        TreeSet<JsonObject> all = new TreeSet<JsonObject>();
+        TreeSet<Games> all = new TreeSet<Games>();
+        
         JsonArray array = new JsonArray();
 
-        for (Games g : gamesService.getByNextPlayer(username)) {
-            JsonObject obj = new JsonParser().parse(gson.toJson(g)).getAsJsonObject();
-            obj.addProperty("nextPlayer", "true");
-            array.add(obj);
-        }
-
         for (Games g : gamesService.getByPlayer1(username)) {
-            JsonObject obj = new JsonParser().parse(gson.toJson(g)).getAsJsonObject();
-            obj.addProperty("nextPlayer", "false");
-            array.add(obj);
+            all.add(g);
         }
 
         for (Games g : gamesService.getByPlayer2(username)) {
-            JsonObject obj = new JsonParser().parse(gson.toJson(g)).getAsJsonObject();
-            obj.addProperty("nextPlayer", "false");
-            array.add(obj);
+            all.add(g);
         }
 
         for (Games g : gamesService.getByPlayer3(username)) {
+            all.add(g);
+        }
+        
+        for (Games g : all){
             JsonObject obj = new JsonParser().parse(gson.toJson(g)).getAsJsonObject();
-            obj.addProperty("nextPlayer", "false");
+            if(g.getNextPlayer().equals(username)) {
+                obj.addProperty("nextPlayer", "true");
+            }else{
+                obj.addProperty("nextPlayer", "false");
+            }
             array.add(obj);
         }
 
-        for (JsonElement o : array) {
-            all.add(o.getAsJsonObject());
-        }
-
-        return new ResponseEntity<>(gson.toJson(all), HttpStatus.OK);
+        return new ResponseEntity<>(gson.toJson(array), HttpStatus.OK);
     }
 
     /*Round end*/

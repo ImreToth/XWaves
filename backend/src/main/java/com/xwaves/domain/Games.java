@@ -7,7 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Games {
+public class Games implements Comparable<Games>{
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
@@ -18,14 +19,14 @@ public class Games {
     private String player3;
     private int playerNumber;
     private String nextPlayer;
-    
-    public Games(){
+
+    public Games() {
     }
 
     public Games(String name, String gamemaster) {
         this.name = name;
         this.gamemaster = gamemaster;
-        this.playerNumber=0;
+        this.playerNumber = 0;
     }
 
     public Games(String name, String gamemaster, String player1, String player2, String player3) {
@@ -34,8 +35,8 @@ public class Games {
         this.player1 = player1;
         this.player2 = player2;
         this.player3 = player3;
-        this.playerNumber=3;
-        this.nextPlayer=player1;
+        this.playerNumber = 3;
+        this.nextPlayer = player1;
     }
 
     public long getId() {
@@ -101,11 +102,18 @@ public class Games {
     public void setNextPlayer(String nextPlayer) {
         this.nextPlayer = nextPlayer;
     }
-    
+
     @Override
     public String toString() {
         Gson json = new Gson();
         return json.toJson(this);
     }
-      
+
+    public int compareTo(Games compareGames) {
+        if(name.equals(compareGames.getName())) {
+            return 0;
+        }
+        return 1;
+    }
+
 }
