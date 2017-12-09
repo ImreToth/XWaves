@@ -72,7 +72,7 @@ public class GameController {
         JsonObject json = new JsonParser().parse(s).getAsJsonObject();
         String username = json.get("username").getAsString();
         String gameName = json.get("gamename").getAsString();
-        int i = gamesService.joinPlayer(username);
+        int i = gamesService.joinPlayer(username, gameName);
         
         json.get("hero").getAsJsonObject().addProperty("position", 93 - i);
         HeroSchema hero = gson.fromJson(json.get("hero"), HeroSchema.class);
@@ -81,7 +81,7 @@ public class GameController {
             gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer1());
             return new ResponseEntity<>("play", HttpStatus.OK);
         }
-        return new ResponseEntity<>(String.valueOf(i), HttpStatus.OK);        
+        return new ResponseEntity<>(String.valueOf(0), HttpStatus.OK);        
     }
     
     
