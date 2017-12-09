@@ -24,6 +24,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    /*Login*/
     @RequestMapping(value = "/login", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> login(@RequestBody User user) {
         if (userService.getByUsername(user.getUsername()) != null) {
@@ -39,6 +40,7 @@ public class UserController {
         }
     }
 
+    /*Registration*/
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> register(@RequestBody User user) {
         if (userService.getByUsername(user.getUsername()) != null && userService.getByEmail(user.getEmail()) != null) {

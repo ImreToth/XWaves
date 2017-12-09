@@ -32,6 +32,7 @@ public class HomeController {
         gson = new Gson();
     }
 
+    /*Get monsters*/
     @RequestMapping("/monsters")
     public ResponseEntity<?> monsters() {
         List<Monster> monsters = monsterService.getAll();
@@ -41,6 +42,7 @@ public class HomeController {
         return new ResponseEntity<>("{\"monsters\": " + gson.toJson(monsters) + "}", HttpStatus.OK);
     }
 
+    /*Get heroes*/
     @RequestMapping("/heroes")
     public ResponseEntity<?> heroes() {
         List<Hero> heroes = heroService.getAll();
@@ -50,6 +52,7 @@ public class HomeController {
         return new ResponseEntity<>("{\"heroes\": " + gson.toJson(heroes) + "}", HttpStatus.OK);
     }
 
+    /*Get items*/
     @RequestMapping("/items")
     public ResponseEntity<?> items() {
         List<Item> items = itemService.getAll();
