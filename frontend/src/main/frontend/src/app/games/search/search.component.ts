@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {GamesService} from '../../_services/games.service';
 import {Game} from '../../_models/Game';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -9,7 +10,7 @@ import {Game} from '../../_models/Game';
 })
 export class SearchComponent implements OnInit {
   games: Game[];
-  constructor(private gameService: GamesService) {
+  constructor(private gameService: GamesService, private router: Router) {
   }
 
   ngOnInit() {
@@ -19,5 +20,6 @@ export class SearchComponent implements OnInit {
 
   connectGame(gameName: string) {
     console.log(gameName);
+    this.gameService.setCreateGameName(gameName);
   }
 }
