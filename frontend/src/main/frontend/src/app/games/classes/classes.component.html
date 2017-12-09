@@ -1,0 +1,33 @@
+<section class="col-md-4 col-md-offset-1" *ngFor="let hero of heroes">
+  <section class="well">
+    <div class="h4">
+      {{hero.name}}
+    </div>
+    <table class="table">
+      <tr>
+        <td>
+          <figure>
+            <img class="img-rounded img-responsive" [src]="'assets'+hero.path" width = "150" height = "150">
+          </figure>
+          <button type="button" class="btn btn-success" (click)="joinGame(hero)">Select</button>
+        </td>
+        <td>
+          <dl class="dl-horizontal">
+            <dt>Type:</dt>
+            <dd>{{hero.type}}</dd>
+            <dt>Attack:</dt>
+            <dd>{{hero.attack}}</dd>
+            <dt>Health:</dt>
+            <dd>{{hero.health}}</dd>
+            <dt>Stamina:</dt>
+            <dd>{{hero.stamina}}</dd>
+            <dt>Defense:</dt>
+            <dd>{{hero.defense}}</dd>
+            <dt>Speed:</dt>
+            <dd>{{hero.speed}}</dd>
+          </dl>
+        </td>
+      </tr>
+    </table>
+  </section>
+</section>

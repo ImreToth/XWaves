@@ -28,6 +28,7 @@ import {GamesService} from './_services/games.service';
 import {AuthGuardService} from './_services/authGuard.service';
 import { MyGamesComponent } from './play/my-games/my-games.component';
 import { PlayBoardComponent } from './play/play-board/play-board.component';
+import { ClassesComponent } from './games/classes/classes.component';
 
 
 const appRoutes: Routes = [
@@ -43,6 +44,7 @@ const appRoutes: Routes = [
   {path: 'games', component: GamesComponent, canActivate: [AuthGuardService],
   children: [{path: '', component: SearchComponent },
     {path: 'search', component: SearchComponent},
+    {path: 'classes', component: ClassesComponent},
     {path: 'create', component: CreateComponent}]}
 ];
 
@@ -65,7 +67,8 @@ const appRoutes: Routes = [
     SearchComponent,
     CreateComponent,
     MyGamesComponent,
-    PlayBoardComponent
+    PlayBoardComponent,
+    ClassesComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
