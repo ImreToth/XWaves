@@ -33,10 +33,10 @@ public class UserController {
                         .signWith(SignatureAlgorithm.HS256, "secretkey").compact();
                 return new ResponseEntity<>(jwtToken, HttpStatus.OK);
             } else {
-                return ResponseEntity.status(HttpStatus.OK).body("Incorrect password");
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Incorrect password");
             }
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body("Incorrect account");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Incorrect account");
         }
     }
 
@@ -44,11 +44,11 @@ public class UserController {
     @RequestMapping(value = "/register", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")
     public ResponseEntity<?> register(@RequestBody User user) {
         if (userService.getByUsername(user.getUsername()) != null && userService.getByEmail(user.getEmail()) != null) {
-            return ResponseEntity.status(HttpStatus.OK).body("Username and E-mail address already occupied");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Username and E-mail address already occupied");
         } else if (userService.getByUsername(user.getUsername()) != null) {
-            return ResponseEntity.status(HttpStatus.OK).body("Username already occupied");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Username already occupied");
         } else if (userService.getByEmail(user.getEmail()) != null) {
-            return ResponseEntity.status(HttpStatus.OK).body("E-mail address already occupied");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("E-mail address already occupied");
         } else {
             user.setDate(new Date());
             userService.save(user);
