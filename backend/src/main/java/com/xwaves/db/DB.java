@@ -257,6 +257,7 @@ public class DB {
                 + "`stamina` int(10),"
                 + "`defense` int(10),"
                 + "`speed` int(10),"
+                + "`path` varchar(255),"
                 + "`position` int(10),"
                 + "`nextposition` int(10),"
                 + "`item1` varchar(255),"
