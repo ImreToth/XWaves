@@ -75,9 +75,9 @@ public class PlayController {
         for (Games g : all){
             JsonObject obj = new JsonParser().parse(gson.toJson(g)).getAsJsonObject();
             if(g.getNextPlayer().equals(username)) {
-                obj.addProperty("nextPlayer", "true");
+                obj.addProperty("nextPlayer", true);
             }else{
-                obj.addProperty("nextPlayer", "false");
+                obj.addProperty("nextPlayer", false);
             }
             array.add(obj);
         }
