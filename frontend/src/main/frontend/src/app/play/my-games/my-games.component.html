@@ -2,53 +2,19 @@
   <thead class="thead-dark">
   <tr>
     <th>#</th>
-    <th>Column heading</th>
-    <th>Column heading</th>
-    <th>Column heading</th>
+    <th>Name</th>
+    <th>Game master</th>
+    <th>Players</th>
   </tr>
   </thead>
   <tbody>
+  <ng-container *ngFor="let game of myGames">
   <tr>
-    <td>1</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
+    <td>{{game.id}}</td>
+    <td>{{game.name}}</td>
+    <td>{{game.gamemaster}}</td>
+    <td>{{game.player1}}, {{game.player2}}, {{game.player3}}</td>
   </tr>
-  <tr>
-    <td>2</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-info">
-    <td>3</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-success">
-    <td>4</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-danger">
-    <td>5</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-warning">
-    <td>6</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
-  <tr class="table-active">
-    <td>7</td>
-    <td>Column content</td>
-    <td>Column content</td>
-    <td>Column content</td>
-  </tr>
+  </ng-container>
   </tbody>
 </table>

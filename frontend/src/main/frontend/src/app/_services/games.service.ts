@@ -9,6 +9,7 @@ import {Hero} from '../_models/Hero';
 export class GamesService {
   createGameName: string;
   games: Game[];
+  myGames: Game[];
   constructor(private http: HttpClient) {
     this.http.get('/api/games/search').subscribe(data => {
 
@@ -53,5 +54,22 @@ export class GamesService {
           console.log('nem tudtunk joinolni');
           return false;
         });
+  }
+  myGamesList(username: string) {
+     this.http.post('/api/play/search' , {'username' : username})
+      .subscribe(suc => {
+          this.myGames = suc['games'];
+          console.log(suc);
+          return true;
+        },
+        err => {
+          console.log('nem tudom lekerni a sajat jatekaid');
+          return false;
+        });
+  }
+  getMyGames() {
+    console.log('getMyGames ezt tartalmazza:');
+    console.log(this.myGames);
+    return this.myGames;
   }
 }
