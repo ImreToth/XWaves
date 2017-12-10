@@ -82,7 +82,8 @@ public class PlayController {
             array.add(obj);
         }
 
-        return new ResponseEntity<>("{\"games\": " + gson.toJson(array) + "}", HttpStatus.OK);
+       // return new ResponseEntity<>("{\"games\": " + gson.toJson(array) + "}", HttpStatus.OK);
+        return new ResponseEntity<>(gson.toJson(array), HttpStatus.OK);
     }
 
     /*Round end*/
