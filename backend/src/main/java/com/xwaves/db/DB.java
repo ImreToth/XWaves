@@ -192,7 +192,7 @@ public class DB {
                 pstmt.setString(8,h.getItem1());
                 pstmt.setString(9,h.getItem2());
                 pstmt.setString(10,h.getItem3());
-                pstmt.setString(10,h.getUsername());
+                pstmt.setString(11,h.getUsername());
                 pstmt.execute();
             } catch (SQLException ex) {
                 System.err.println("" + ex);
