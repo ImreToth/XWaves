@@ -41,7 +41,8 @@ public class GameController {
     /*All games*/
     @RequestMapping("/search")
     public ResponseEntity<?> search() {
-        return new ResponseEntity<>("{\"games\": " + gson.toJson(gamesService.getAll()) + "}", HttpStatus.OK);
+        //return new ResponseEntity<>("{\"games\": " + gson.toJson(gamesService.getAll()) + "}", HttpStatus.OK);
+        return new ResponseEntity<>(gson.toJson(gamesService.getAll()), HttpStatus.OK);
     }
 
     /*Create game*/
