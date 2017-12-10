@@ -143,7 +143,7 @@ public class DB {
     }
     
     public void saveHero(String gamename , HeroSchema h) {
-            String sql = "insert into "+ gamename +"_Hero (id,name,type,attack,health,stamina,defense,speed,position,username) values(?,?,?,?,?,?,?,?,?,?)";
+            String sql = "insert into "+ gamename +"_Hero (id,name,type,attack,health,stamina,defense,speed,position,username,path) values(?,?,?,?,?,?,?,?,?,?,?)";
             try {
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setLong(1,h.getId());
@@ -156,6 +156,7 @@ public class DB {
                 pstmt.setInt(8,h.getSpeed());
                 pstmt.setInt(9,h.getPosition());
                 pstmt.setString(10,h.getUsername());
+                pstmt.setString(11,h.getPath());
                 pstmt.execute();
             } catch (SQLException ex) {
                 System.err.println("" + ex);
