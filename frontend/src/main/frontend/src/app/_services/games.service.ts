@@ -1,28 +1,33 @@
 import { Injectable } from '@angular/core';
 import {Http} from '@angular/http';
 import {Game} from '../_models/Game';
-import {HttpClient} from '@angular/common/http';
 import {Monster} from '../_models/Monster';
 import {Hero} from '../_models/Hero';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import { Response } from '@angular/http';
+import 'rxjs/add/operator/catch';
 
 @Injectable()
 export class GamesService {
   createGameName: string;
   games: Game[];
   myGames: Game[];
-  constructor(private http: HttpClient) {
-    this.http.get('/api/games/search').subscribe(data => {
+  constructor(private http: Http) {}
 
-      this.games = data['games'];
-    });
+  getGames(): Observable<Game[]> {
+    return this.http
+      .get('/api/games/search')
+      .map((response: Response) => {
+        return <Game[]>response.json();
+      })
+      .catch(this.handleError);
   }
 
-  getGames() {
-    return this.games;
+  private handleError(error: Response) {
+    return Observable.throw(error.statusText);
   }
-  getGamesSize() {
-    return this.games.length;
-  }
+
   sendGameBoard(username: string, gamename: string, board: Monster[]) {
     this.http.post('/api/games/create' , {'username' : username, 'gamename' : gamename, 'board' : board})
       .subscribe(suc => {
@@ -55,17 +60,12 @@ export class GamesService {
           return false;
         });
   }
-  myGamesList(username: string) {
-     this.http.post('/api/play/search' , {'username' : username})
-      .subscribe(suc => {
-          this.myGames = suc['games'];
-          console.log(suc);
-          return true;
-        },
-        err => {
-          console.log('nem tudom lekerni a sajat jatekaid');
-          return false;
-        });
+  myGamesList(username: string): Observable<Game[]> {
+    return this.http.post('/api/play/search' , {'username' : username})
+      .map((response: Response) => {
+        return <Game[]>response.json();
+      })
+      .catch(this.handleError);
   }
   getMyGames() {
     console.log('getMyGames ezt tartalmazza:');
