@@ -11,11 +11,9 @@ export class GamesComponent implements OnInit {
   constructor(private gamesService: GamesService) { }
 
   ngOnInit() {
+    this.gamesService.getGames();
   }
 btnActive() {
     this.isActive = !this.isActive;
-}
-gamesSize() {
-    return this.gamesService.getGamesSize();
 }
 }

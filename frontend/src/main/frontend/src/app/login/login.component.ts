@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {LoginService} from '../_services/login.service';
 import {Http} from '@angular/http';
 import { Router } from '@angular/router';
+import {GamesService} from '../_services/games.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private router: Router, private gameService: GamesService) {
   }
   loginUsername = '';
   loginPassword = '';
@@ -74,7 +75,7 @@ export class LoginComponent implements OnInit {
     this.infoMessage = this.loginService.getInfo();
   }
   infoRefresh() {
-    if (this.loginService.isAuthenticated()) {this.router.navigate(['play']); }
+    if (this.loginService.isAuthenticated()) {this.router.navigate(['rules']); }
     return this.loginService.getInfo();
   }
 

@@ -16,6 +16,13 @@ export class MyGamesComponent implements OnInit {
     this.username = JSON.parse(localStorage.getItem('currentUser')).username;
    this.gamesService.myGamesList(this.username);
    this.myGames = this.gamesService.getMyGames();
+   console.log(this.myGames[0].nextPlayer);
   }
-
+  canStart(game: Game) {
+    this.myGames = this.gamesService.getMyGames();
+    if (game.nextPlayer) {return 'Click to play!'; } else {return 'Wait!'; }
+  }
+  startGame(game: Game) {
+    console.log(game);
+  }
 }
