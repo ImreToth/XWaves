@@ -54,6 +54,9 @@ CREATE TABLE IF NOT EXISTS `games` (
 );
 
 INSERT INTO `user`(`id`, `username`, `password`, `email`, `datetime` ) VALUES (1,'admin','admin','admin@admin.hu', NOW() );
+INSERT INTO `user`(`id`, `username`, `password`, `email`, `datetime` ) VALUES (2,'a','a','admin@admin.hu', NOW() );
+INSERT INTO `user`(`id`, `username`, `password`, `email`, `datetime` ) VALUES (3,'b','b','admin@admin.hu', NOW() );
+INSERT INTO `user`(`id`, `username`, `password`, `email`, `datetime` ) VALUES (4,'c','c','admin@admin.hu', NOW() );
 
 INSERT INTO `monster`(`id`, `name`, `attacktype`, `attack`, `health`, `stamina`, `defense`, `speed` , `cost` ) VALUES (1,'banshee','melee',2,2,3,2,2,15);
 INSERT INTO `monster`(`name`, `attacktype`, `attack`, `health`, `stamina`, `defense`, `speed`,`cost`) VALUES ('centaur','ranged',3,2,3,1,3,20);
