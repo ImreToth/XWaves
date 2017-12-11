@@ -108,6 +108,7 @@ public class PlayController {
         }
 
         if (monster != null && hero != null) {
+            hero.setNextPosition(action);
             new Fight(monster, hero).doBattle(gameName);
         } else if (hero != null) {
             hero.setPosition(action);
@@ -127,13 +128,13 @@ public class PlayController {
         }
 
         if (gamesService.getByName(gameName).getPlayer1() == username) {
-            gamesService.updateNextPlayer(gameName, gamesService.getByName(username).getPlayer2());
+            gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer2());
             return new ResponseEntity<>("2", HttpStatus.OK);
         } else if (gamesService.getByName(gameName).getPlayer2() == username) {
-            gamesService.updateNextPlayer(gameName, gamesService.getByName(username).getPlayer3());
+            gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer3());
             return new ResponseEntity<>("3", HttpStatus.OK);
         } else if (gamesService.getByName(gameName).getPlayer3() == username) {
-            gamesService.updateNextPlayer(gameName, gamesService.getByName(username).getPlayer1());
+            gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer1());
             return new ResponseEntity<>("1", HttpStatus.OK);
         }
         
