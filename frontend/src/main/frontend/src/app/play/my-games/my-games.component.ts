@@ -18,7 +18,6 @@ export class MyGamesComponent implements OnInit {
   ngOnInit() {
     this.username = JSON.parse(localStorage.getItem('currentUser')).username;
    this.myGames = this.gamesService.myGamesList(this.username);
-   console.log(this.myGames[0].nextPlayer);
   }
   canStart(game: Game) {
     // this.myGames = this.gamesService.getMyGames();

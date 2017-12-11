@@ -8,7 +8,7 @@ export class Monster {
   speed: number;
   cost: number;
   path: string;
-
+  position: number;
   constructor() { }
 
   /*constructor() {

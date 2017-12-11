@@ -7,4 +7,6 @@ export class Hero {
    defense: number;
    speed: number;
    path: string;
+   position: number;
+   username: string;
 }

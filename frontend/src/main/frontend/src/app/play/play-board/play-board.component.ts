@@ -3,6 +3,7 @@ import {Turn} from '../../_models/Turn';
 import {TurnService} from '../../_services/turn.service';
 import {Monster} from '../../_models/Monster';
 import {Hero} from '../../_models/Hero';
+import 'rxjs/add/operator/finally';
 
 @Component({
   selector: 'app-play-board',
@@ -11,17 +12,27 @@ import {Hero} from '../../_models/Hero';
 })
 export class PlayBoardComponent implements OnInit {
   array: number[];
+  yourHero: Hero;
   N = 100; // mezők száma
   turn: Turn;
   monsters = [new Monster()];
   heroes = [new Hero()];
   gamename: string;
+  boardMatrix= [ new Monster() ];
+  placeholder: Monster;
+  target: number;
   constructor(private turnService: TurnService) {
+    this.placeholder = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '', position: 0};
+
+    for (let i = 0; i < 100; i++) {
+      this.boardMatrix[i] = this.placeholder;
+    }
+    this.array = Array.apply(null, {length: this.N}).map(Number.call, Number); // mezőgenerátor
+
     this.turn = {'heroes': [], 'monsters': []};
     this.gamename = turnService.getGameName();
     this.startTurn();
-    this.array = Array.apply(null, {length: this.N}).map(Number.call, Number); // mezőgenerátor
-    console.log(this.turn.monsters);
+
    // console.log(this.turn.heroes);
    // console.log(this.gamename);
   }
@@ -29,12 +40,53 @@ export class PlayBoardComponent implements OnInit {
   ngOnInit() {
   }
   startTurn(): void {
-    this.turnService.startTurn(this.gamename)
+    this.turnService.startTurn(this.turnService.getGameName())
+      .finally(() => { console.log('finally!'); this.makeThePlace(); })
       .subscribe(
-        result => this.heroes = result.heroes,
-        error => console.log('Error :: ' + error)
+        result => {this.heroes = result.heroes; this.monsters = result.monsters; },
+        error => console.log('Error :: ' + error),
+        () => console.log('comp')
       );
-    console.log(this.heroes[0]);
+  }
+  klikkeles() {
+    console.log(this.heroes);
+    console.log(this.monsters);
+  }
+  makeThePlace() {
+    console.log('futamaketheplace és ezt tartalmazza:');
+    console.log(this.heroes);
+    console.log(this.monsters);
+    this.insertMonsters(this.monsters);
+    this.insertHeroes(this.heroes);
+    this.selectYourHero(this.heroes);
+  }
+
+  insertMonsters(monsters: Monster[]) {
+    const monstersSize = monsters.length;
+    for (let i = 0; i < monstersSize; i++) {
+      this.boardMatrix[monsters[i].position] = monsters[i];
+    }
+
+  }
+  insertHeroes(heroes: Hero[]) {
+    this.boardMatrix[heroes[0].position] = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: heroes[0].path, position: heroes[0].position};
+    this.boardMatrix[heroes[1].position] = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: heroes[1].path, position: heroes[1].position};
+    this.boardMatrix[heroes[2].position] = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: heroes[2].path, position: heroes[2].position};
+  }
+  selectYourHero(heroes: Hero[]) {
+    const username = JSON.parse(localStorage.getItem('currentUser')).username;
+    if (heroes[0].username === username) {this.yourHero = heroes[0];
+    } else if (heroes[1].username === username) {this.yourHero = heroes[1];
+    } else {this.yourHero = heroes[2]; }
+
+  }
+
+  targetClick(i: number) {
+    this.target = i;
+  }
+  endTurn() {
+    const username = JSON.parse(localStorage.getItem('currentUser')).username;
+    this.turnService.endTurn(username, this.gamename, this.target);
   }
 
 }

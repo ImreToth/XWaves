@@ -24,6 +24,17 @@ export class TurnService  {
       .catch(this.handleError);
   }
 
+  endTurn(username: string, gamename: string, action: number ) {
+    return this.http
+      .post('/api/play/end', {'username' : username, 'gamename' : gamename, 'action' : action})
+      .subscribe(suc => {
+          return true;
+        },
+        err => {
+          return false;
+        });
+  }
+
   private handleError(error: Response) {
     return Observable.throw(error.statusText);
   }
