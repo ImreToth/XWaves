@@ -93,51 +93,62 @@ public class PlayController {
         String username = json.get("username").getAsString();
         String gameName = json.get("gamename").getAsString();
         int action = json.get("action").getAsInt();
+        
+        System.out.println(username + " : " + gameName + " : " + action);
 
         MonsterSchema monster = null;
         for (MonsterSchema m : db.getAllMonsters(gameName)) {
             if (m.getPosition() == action) {
                 monster = m;
+                System.out.println(m.getName());
             }
         }
         HeroSchema hero = null;
         for (HeroSchema h : db.getAllHeros(gameName)) {
             if (h.getUsername().equals(username)) {
                 hero = h;
+                System.out.println(h.getName());
             }
         }
 
         if (monster != null && hero != null) {
+            System.out.println("FIGHT");
             hero.setNextPosition(action);
             new Fight(monster, hero).doBattle(gameName);
         } else if (hero != null) {
+            System.out.println("NEXT");
             hero.setPosition(action);
             db.updateHero(gameName, hero);
         }
         
         if(db.getAllHeros(gameName).isEmpty()) {
+            System.out.println("LOSER");
             db.deleteGameTables(gameName);
             gamesService.delete(gamesService.getByName(gameName));
             return new ResponseEntity<>("LOSER", HttpStatus.OK);            
         }
         
         if(db.getAllMonsters(gameName).isEmpty()) {
+            System.out.println("WINNER");
             db.deleteGameTables(gameName);
             gamesService.delete(gamesService.getByName(gameName));
             return new ResponseEntity<>("WINNER", HttpStatus.OK);
         }
 
-        if (gamesService.getByName(gameName).getPlayer1() == username) {
+        if (gamesService.getByName(gameName).getPlayer1().equals(username)) {
+            System.out.println("UP1");
             gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer2());
             return new ResponseEntity<>("2", HttpStatus.OK);
-        } else if (gamesService.getByName(gameName).getPlayer2() == username) {
+        } else if (gamesService.getByName(gameName).getPlayer2().equals(username)) {
+            System.out.println("UP2");
             gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer3());
             return new ResponseEntity<>("3", HttpStatus.OK);
-        } else if (gamesService.getByName(gameName).getPlayer3() == username) {
+        } else if (gamesService.getByName(gameName).getPlayer3().equals(username)) {
+            System.out.println("UP3");
             gamesService.updateNextPlayer(gameName, gamesService.getByName(gameName).getPlayer1());
             return new ResponseEntity<>("1", HttpStatus.OK);
         }
-        
+        System.out.println("SHIT");
         return new ResponseEntity<>("0", HttpStatus.OK);
     }
 
