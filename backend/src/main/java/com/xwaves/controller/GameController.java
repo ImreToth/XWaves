@@ -57,7 +57,7 @@ public class GameController {
 
         for (int i = 0; i < board.size(); i++) {
             board.get(i).getAsJsonObject().addProperty("position", i);
-            if (board.get(i).getAsJsonObject().get("attack").getAsInt() != 0) {
+            if (!board.get(i).getAsJsonObject().get("name").getAsString().equals("")) {
                 monsters.add(gson.fromJson(board.get(i).getAsJsonObject(), MonsterSchema.class));
             }
         }
