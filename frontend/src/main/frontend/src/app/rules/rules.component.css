@@ -1,0 +1,25 @@
+.wrapper {
+  width: 642px;
+  height: 642px;
+  margin:0 auto;
+  background-image: url('../../assets/place.jpg');
+  float: left;
+  margin-left: 20px;
+}
+.gameboard {
+  width: 660px;
+  height:660px;
+  border:3px solid white;
+  z-index: 1;
+}
+.gameboard div {
+  width: 64px;
+  height: 64px;
+  float: left;
+}
+.gameboard div:hover {
+  background-color: rgba(200, 250, 54, 0.5);;
+}
+.imagetd{
+  width: 150px;
+}

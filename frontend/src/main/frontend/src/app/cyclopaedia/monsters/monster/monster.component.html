@@ -1,0 +1,34 @@
+<section class="col-md-4 col-md-offset-1" >
+  <section class="well">
+    <div class="h4">
+      {{monster.name}}
+    </div>
+    <table class="table">
+      <tr>
+        <td>
+    <figure>
+      <img class="img-rounded img-responsive" [src]="'assets'+monster.path" width = "150" height = "150">
+    </figure>
+        </td>
+        <td>
+    <dl class="dl-horizontal">
+      <dt>Attack type:</dt>
+      <dd>{{monster.attacktype}}</dd>
+      <dt>Attack:</dt>
+      <dd>{{monster.attack}}</dd>
+      <dt>Health:</dt>
+      <dd>{{monster.health}}</dd>
+      <dt>Stamina:</dt>
+      <dd>{{monster.stamina}}</dd>
+      <dt>Defense:</dt>
+      <dd>{{monster.defense}}</dd>
+      <dt>Speed:</dt>
+      <dd>{{monster.speed}}</dd>
+      <dt>Cost:</dt>
+      <dd>{{monster.cost}}</dd>
+    </dl>
+        </td>
+      </tr>
+    </table>
+  </section>
+</section>

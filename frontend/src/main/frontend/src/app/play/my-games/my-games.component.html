@@ -1,0 +1,22 @@
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-dark">
+  <tr >
+    <th>#</th>
+    <th>Name</th>
+    <th>Game master</th>
+    <th>Players</th>
+    <th>Turn</th>
+  </tr>
+  </thead>
+  <tbody>
+  <ng-container *ngFor="let game of myGames"  >
+  <tr (click)="startGame(game)">
+    <td>{{game.id}}</td>
+    <td>{{game.name}}</td>
+    <td>{{game.gamemaster}}</td>
+    <td>{{game.player1}}, {{game.player2}}, {{game.player3}}</td>
+    <td>{{canStart(game)}}</td>
+  </tr>
+  </ng-container>
+  </tbody>
+</table>
