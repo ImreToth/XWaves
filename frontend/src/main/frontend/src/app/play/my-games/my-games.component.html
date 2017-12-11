@@ -9,7 +9,7 @@
   </tr>
   </thead>
   <tbody>
-  <ng-container *ngFor="let game of myGames"  >
+  <ng-container *ngFor="let game of myGames | async"  >
   <tr (click)="startGame(game)">
     <td>{{game.id}}</td>
     <td>{{game.name}}</td>

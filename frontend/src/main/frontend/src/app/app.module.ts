@@ -7,7 +7,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 
-// http kérésekhez
 import {HttpClientModule} from '@angular/common/http';
 import {LoginService} from './_services/login.service';
 import {RouterModule, Routes} from '@angular/router';
@@ -29,6 +28,7 @@ import {AuthGuardService} from './_services/authGuard.service';
 import { MyGamesComponent } from './play/my-games/my-games.component';
 import { PlayBoardComponent } from './play/play-board/play-board.component';
 import { ClassesComponent } from './games/classes/classes.component';
+import {TurnService} from './_services/turn.service';
 
 
 const appRoutes: Routes = [
@@ -76,7 +76,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
   ],
-  providers: [LoginService, CyclopaediaService, GamesService, AuthGuardService],
+  providers: [LoginService, CyclopaediaService, GamesService, AuthGuardService, TurnService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

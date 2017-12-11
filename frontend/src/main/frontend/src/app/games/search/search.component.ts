@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {GamesService} from '../../_services/games.service';
 import {Game} from '../../_models/Game';
 import {Router} from '@angular/router';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-search',
@@ -9,12 +10,13 @@ import {Router} from '@angular/router';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  games: Game[];
+  games: Observable<Game[]>;
   constructor(private gameService: GamesService, private router: Router) {
   }
 
   ngOnInit() {
-    this.getGames();
+    this.games = this.gameService.getGames();
+    // this.getGames();
     console.log(this.games);
   }
 
@@ -22,11 +24,11 @@ export class SearchComponent implements OnInit {
     console.log(gameName);
     this.gameService.setCreateGameName(gameName);
   }
-  getGames(): void {
+  /*getGames(): void {
     this.gameService.getGames()
       .subscribe(
         resultArray => this.games = resultArray,
         error => console.log('Error :: ' + error)
       );
-  }
+  }*/
 }

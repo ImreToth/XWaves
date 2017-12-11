@@ -9,7 +9,7 @@
           <figure>
             <img class="img-rounded img-responsive" [src]="'assets'+hero.path" width = "150" height = "150">
           </figure>
-          <button type="button" class="btn btn-success" (click)="joinGame(hero)">Select</button>
+          <button type="button" class="btn btn-success" (click)="joinGame(hero)" routerLink="play/mygames">Select</button>
         </td>
         <td>
           <dl class="dl-horizontal">

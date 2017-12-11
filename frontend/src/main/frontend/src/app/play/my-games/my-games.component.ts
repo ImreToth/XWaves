@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {GamesService} from '../../_services/games.service';
 import {Game} from '../../_models/Game';
+import {Router} from '@angular/router';
+import {TurnService} from '../../_services/turn.service';
+import {Observable} from "rxjs/Observable";
 
 @Component({
   selector: 'app-my-games',
@@ -9,26 +12,28 @@ import {Game} from '../../_models/Game';
 })
 export class MyGamesComponent implements OnInit {
   username: string;
-  myGames: Game[];
-  constructor(private gamesService: GamesService) { }
+  myGames: Observable<Game[]>;
+  constructor(private gamesService: GamesService, private router: Router, private turnService: TurnService) { }
 
   ngOnInit() {
     this.username = JSON.parse(localStorage.getItem('currentUser')).username;
-   this.getGames();
+   this.myGames = this.gamesService.myGamesList(this.username);
    console.log(this.myGames[0].nextPlayer);
   }
   canStart(game: Game) {
-    this.myGames = this.gamesService.getMyGames();
+    // this.myGames = this.gamesService.getMyGames();
     if (game.nextPlayer) {return 'Click to play!'; } else {return 'Wait!'; }
   }
   startGame(game: Game) {
-    console.log(game);
+    if (game.nextPlayer) {
+      this.turnService.setGameName(game.name);
+      this.router.navigate(['play/playboard']); }
   }
-  getGames(): void {
+  /*getGames(): void {
     this.gamesService.myGamesList(this.username)
       .subscribe(
         resultArray => this.myGames = resultArray,
         error => console.log('Error :: ' + error)
       );
-  }
+  }*/
 }
