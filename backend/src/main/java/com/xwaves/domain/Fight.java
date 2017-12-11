@@ -51,6 +51,7 @@ public class Fight {
                     System.out.println("deleteMonster");
                     hero.setHealth(hero.getHealth() + 1);
                     hero.setPosition(hero.getNextPosition());
+                    db.updateHero(gamename, hero);
                 }
         }else{
             System.out.println("Miss...");

@@ -201,7 +201,7 @@ public class DB {
     }
     
     public void deleteMonster(String gamename,MonsterSchema monster){
-        String sql = "DELETE FROM "+ gamename +"_Monster WHERE name='"+monster.getName()+"';";
+        String sql = "DELETE FROM "+ gamename +"_Monster WHERE position='"+monster.getPosition()+"';";
         try {
                 createStatement.executeUpdate(sql);
             } catch (SQLException ex) {
@@ -210,7 +210,7 @@ public class DB {
     }
     
     public void deleteHero(String gamename,HeroSchema hero){
-        String sql = "DELETE FROM "+ gamename +"_Hero WHERE name='"+hero.getName()+"';";
+        String sql = "DELETE FROM "+ gamename +"_Hero WHERE nextposition='"+hero.getNextPosition()+"';";
         try {
                 createStatement.executeUpdate(sql);
             } catch (SQLException ex) {
