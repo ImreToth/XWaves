@@ -7,13 +7,21 @@ import {GamesService} from '../_services/games.service';
   styleUrls: ['./games.component.css']
 })
 export class GamesComponent implements OnInit {
-  isActive: boolean;
+  createActive: boolean;
+  searchActive: boolean;
   constructor(private gamesService: GamesService) { }
 
   ngOnInit() {
     this.gamesService.getGames();
+    this.createActive = false;
+    this.searchActive = true;
   }
-btnActive() {
-    this.isActive = !this.isActive;
+btnCreateActive() {
+    this.createActive = true;
+    this.searchActive = false;
 }
+  btnSearchActive() {
+    this.searchActive = true;
+    this.createActive = false;
+  }
 }

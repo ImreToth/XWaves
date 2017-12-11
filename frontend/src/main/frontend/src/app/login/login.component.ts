@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
   submitRegister() {
     this.loginService.registerAccount(this.registerUsername, this.registerEmail, this.registerPassword);
     this.infoMessage = this.loginService.getInfo();
+    this.changeLogin();
   }
   infoRefresh() {
     if (this.loginService.isAuthenticated()) {this.router.navigate(['rules']); }

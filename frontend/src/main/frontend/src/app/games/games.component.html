@@ -4,8 +4,8 @@
     </h2>
     <span>Choose game or create your own! </span>
     <ul class="nav nav-pills pull-right" role="tablist">
-      <li role="presentation" (click)="btnActive()" [ngClass]="{ 'active': !isActive }"><a routerLink="/games/search">Search</a></li>
-      <li role="presentation" (click)="btnActive()" [ngClass]="{ 'active': isActive }"><a routerLink="/games/create">Create</a></li>
+      <li role="presentation" (click)="btnSearchActive()" [ngClass]="{ 'active': searchActive}"><a routerLink="/games/search">Search</a></li>
+      <li role="presentation" (click)="btnCreateActive()" [ngClass]="{ 'active': createActive }"><a routerLink="/games/create">Create</a></li>
     </ul>
   </div>
   <router-outlet></router-outlet>
