@@ -4,6 +4,7 @@ import {TurnService} from '../../_services/turn.service';
 import {Monster} from '../../_models/Monster';
 import {Hero} from '../../_models/Hero';
 import 'rxjs/add/operator/finally';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-play-board',
@@ -21,7 +22,7 @@ export class PlayBoardComponent implements OnInit {
   boardMatrix= [ new Monster() ];
   placeholder: Monster;
   target: number;
-  constructor(private turnService: TurnService) {
+  constructor(private turnService: TurnService, private router: Router) {
     this.placeholder = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '', position: 0};
 
     for (let i = 0; i < 100; i++) {
@@ -87,6 +88,7 @@ export class PlayBoardComponent implements OnInit {
   endTurn() {
     const username = JSON.parse(localStorage.getItem('currentUser')).username;
     this.turnService.endTurn(username, this.gamename, this.target);
+    this.router.navigate(['rules']);
   }
 
 }
