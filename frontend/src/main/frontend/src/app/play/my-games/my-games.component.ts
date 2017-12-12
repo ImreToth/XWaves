@@ -3,7 +3,7 @@ import {GamesService} from '../../_services/games.service';
 import {Game} from '../../_models/Game';
 import {Router} from '@angular/router';
 import {TurnService} from '../../_services/turn.service';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-my-games',

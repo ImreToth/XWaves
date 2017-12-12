@@ -5,6 +5,7 @@ import {Monster} from '../../_models/Monster';
 import {Hero} from '../../_models/Hero';
 import 'rxjs/add/operator/finally';
 import {Router} from '@angular/router';
+import {ValidStepService} from "../../_services/validStep.service";
 
 @Component({
   selector: 'app-play-board',
@@ -21,9 +22,11 @@ export class PlayBoardComponent implements OnInit {
   gamename: string;
   boardMatrix= [ new Monster() ];
   placeholder: Monster;
+  cross: Monster;
   target: number;
-  constructor(private turnService: TurnService, private router: Router) {
+  constructor(private turnService: TurnService, private router: Router, private validStep: ValidStepService) {
     this.placeholder = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '', position: 0};
+    this.cross = {name: '', attack: 0, attacktype: '', cost: 0, defense: 0, health: 0, speed: 0, stamina: 0, path: '/cross.png', position: 0};
 
     for (let i = 0; i < 100; i++) {
       this.boardMatrix[i] = this.placeholder;
@@ -49,14 +52,7 @@ export class PlayBoardComponent implements OnInit {
         () => console.log('comp')
       );
   }
-  klikkeles() {
-    console.log(this.heroes);
-    console.log(this.monsters);
-  }
   makeThePlace() {
-    console.log('futamaketheplace és ezt tartalmazza:');
-    console.log(this.heroes);
-    console.log(this.monsters);
     this.insertMonsters(this.monsters);
     this.insertHeroes(this.heroes);
     this.selectYourHero(this.heroes);
@@ -83,7 +79,10 @@ export class PlayBoardComponent implements OnInit {
   }
 
   targetClick(i: number) {
-    this.target = i;
+    this.boardMatrix[this.target] = this.placeholder;
+    this.makeThePlace();
+    if (this.validStep.validStep(i, this.yourHero, this.boardMatrix)) {this.target = i;
+    this.boardMatrix[i] = this.cross; }
   }
   endTurn() {
     const username = JSON.parse(localStorage.getItem('currentUser')).username;

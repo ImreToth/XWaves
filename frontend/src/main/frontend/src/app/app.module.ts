@@ -29,6 +29,7 @@ import { MyGamesComponent } from './play/my-games/my-games.component';
 import { PlayBoardComponent } from './play/play-board/play-board.component';
 import { ClassesComponent } from './games/classes/classes.component';
 import {TurnService} from './_services/turn.service';
+import {ValidStepService} from './_services/validStep.service';
 
 
 const appRoutes: Routes = [
@@ -76,7 +77,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),
   ],
-  providers: [LoginService, CyclopaediaService, GamesService, AuthGuardService, TurnService],
+  providers: [LoginService, CyclopaediaService, GamesService, AuthGuardService, TurnService, ValidStepService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

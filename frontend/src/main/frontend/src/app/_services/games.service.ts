@@ -7,13 +7,14 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { Response } from '@angular/http';
 import 'rxjs/add/operator/catch';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class GamesService {
   createGameName: string;
   games: Game[];
   myGames: Game[];
-  constructor(private http: Http) {}
+  constructor(private http: Http, private router: Router) {}
 
   getGames(): Observable<Game[]> {
     return this.http
@@ -30,6 +31,7 @@ export class GamesService {
 
   sendGameBoard(username: string, gamename: string, board: Monster[]) {
     this.http.post('/api/games/create' , {'username' : username, 'gamename' : gamename, 'board' : board})
+      .finally(() => { this.router.navigate(['games/search']); })
       .subscribe(suc => {
           return true;
         },
@@ -52,6 +54,7 @@ export class GamesService {
   }
   joinGame(username: string, gamename: string, hero: Hero) {
     this.http.post('/api/games/join' , {'username' : username, 'gamename' : gamename, 'hero' : hero})
+      .finally(() => { this.router.navigate(['play']); })
       .subscribe(suc => {
           return true;
         },

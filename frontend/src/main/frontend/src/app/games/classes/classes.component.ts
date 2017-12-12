@@ -25,6 +25,5 @@ export class ClassesComponent implements OnInit {
   }
   joinGame(hero: Hero) {
     this.gameService.joinGame(this.username, this.gamename, hero);
-    this.router.navigate(['play']);
   }
 }

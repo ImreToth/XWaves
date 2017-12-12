@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class CreateComponent implements OnInit {
   boardName: string;
-  bank = 150;
+  bank = 500;
   target: Monster;
   placeholder: Monster;
   bog: Monster;
@@ -67,8 +67,6 @@ export class CreateComponent implements OnInit {
   createGameBoard() {
     console.log(JSON.parse(localStorage.getItem('currentUser')).username);
     this.gameService.sendGameBoard(JSON.parse(localStorage.getItem('currentUser')).username, this.boardName, this.createMatrix);
-    this.gameService.refreshGames();
-    this.router.navigate(['games/search']);
     this.gameService.refreshGames();
   }
 }
