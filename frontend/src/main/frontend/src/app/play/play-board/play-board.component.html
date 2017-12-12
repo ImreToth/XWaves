@@ -23,6 +23,8 @@
           </td>
           <td>
             <dl class="dl-horizontal">
+              <dt>Health:</dt>
+              <dd>{{yourHero.health}}</dd>
               <dt>Attack:</dt>
               <dd>{{yourHero.attack}}</dd>
               <dt>Stamina:</dt>
@@ -44,8 +46,8 @@
              aria-valuemin="0" aria-valuemax="100" [style.width]="(yourHero.health/15)*100 + '%'">
         </div>
       </div>
+      <button (click)="endTurn()" type="button" class="btn btn-success">End turn!</button>
     </section>
   </div>
 </section>
-<button (click)="endTurn()" type="button" class="btn btn-success">End turn!</button>
 

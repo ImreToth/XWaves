@@ -30,6 +30,8 @@ import { PlayBoardComponent } from './play/play-board/play-board.component';
 import { ClassesComponent } from './games/classes/classes.component';
 import {TurnService} from './_services/turn.service';
 import {ValidStepService} from './_services/validStep.service';
+import { WinnerComponent } from './play/winner/winner.component';
+import { LooserComponent } from './play/looser/looser.component';
 
 
 const appRoutes: Routes = [
@@ -44,7 +46,9 @@ const appRoutes: Routes = [
   {path: 'play', component : PlayComponent, canActivate: [AuthGuardService],
   children: [{path: '', component: MyGamesComponent },
     {path: 'mygames', component: MyGamesComponent },
-    {path: 'playboard', component: PlayBoardComponent}]},
+    {path: 'playboard', component: PlayBoardComponent},
+    {path: 'winner', component: WinnerComponent},
+    {path: 'looser', component: LooserComponent}]},
   {path: 'games', component: GamesComponent, canActivate: [AuthGuardService],
   children: [{path: '', component: SearchComponent },
     {path: 'search', component: SearchComponent},
@@ -72,7 +76,9 @@ const appRoutes: Routes = [
     CreateComponent,
     MyGamesComponent,
     PlayBoardComponent,
-    ClassesComponent
+    ClassesComponent,
+    WinnerComponent,
+    LooserComponent
   ],
   imports: [
     BrowserModule, HttpClientModule, FormsModule, HttpModule, RouterModule.forRoot(appRoutes),

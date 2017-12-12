@@ -7,13 +7,14 @@ import 'rxjs/add/operator/map';
 import { Response } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import {Turn} from '../_models/Turn';
+import {Router} from '@angular/router';
 
 @Injectable()
 export class TurnService  {
   monsters: Monster[];
   heroes: Hero[];
   gameName: string;
-  constructor(private http: Http) {}
+  constructor(private http: Http, private router: Router) {}
 
   startTurn(gamename): Observable<Turn> {
     return this.http
@@ -28,6 +29,9 @@ export class TurnService  {
     return this.http
       .post('/api/play/end', {'username' : username, 'gamename' : gamename, 'action' : action})
       .subscribe(suc => {
+          if (suc.text() === 'WINNER') {this.router.navigate(['play/winner']);
+          } else if (suc.text() === 'LOOSER') {this.router.navigate(['play/looser']);
+          }else {this.router.navigate(['rules']); }
           return true;
         },
         err => {

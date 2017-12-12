@@ -85,9 +85,10 @@ export class PlayBoardComponent implements OnInit {
     this.boardMatrix[i] = this.cross; }
   }
   endTurn() {
+    console.log(this.yourHero);
     const username = JSON.parse(localStorage.getItem('currentUser')).username;
     this.turnService.endTurn(username, this.gamename, this.target);
-    this.router.navigate(['rules']);
+    // this.router.navigate(['rules']);
   }
 
 }
